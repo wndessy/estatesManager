@@ -257,6 +257,21 @@ var General = {
                     alert(result);
                 }});
         }
+        
+          if (this.className === "triggerHouseAllocation") {
+                 $.ajax({
+                type: "POST",
+                url: "../modules/mod_general.php?page=alocateHouses",
+                async: false,
+                success: function(result) {
+                    alert(result);
+                },
+                error: function(result) {
+                    alert(result);
+                }});
+              
+          }
+        
     },
   /*
    * select boxes function

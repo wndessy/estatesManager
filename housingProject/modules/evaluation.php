@@ -123,7 +123,7 @@ class evaluation {
 //query for individuals with the highest points 
 //check the free houses
 //select the highest house and allocate.if not any qualified move to the next individual       
-        
+
         include_once '../Config.php';
         include_once './DbModules.php';
         $db = new DbModules;
@@ -131,11 +131,11 @@ class evaluation {
         $conn = $db->getConnection();
 
         if ($FreeRoom == CH) {
-          allocateHouse(CH, $applicantId);
+            allocateHouse(CH, $applicantId);
             //query for persons of category 1-6    
         } elseif ($FreeRoom == CF) {
-          allocateHouse(CF, $applicantId);
-           //query for category 7-10
+            allocateHouse(CF, $applicantId);
+            //query for category 7-10
         } elseif ($FreeRoom == BF) {
             if (appliedForAHOuse(BH) and appliedForAHOuse(AH) and houseAvailable(AH)) {
                 allocateHouse(AH, $applicantId);
@@ -158,7 +158,7 @@ class evaluation {
     }
 
     function appliedForAHOuse($houeCategory) {
-                    $cmd = "select ApplicantId,HouseAppliedFor from " . $test->getDB_NAME() . ".houseapplications where HouseAppliedFor=\"" . $FreeRoom . "\"";
+        $cmd = "select ApplicantId,HouseAppliedFor from " . $test->getDB_NAME() . ".houseapplications where HouseAppliedFor=\"" . $FreeRoom . "\"";
         //find the house then return true
     }
 
@@ -166,23 +166,48 @@ class evaluation {
         //find out if a given house category is available
     }
 
-    function allocateHouse($houseCategory, $applicantId) {
-        //allocate a house
+    function allocateHouse() {
+        include_once './DbModules.php';
+        $db = new DbModules();
+        /*
+         *  get vacant houses
+         * 
+         * //for each vacant house{
+         * select applicants for that housetype
+         * for each applicant compute points and compare to get the highest points return the applicant
+         * add the applicant to the allocation table
+         */
+
+        $resultset = $db->getVacantHouses();
+        while ($row = mysql_fetch_array($resultset)) {
+            $unit_id = $row['unit_id'];
+            $house_id = $row['house_id'];
+            $resultset2 = $db->getApplicantForAHouse($row['house_id']);
+            $bestAplicantId = 0;
+            $maxPoints = 0;
+            while ($row2 = mysql_fetch_array($resultset2)) {
+                $applicantId = $row2['ApplicantId'];
+                $points = $this->TotalPoints($applicantId);
+                if ($maxPoints < $points) {
+                    $maxPoints = $points;
+                    $bestAplicantId = $applicantId;
+                }
+            }
+            $db->allocateAHouse($applicantId, $unit_id, $house_id);
+        }
     }
-    
-    
-    
-    
-    function houseRenewDetails($applicantId,$reqiredRow) {
+
+    function houseRenewDetails($applicantId, $reqiredRow) {
         include_once '../Config.php';
         include_once './DbModules.php';
         $db = new DbModules;
         $test = new Config;
         $conn = $db->getConnection();
-        $cmd = "select * from " . $test->getDB_NAME() . ".housesletting where applicant id=\"" .$applicantId . "\"";
+        $cmd = "select * from " . $test->getDB_NAME() . ".housesletting where applicant id=\"" . $applicantId . "\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-       $data=mysql_fetch_assoc($results_set);
-       $result= $data[$reqiredRow];
-       return $result;
+        $data = mysql_fetch_assoc($results_set);
+        $result = $data[$reqiredRow];
+        return $result;
     }
+
 }

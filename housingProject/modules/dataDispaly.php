@@ -132,6 +132,7 @@ class dataDispaly {
             <script type="text/javascript" src="../js/general.js"></script>
             <script type="text/javascript" src="../jquery/jquery.leanModal.min.js"></script>
             <link rel="stylesheet" href="../css/customAlerts.css" type="text/css"/>
+            <div><input type="button" class="triggerHouseAllocation">allocate houses</div></div>
             <div class="container" id="personalDetais">
                 <div class="header">Applicants</div>
                 <table>

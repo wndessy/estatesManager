@@ -4,7 +4,6 @@
  * this i a class contains all the forms
  * @author root
  */
-include './DbModules.php';
 
 class Forms {
 

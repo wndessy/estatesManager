@@ -151,19 +151,20 @@ class DbModules {
     function disaproveHouseRepair($param) {
         
     }
-    function houseToAplyFor(){
-       
+
+    function houseToAplyFor() {
+
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from " . $test->getDB_NAME() . ".house_qualifying_grade "
                 . "inner join " . $test->getDB_NAME() . ".house_types "
-               . "where grade=\"" . $_SESSION['Grade'] . "\" ";
+                . "where grade=\"" . $_SESSION['Grade'] . "\" ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
 
-    function getHousesAppliadFor($applicantId){
+    function getHousesAppliadFor($applicantId) {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
@@ -182,30 +183,66 @@ class DbModules {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd ="select * from " . $test->getDB_NAME(). ".house_types ";
+        $cmd = "select * from " . $test->getDB_NAME() . ".house_types ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
-    
 
     function getHouseIndex($houseId) {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select * from " . $test->getDB_NAME() . ".house_types NATURAL JOIN ". $test->getDB_NAME() . ".house_units where  house_id=\"" . $houseId . "\"";
+        $cmd = "select * from " . $test->getDB_NAME() . ".house_types NATURAL JOIN " . $test->getDB_NAME() . ".house_units where  house_id=\"" . $houseId . "\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-     return $results_set;
+        return $results_set;
     }
- function getAHouseTypeDetail($id) {
+
+    function getAHouseTypeDetail($id) {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd =  "select * from  ".$test->getDB_NAME().".house_types"
-                 . " where  house_id = \"". $id ."\"";
+        $cmd = "select * from  " . $test->getDB_NAME() . ".house_types"
+                . " where  house_id = \"" . $id . "\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-           return $results_set;
-         
-    }  
-    
-    
+        return $results_set;
+    }
+
+    function getVacantHouses() {
+        include_once '../Config.php';
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd = "select * from  " . $test->getDB_NAME() . ".house_units"
+                . " where  ocupy_status='vacant'";
+        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+        return $results_set;
+    }
+
+    function getApplicantForAHouse($houseTypeId) {
+        include_once '../Config.php';
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd = "select * from  " . $test->getDB_NAME() . ".house_applications "
+                . "theta join " . $test->getDB_NAME() . ".house_allocation"
+                . " where  house_id='\"" . $houseTypeId . "\"";
+        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+        return $results_set;
+    }
+
+    function allocateAHouse($applicantId, $unit_Id, $houseTypeId) {
+        include_once '../Config.php';
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd1 = "select aplicationId from  " . $test->getDB_NAME() . ".house_applications "
+                . " where ApplicantId=\"" . $applicantId . "\" and  house_id=\"" . $houseTypeId . "\"";
+        $result=mysql_query($cmd1, $conn) or die(mysql_error());
+        $row1=  mysql_fetch_array($result);
+        $applicationId=$row1['aplicationId'];
+        $cmd = "insert into " . $test->getDB_NAME() . ".house_allocation "
+                . "(applicationId,unit_id,allocation_date)"
+                . " values (\"" . $applicationId . "\",\"" . $applicantId . "\",\"" . $unit_Id . "\")"
+                . " where  house_id='\"" . $houseTypeId . "\"";
+        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+        return $results_set;
+    }
+
 }

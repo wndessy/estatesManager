@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/**
+/**qqqqqq
  * forselecting the approapriate login form
  */
 if (isset($_GET['page']) && $_GET['page'] == 'userLogin') {
@@ -183,7 +183,15 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     include_once './dataDispaly.php';
     $output = new dataDispaly();
     $output->applicantsList();
-} else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
+    
+}else if (isset($_GET['page']) && $_GET['page'] == 'alocateHouses') {
+    include_once './evaluation.php';
+    $eval=new evaluation(); 
+    $eval->allocateHouse($houseCategory, $applicantId);
+    $output->houseAallocationList();
+}
+
+else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
     include_once './DbModules.php';
     include_once './Forms.php';
     include_once './dataDispaly.php';

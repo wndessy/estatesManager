@@ -9,7 +9,7 @@ class BF extends housesCommon {
         $this->setNoOfBedrooms(3);
         $this->setQualifyingGrade("XII and above");
         $this->setHasCompound(false);
-        $this->setDescription($this->getNoOfBedrooms()." bedrooms, self contained(Turkana Flats)");
+        $this->setDescription($this->getNoOfBedrooms()." bedrooms, seff contained(Turkana Flats)");
     }
 
     function repairs() {
