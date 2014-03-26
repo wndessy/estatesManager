@@ -9,6 +9,7 @@ class DbModules {
     function getConnection() {
         include_once '../Config.php';
         $test = new Config();
+        error_reporting(0);
         $conn = mysql_connect($test->getDB_HOST(), $test->getDB_USER(), $test->getDB_PASSWORD());
 
         mysql_select_db($test->getDB_NAME(), $conn);
@@ -25,6 +26,7 @@ class DbModules {
         $conn= $this->getConnection();
          $cmd = "select * from applicantsdetails ";
          $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+        $row = mysql_fetch_array($results_set);
         return $results_set;
     }
     
@@ -57,7 +59,8 @@ class DbModules {
                     . "inner join houseallocation "
                   . "inner join housesletting";
              $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-        return $results_set;
+        $row = mysql_fetch_array($results_set);
+        return $row;
         
     }
     /*

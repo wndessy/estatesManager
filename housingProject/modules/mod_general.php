@@ -183,52 +183,40 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageApplicants') {
     include_once './dataDispaly.php';
   $output = new dataDispaly();
   $output->applicantsList();
-
  }
  
+ else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
+    include_once './DbModules.php';
+    include_once './Forms.php';
+    include_once './dataDispaly.php';
+     $output = new dataDispaly();
+  $output->houseAallocationList();
+
+ }
 else if (isset($_GET['page']) && $_GET['page'] == 'manageTenants') {
     include_once './DbModules.php';
     include_once './Forms.php';
-include_once './dataDispaly.php';
-  $output = new dataDispaly();
-  $output->tenantsList();
- }
- else if (isset($_GET['page']) && $_GET['page'] == 'manageAllocations') {
-    include_once './DbModules.php';
-    include_once './Forms.php';
-include_once './dataDispaly.php';
-  $output = new dataDispaly();
-  $output->houseAallocationList();
+        include_once './dataDispaly.php';
+    $output = new dataDispaly();
+    $output->tenantsList();
+
  }
  else if (isset($_GET['page']) && $_GET['page'] == 'manageRepairs') {
     include_once './DbModules.php';
     include_once './Forms.php';
-include_once './dataDispaly.php';
-  $output = new dataDispaly();
-  $output->houseRepairsList();
+        include_once './dataDispaly.php';
+ $output = new dataDispaly();
+  $output->applicantsList();
  }
  else if (isset($_GET['page']) && $_GET['page'] == 'manageReports') {
     include_once './DbModules.php';
     include_once './Forms.php';
-    include_once './dataDispaly.php';
-  $output = new dataDispaly();
-  $output->reportsList();
-
+     include_once './dataDispaly.php';
+ $output = new dataDispaly();
+  $output->applicantsList();
  }
  
- /*
-  * exploring further the details of a user
-  */
  
- else if (isset($_GET['page']) && $_GET['page'] == 'exploreuser') {
-    include_once './DbModules.php';
-    include_once './Forms.php';
-    include_once './dataDispaly.php';
-    $userId=$_GET['userId'];
-  $output = new Forms();
-  $output->ViewAndEditDetails($userId);
-
- }
 
 /*
  * to display o the default startpage

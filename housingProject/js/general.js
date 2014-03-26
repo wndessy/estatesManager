@@ -20,6 +20,7 @@ var General = {
                         }
                         else {
                             alert("Sorry. Please check your email or password");
+                            alert(data);
                         }
                     }
                 });
@@ -40,9 +41,9 @@ var General = {
                         alert(data);
                     },
                     success: function(data) {
-                      alert(data);
+                        alert(data);
                         if ($.trim(data) !== '') {
-                            if ($.trim(data)==='1') {
+                            if ($.trim(data) === '1') {
                                 window.location = "../modules/mod_general.php?page=successAdminLogin";
                             } else if ($.trim(data) === '2') {
                                 window.location = "../modules/mod_general.php?page=successManagerLogin";
@@ -189,13 +190,16 @@ var General = {
                 url: "../modules/mod_general.php?page=addAChild&childNumber=" + index,
                 async: false,
                 success: function(result) {
-                    $('$newChild').html(result);
-                    alert(result);
+                    $('#newChild').html(result);
+                    //alert(result);
                 },
                 error: function(result) {
                     alert(result);
                 }});
 
+        }
+        if (this.className === "cancelAddAChild") {
+            $('#newChild').html("");
         }
         if (this.className === "selectedHouse") {
             var x = $("input:checked");
@@ -252,23 +256,6 @@ var General = {
                 }});
             //  }
 
-        }
-        
-        
-        if (this.className=="exploreUser"){
-             var userId=this.id;
-             $.ajax({
-                type: "POST",
-                url: "../modules/mod_general.php?page=exploreUser=" + userId,
-                async: false,
-                success: function(result) {
-                    alert(result);
-                    console.log(result);
-                   window.location = "../modules/mod_general.php?page=staffLogin"
-                },
-                error: function(result) {
-                    alert(result);
-                }});
         }
 
 

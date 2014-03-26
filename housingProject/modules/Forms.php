@@ -2,10 +2,9 @@
 
 /**
  * Description of Forms
- *this i a class contains all the forms
+ * this i a class contains all the forms
  * @author root
  */
-
 class Forms {
 
     /**
@@ -182,249 +181,317 @@ class Forms {
      * user detail view
      */
 
+    /**
+     * This form is for general users to sign up
+     */
     function ViewAndEditDetails($userId) {
-        //ession_start();
+        include_once './DbModules.php';
         $db = new DbModules();
         $resultset = $db->viewApplicantDetails($_SESSION['applicantId']);
         ?>
+        <html>
+            <head>
+                <link rel="stylesheet" href="../css/style.css">
+                <script src='../js/general.js'></script>
+                <script src='../jquery/jquery-1.8.3.min.js'></script>
+                <script src="../jquery/organictabs.jquery.js"></script>
+            </head>
+            <script type="text/javascript">
+                    $(function() {
+                        $("#example-two").organicTabs({
+                            "speed": 200
+                        });
+                    });
+                    function goNext(name) {
+                        $("#" + name).click();
+                    }
+            </script>
+            <style>
+                .header{
+                    font-size:  20px;
+                }
+            </style>
+            <body>
+                <div id="page-wrap">
+                    <div id="example-two">
+                        <ul class="nav">
+                            <li class="nav-one"><a href="#page1" class="current" id="page1_nav">Personal Details</a></li>
+                            <li class="nav-two"><a href="#page2" id="page2_nav">Job details</a></li>
+                            <li class="nav-three"><a href="#page3" id="page3_nav">Children Details</a></li>
+                            <li class="nav-four last"><a href="#page4" id="page4_nav">Account Details</a></li>
+                        </ul>
+                        <div class="list-wrap">
+                            <div id="page1">
+                                <div class="container" id="personalDetais">
+                                    <div class="header">Personal Details</div>
+                                    <div class="input">
+                                        <label>First Name</label> <input type="text"  disabled="" id="fname" value="<?php echo $resultset['FirstName']; ?>"/>
+                                    </div>
+                                    <div class="input">
+                                        <label>Last Name</label><input type="text" disabled="" id="lname" value="<?php echo $resultset['LastName']; ?>"/>
+                                    </div>
+                                    <div class="input">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $("#gender")[0].value = "<?php echo trim($resultset['Gender']); ?>";
+                                                $("#Mstatus")[0].value = "<?php echo trim($resultset['maritalStatus']); ?>";
+                                                $("#disabled")[0].value = "<?php echo trim($resultset['disabled']); ?>";
+                                            })
+                                        </script>
+                                        <label>Gender</label>
+                                        <select id="gender" disabled="isabled">                                                
+                                            <option value="choose" >Choose</option>
+                                            <option value="Male" >Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="input">
+                                        <label>Marital Status</label>
+                                        <select id="Mstatus">
+                                            <option value="">--Choose--</option>
+                                            <option value="Single ">Single </option>
+                                            <option value="Married">Married</option>
+                                        </select>
+                                    </div>
+                                    <div class="input">
+                                        <label>Disabled</label>  
+                                        <select id="disabled">
+                                            <option value=""> --Choose--</option>
+                                            <option value="Yes"> Yes </option>
+                                            <option value="No"> No </option>
+                                        </select>
+                                    </div><br/>
+                                    <div class="input" contenteditable="false">
+                                        <label>ID or Passport</label> <input type="number" id="IdOrPasport" value="<?php echo $resultset['IdOrPassport']; ?>"/>
+                                    </div>
+                                    <div class="input">
+                                        <label>Phone number</label> <input type="number" id="phone" value="<?php echo $resultset['FirstName']; ?>"/>
+                                    </div>
+                                </div>
+                                <input type="button" onclick="goNext('page2_nav')" value="Next page" />
+                            </div>
+                            <div id="page2" class="hide">
+                                <!-- for inputing job details -->
+                                <div class="container" id="jobDetails">
+                                    <div class="header"> Job details</div>
+                                    <div class="input">
+                                        <label>Payroll number</label> <input type="number" id="PayrolNumber"disabled="isabled" value="<?php echo $resultset['PayrollNumber']; ?>"/>
+                                    </div>
+                                    <div class="input"> <label>Designation</label> <input type="text" id="Designation" value="<?php echo $resultset['Designation']; ?>"/>
+                                    </div>
+                                    <div class="input"> <label>Grade</label> <input type="text" id="Grade" value="<?php echo $resultset['Grade']; ?>"/>
+                                    </div>
+                                    <div class="input"> <label>Commencement of duty </label> <input type="date" disabled="isabled" id="CommencementOfDuty" value="<?php echo $resultset['CommencementOfDuty']; ?>"/>
+                                    </div>
+                                    <div class="input"> <label>Department </label> <input type="date" id="Department" value="<?php echo $resultset['Department']; ?>"/>
+                                    </div>
+                                    <div class="input"> <label>Head of department </label> <input type="date" id="HeadOfDepartment" value="<?php echo $resultset['HeadOfDepartment']; ?>"/>
+                                    </div>
+                                </div>
+                                <input type="button" onclick="goNext('page1_nav')" value="Previous page" />
+                                <input type="button" onclick="goNext('page3_nav')" value="Next page" />
+                            </div>
+                            <div id="page3" class="hide">
+                                <div class="container" >
+                                    <div class="header">Children  Details</div>
+                                    <?php
+                                    $row = $db->viewApplicantsCnildren($_SESSION['applicantId']);
+                                    if ($row != null) {
+                                        ?>
+                                        <table>
+                                            <tr>
+                                                <td>First Name</td><td>Last Name</td><td>Date of birth </td><td>Gender</td><td>Disabled</td>
+                                            </tr>
+                                            <?php
+                                            while ($row) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $row['fname']; ?></td><?php echo $row['FirstName']; ?><td><?php echo $row['dob']; ?></td><td><?php echo $row['gernder']; ?></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+                                        </table>
+                                        <?php
+                                    }
+                                    ?>
+                                    <div id="newChild"></div>
+                                    <div class="linkbutton">
+                                        <input  type="button" class="AddAChild" id="AddAChild" value="Add Child"/> 
+                                        <input  type="button" class="cancelAddAChild" id="cancelAddAChild" value="Cancel"/> 
+                                    </div>
+                                </div>
+                                <input type="button" onclick="goNext('page2_nav')" value="Previous page" />
+                                <input type="button" onclick="goNext('page4_nav')" value="Next page" />
+                            </div>
+                            <div id="page4" class="hide">
+                                <!-- for account login details-->
+                                <div class="container" id="accountLogin">
+                                    <div class="header">account login Details</div>
+                                    <div class="input">
+                                        <label>Email address</label><input type="text" id="Email"/>
+                                    </div>
+                                    <div class="input">
+                                        <label>Password</label><input type="password" id="password"/>
+                                    </div>
+                                    <div class="input">
+                                        <label>Confirm Password</label><input type="password" id="pasword2"/>
+                                    </div>
+                                    <div class="linkbutton">
+                                        <input  type="button" id="submitDetails" class="submitDetails" value="Submit Details"/> 
+                                    </div>
+                                </div>
+                                <input type="button" onclick="goNext('page3_nav')" value="Previous page" />
+                            </div>
+                        </div> <!-- END List Wrap -->
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("[type=button]").live('click', General.buttonClicked);
+                    });
+                </script>
+            </body>
+        </html>
+        <?php
+    }
+
+    function childDetailAddition($childNumber) {
+        ?>
+        <!--script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script-->
+        <div class="input">
+            <label>First Name </label> <input type="text" Id="<?php
+            echo"Fname";
+            echo $childNumber;
+            ?>"/> 
+        </div>
+        <div class="input">
+            <label>Last Name </label> <input type="text" Id="<?php
+            echo"Mname";
+            echo $childNumber;
+            ?>"/> 
+        </div>
+        <div class="input">
+            <label>Date of Birth</label> <input type="date" Id="<?php
+            echo"Dob";
+            echo $childNumber;
+            ?>"/> 
+        </div>
+        <div class="input">
+            <label>Disabled</label> 
+            <select id="<?php
+            echo"Disabled";
+            echo $childNumber;
+            ?>" >
+                <option value="">--Choose--</option>
+                <option value="Yes">Yes</option>
+                <option value="No"> No </option>
+            </select>
+        </div>
+        <?php
+    }
+
+    /**
+     * This form is for adding staff
+     */
+    function addStaffForm() {
+        ?>
         <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
         <script type="text/javascript" src="../js/general.js"></script>
-        <div class="container" id="explorePersonalDetais">
-            <div class="header">Personal Details</div>
-            <div class="input">
-                <label>First Name</label> <input type="text"  disabled="" id="fname" value="<?php echo $resultset['FirstName']; ?>"/>
-            </div>
-            <div class="input">
-                <label>Last Name</label><input type="text" disabled="" id="lname" value="<?php echo $resultset['LastName']; ?>"/>
-            </div>
-            <div class="input">
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        $("#gender")[0].value = "<?php echo trim($resultset['Gender']); ?>";
-                        $("#Mstatus")[0].value = "<?php echo trim($resultset['maritalStatus']); ?>";
-                        $("#disabled")[0].value = "<?php echo trim($resultset['disabled']); ?>";
-                    })
-                </script>
-                <label>Gender</label>
-                <select id="gender" disabled="isabled">                                                
-                    <option value="choose" >Choose</option>
-                    <option value="Male" >Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </div>
-            <div class="input">
-                <label>Marital Status</label>
-                <select id="Mstatus">
-                    <option value="">--Choose--</option>
-                    <option value="Single ">Single </option>
-                    <option value="Married">Married</option>
-                </select>
-            </div>
-            <div class="input">
-                <label>Disabled</label>  
-                <select id="disabled">
-                    <option value=""> --Choose--</option>
-                    <option value="Yes"> Yes </option>
-                    <option value="No"> No </option>
-                </select>
-            </div><br/>
-            <div class="input" contenteditable="false">
-                <label>ID or Passport</label> <input type="number" id="IdOrPasport" value="<?php echo $resultset['IdOrPassport']; ?>"/>
-            </div>
-            <div class="input">
-                <label>Phone number</label> <input type="number" id="phone" value="<?php echo $resultset['FirstName']; ?>"/>
-            </div>
-
-
-            <!-- for inputing job details -->
-            <div class="container" id="jobDetails">
-                <div class="header"> Job details</div>
+        </head>
+        <form action="" method="POST">
+            <div class="container" id="personalDetais">
+                <div class="header">New Staff Details</div>
                 <div class="input">
-                    <label>Payroll number</label> <input type="number" id="PayrolNumber"disabled="isabled" value="<?php echo $resultset['PayrollNumber']; ?>"/>
-                </div>
-                <div class="input"> <label>Designation</label> <input type="text" id="Designation" value="<?php echo $resultset['Designation']; ?>"/>
-                </div>
-                <div class="input"> <label>Grade</label> <input type="text" id="Grade" value="<?php echo $resultset['Grade']; ?>"/>
-                </div>
-                <div class="input"> <label>Commencement of duty </label> <input type="date" disabled="isabled" id="CommencementOfDuty" value="<?php echo $resultset['CommencementOfDuty']; ?>"/>
-                </div>
-                <div class="input"> <label>Department </label> <input type="date" id="Department" value="<?php echo $resultset['Department']; ?>"/>
-                </div>
-                <div class="input"> <label>Head of department </label> <input type="date" id="HeadOfDepartment" value="<?php echo $resultset['HeadOfDepartment']; ?>"/>
-                </div>
 
-            </div>
-
-            <div class="container" >
-           <div class="header">Children  Details</div>
-                <?php
-                     $row= $db->viewApplicantsCnildren($_SESSION['applicantId']);
-                if ($row!= null) {
-                    ?><table>
-                        <tr>
-                            <td>First Name</td><td>Last Name</td><td>Date of birth </td><td>Gender</td><td>Disabled</td>
-                        </tr>
-                        <<?php
-                        while ($row) {
-                            ?>
-                            <tr>
-                                <td><?php echo $row['fname']; ?></td><?php echo $row['FirstName']; ?><td><?php echo $row['dob']; ?></td><td><?php echo $row['gernder']; ?></td>
-          
-                            </tr><?php }
-                     ?></table>
-                    <?php }
-                    ?>
-           <div id="newChild">
-               
-                </div>
-                
-                <div class="linkbutton">
-                    <input  type="button" class="AddAChild" id="AddAChild" value="Add Child"/> 
-                </div>
-
-                  </div> <!-- END List Wrap -->
-                  <div class="linkbutton">
-                  <input  type="button" id="submitDetails" class="updateProfile" value="Update Details"/> 
-                    </div>
-        </div>
-                  <script type="text/javascript">
-                    $(document).ready(function() {
-                        $("[type=button]").live('click', General.buttonClicked);
-                    });
-                </script>
-                <?php
-            }
-
-            
-            function childDetailAddition($childNumber){
-                ?>
-                <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
-                <div class="input">
-                    <label>First Name </label> <input type="text" Id="<?php echo"Fname";echo$childNumber;?>"/> 
-                </div>
-                <div class="input">
-                    <label>Last Name </label> <input type="text" Id="<?php echo"Mname";echo$childNumber;?>"/> 
-                </div>
-                <div class="input">
-                    <label>Date of Birth</label> <input type="date" Id="<?php echo"Dob";echo$childNumber;?>"/> 
-                </div>
-                <div class="input">
-                    <label>Disabled</label> 
-                    <select id="<?php echo"Disabled";echo$childNumber;?>" >
-                        <option value="">--Choose--</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No"> No </option>
+                    <label>Name</label><input type="text" id="name"/>
+                    <label>category</label>
+                    <select id="userLevel">
+                        <option value="">Choose</option>
+                        <option value="2">housing manager</option>
+                        <option value="3">plumbing</option>
+                        <option value="4">carpentry</option>
                     </select>
+                    <label>Email</label><input type="text" id="email"/>
+                    <label>Password</label><input type="password" id="password"/>
+                    <input type="button" id="addStaff" class="addStaff" value="Add"/>
                 </div>
-                <script type="text/javascript">
+            </div>
+        </form>
+        <script type="text/javascript">
                     $(document).ready(function() {
                         $("[type=button]").live('click', General.buttonClicked);
                     });
-                </script>
-   <?php
-                
-            }
-            /**
-             * This form is for adding staff
-             */
-            function addStaffForm() {
-                ?>
-               <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
-        <script type="text/javascript" src="../js/general.js"></script>
-                </head>
-                <form action="" method="POST">
-                    <div class="container" id="personalDetais">
-                        <div class="header">New Staff Details</div>
-                        <div class="input">
+        </script>
+        </html>
+        <?php
+    }
 
-                            <label>Name</label><input type="text" id="name"/>
-                            <label>category</label>
-                            <select id="userLevel">
-                                <option value="">Choose</option>
-                                <option value="2">housing manager</option>
-                                <option value="3">plumbing</option>
-                                <option value="4">carpentry</option>
-                            </select>
-                            <label>Email</label><input type="text" id="email"/>
-                            <label>Password</label><input type="password" id="password"/>
-                            <input type="button" id="addStaff" class="addStaff" value="Add"/>
-                        </div>
-                    </div>
-                </form>
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        $("[type=button]").live('click', General.buttonClicked);
-                    });
-                </script>
-                </html>
-                <?php
-            }
+    /*
+     * can be staff or normal users
+     */
 
-            /*
-             * can be staff or normal users
-             */
-
-            function login($user) {
-                ?>
-                <html>
-                    <head>
-                        <script src="../js/general.js" type="text/javascript"></script>
-                        <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
-                    </head>
-                    <form action="" method="POST">
-                        <div class="container" id="personalDetais">
-                            <div class="header"><?php echo $user; ?> Login Details</div>
-                            <div class="input">
-                                <label>Email</label><input type="text" id="email"/>
-                                <label>Password</label><input type="password" id="pass"/>
-                                <input type="button" id="<?php echo $user ?>" class="<?php echo $user ?>Login" value="<?php echo $user ?> login"/>
-                            </div>
-                        </div>
-                    </form>
-                    <script type="text/javascript">
-                    $(document).ready(function() {
-                        $("[type=button]").live('click', General.buttonClicked);
-                    });
-                    </script>
-                </html>
-                <?php
-            }
-
-            /**
-             * Apply for a house after creating account and loggin in
-             * 
-             * @param type $userJobCategory
-             */
-            function applyForHouse($userJobCategory) {
-                ?>
+    function login($user) {
+        ?>
+        <html>
+            <head>
                 <script src="../js/general.js" type="text/javascript"></script>
                 <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
-
+            </head>
+            <form action="" method="POST">
                 <div class="container" id="personalDetais">
-                    <div class="header">Apply for a house </div>
+                    <div class="header"><?php echo $user; ?> Login Details</div>
                     <div class="input">
-                        <label>Select a house</label>
-                        <?php if ($userJobCategory > 10 and $userJobCategory < 13) { ?>
-                            BF <input type="checkbox" name="choose" value="BF">
-                            BH<input type="checkbox" name="choose" value="BH">
-                            AH<input type="checkbox" name="choose" value="AH">
-                        </div>
-
-                        <?php
-                    } elseif ($userJobCategory == 13) {
-                        ?>
-                        AH<input type="checkbox" name="choose" value="AH" checked="cheked">
+                        <label>Email</label><input type="text" id="email"/>
+                        <label>Password</label><input type="password" id="pass"/>
+                        <input type="button" id="<?php echo $user ?>" class="<?php echo $user ?>Login" value="<?php echo $user ?> login"/>
                     </div>
+                </div>
+            </form>
+            <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("[type=button]").live('click', General.buttonClicked);
+                    });
+            </script>
+        </html>
+        <?php
+    }
 
-                    <?php
-                } elseif ($userJobCategory < 7) {
-                    ?>
-                    AH<input type="checkbox" name="choose" value="AH" checked="cheked">
+    /**
+     * Apply for a house after creating account and loggin in
+     * 
+     * @param type $userJobCategory
+     */
+    function applyForHouse($userJobCategory) {
+        ?>
+        <script src="../js/general.js" type="text/javascript"></script>
+        <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+
+        <div class="container" id="personalDetais">
+            <div class="header">Apply for a house </div>
+            <div class="input">
+                <label>Select a house</label>
+                <?php if ($userJobCategory > 10 and $userJobCategory < 13) { ?>
+                    BF <input type="checkbox" name="choose" value="BF">
+                    BH<input type="checkbox" name="choose" value="BH">
+                    AH<input type="checkbox" name="choose" value="AH">
                 </div>
 
-            <?php } else {
+                <?php
+            } elseif ($userJobCategory == 13) {
                 ?>
                 AH<input type="checkbox" name="choose" value="AH" checked="cheked">
+            </div>
+
+            <?php
+        } elseif ($userJobCategory < 7) {
+            ?>
+            AH<input type="checkbox" name="choose" value="AH" checked="cheked">
+            </div>
+
+        <?php } else {
+            ?>
+            AH<input type="checkbox" name="choose" value="AH" checked="cheked">
             </div>
         <?php } ?>
         <div class="input">
@@ -494,33 +561,34 @@ class Forms {
     }
 
     function superUserHomepage() {
-            ?>
+        ?>
 
-            <a href="./mod_general.php?page=manageStaff"</a> Manage Staff<br/>
-            
-                <?php
-            }
+        <a href="./mod_general.php?page=manageStaff"</a> Manage Staff<br/>
+
+        <?php
+    }
 
     function managerHomePage() {
         ?>
         <a href="" > </a>
         <a href="./mod_general.php?page=manageApplicants">Applicants</a>
-        <a href="./mod_general.php?page=manageAllocations">Allocations</a>
+         <a href="./mod_general.php?page=manageHouseAllocation">House Allocations</a>
         <a href="./mod_general.php?page=manageTenants">Tenants</a>
         <a href="./mod_general.php?page=manageRepairs">Repairs</a>
         <a href="./mod_general.php?page=manageReports">reports</a>
         <?php
     }
-  function staffHomePage() {
+
+    function staffHomePage() {
         ?>
-       
+
         <a href="">applicants</a>
         <a href="">tenants</a>
         <a href="">reports</a>
 
         <?php
     }
-    
+
     function tenantHomepage() {
         ?>
         <a href="modules/mod_general.php?page=manageProfile">Manage profile</a><br/>
@@ -532,9 +600,8 @@ class Forms {
             <?php
         }
 
-        
-            function applicantHomepage() {
-                ?>
+        function applicantHomepage() {
+            ?>
             <a href="./mod_general.php?page=manageProfile">Manage profile</a><br/>
             <a href="./mod_general.php?page=applyForAhouse">apply for a house</a>
             <h>i am an applicant</h>
