@@ -20,43 +20,43 @@ class dataDispaly {
         <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
         <script type="text/javascript" src="../js/general.js"></script>
         <link rel="stylesheet" href="../css/customAlerts.css" type="text/css"/>
-        <script type="text/javascript" src="../js/customAlertWindows.js"
-                <div class="container" id="personalDetais">
-                            < div class = "header" > Applicants < /div>
-                            < table >
-                            < tr > < td > First name < td > Last name < /td>View Button</td > < /tr>
-                        <?php
-                        include_once './DbModules.php';
-                        $db = new DbModules();
-                        $x = $db->listAllApplicants();
+        <script type="text/javascript" src="../js/customAlertWindows.js"></script>
+        <div class="container" id="personalDetais">
+            <div class = "header" > Applicants </div>
+            <table>
+                <tr> <td> First name <td> Last name </td>View Button</td > </tr>
+                <?php
+                include_once './DbModules.php';
+                $db = new DbModules();
+                $x = $db->listAllApplicants();
 
-                        while ($row = mysql_fetch_array($x)) {
-                            ?>
+                while ($row = mysql_fetch_array($x)) {
+                    ?>
 
 
-                        < tr >
-                                < td ><?php echo $row['FirstName']; ?> < /td>
+                    <tr >
+                        <td ><?php echo $row['FirstName']; ?> </td>
 
-                                < td ><?php echo $row['LastName']; ?> < /td>
-                                < td ><?php echo $row['Gender']; ?> < /td>
-                                < td ><?php echo $row['Designation']; ?> < /td>
-                                < td ><?php echo $row['Grade']; ?> < /td>
-                                < td ><?php echo $row['Department']; ?> < /td>
-                                < td ><?php echo $row['aprovalStatus']; ?> < /td>
-                                < td > < input type = "button" class = "exploreUser" id = "<?php echo$row['ApplicantId']; ?>" value = "Explore" / > < /td>
-                                < /tr>
-                        <?php } ?>
-                    < /table>
+                        <td ><?php echo $row['LastName']; ?> </td>
+                        <td ><?php echo $row['Gender']; ?> </td>
+                        <td ><?php echo $row['Designation']; ?> </td>
+                        <td ><?php echo $row['Grade']; ?> </td>
+                        <td><?php echo $row['Department']; ?> </td>
+                        <td ><?php echo $row['aprovalStatus']; ?> </td>
+                        <td > <input type = "button" class = "exploreUser" id = "<?php echo$row['ApplicantId']; ?>" value = "Explore" /> </td>
+                    </tr>
+                <?php } ?>
+            </table>
 
-                            < /div>
-                            < div class = "container" id = "exploreWindow" >
-                            < input type = "button" value = "Ok" onclick = "cancelDiv()" style = "float: right; margin-right: 20px;
-                            font - weight: bold; width: 50px" />
-                            < input type = "button" value = "click me" onclick = "ShowDiv()" / >
-                            < script type = "text/javascript" >
-                            $(document).ready(function() {
+        </div>
+        <div class = "container" id = "exploreWindow" >
+            <input type = "button" value = "Ok" onclick = "cancelDiv()" style = "float: right; margin-right: 20px;
+                   font-weight: bold; width: 50px" />
+            <input type = "button" value = "click me" onclick = "ShowDiv()" />
+            <script type = "text/javascript" >
+                $(document).ready(function() {
                     $("[type=button]").live('click', General.buttonClicked);
-                    });</script>
+                });</script>
             <?php
         }
 
@@ -120,9 +120,9 @@ class dataDispaly {
 
             </div>
             <script type="text/javascript">
-                            $(document).ready(function() {
+                $(document).ready(function() {
                     $("[type=button]").live('click', General.buttonClicked);
-                    });</script>
+                });</script>
             <?php
         }
 
@@ -161,9 +161,9 @@ class dataDispaly {
 
             </div>
             <script type="text/javascript">
-                            $(document).ready(function() {
+                $(document).ready(function() {
                     $("[type=button]").live('click', General.buttonClicked);
-                    });
+                });
             </script>
             <?php
         }
@@ -199,34 +199,104 @@ class dataDispaly {
 
         function pageForHouseCondition() {
             include_once '../modules/DbModules.php';
-                  $eval = new DbModules();
-            ?><label >House Type</label>
-            <select>
-                <option  value='-1'> --Choose--</option>
-                <?php
-                $result=$eval->getHouseTypes();
-                while ($row = mysql_fetch_array($result)) {
-                    $houseType = $row ['house_category'];
-                    $houseId=$row['house_id']
+            $db = new DbModules();
+            ?>
+            <script src="../js/general.js" type="text/javascript"></script>
+            <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+            <div class="container">
+                <label >House Type</label>
+                <select id="houseTypeselect">
+                    <option value='-1' selected='true '> --Choose--</option>
+                    <?php
+                    $result = $db->getHouseTypes();
+                    while ($row = mysql_fetch_array($result)) {
+                        $houseType = $row ['name'];
+                        $houseId = $row['house_id'];
+                        ?>
+                        <option  value='<?php echo $houseId; ?>'> <?php echo $houseType; ?> </option>
+                    <?php }
                     ?>
-              <option  value='<?php echo $houseId; ?>'> <?php echo $houseType; ?> </option>
-                <?php } ?>
-            </select>
-
-        <label >House Number</label>
-            <select>
-                <option  value='-1'> --Choose--</option>
+                </select>
+                <div id="houseNumberDiv"></div>
+            </div>
+            <div class="container">
+                <div class="header"> house type specific details  </div>
                 <?php
-                $result=$eval->getHouseTypes();
-                while ($row = mysql_fetch_array($result)) {
-                    $unitIndex = $row ['unit_index'];
-                    ?>
-                    <option  value='<?php echo $unitIndex; ?>'> <?php echo $unitIndex; ?> </option>
-                <?php } ?>
-            </select>
+                
+                ?>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("div select").live('change', General.selectionChanged);
+                });
+            </script>
+            <?php
+        }
+        function getHouseNumberSelectBox($houseType) {
+            include_once './DbModules.php';
+            $db = new DbModules();
+            $result = $db->getHouseIndex($houseType);
+            $values = "<label>House Number</label>\n"
+                    . "<select id=\"houseNumberSelect\">"
+                    . "<option  value='-1'> --Choose--</option>\n";
+
+            while ($row = mysql_fetch_array($result)) {
+                $unitIndex = $row ['unit_index'];
+                $values .="<option value=\"" . $unitIndex . "\">" . $unitIndex . "</option>\n";
+            }
+            $values.="</select>";
+            echo $values;
+            
+            
+            ?>
+                 <script type="text/javascript">
+                $(document).ready(function() {
+                    $("div select").live('change', General.selectionChanged);
+                });
+            </script>
+
+                
+<?php     }
 
 
-        <?php
+  function displayLettingForm($houseType,$houseId) {
+                  
+            include_once '../modules/DbModules.php';
+            include_once './houseClasses/houseSpecific.php';
+                 ?>
+            <script src="../js/general.js" type="text/javascript"></script>
+            <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+            <div class="container">        
+                <div class="header"> house type specific details  </div>
+                <?php
+                $db = new DbModules();
+                 $hs=new houseSpecific($houseId);
+                echo'hjjjjjjjjjjjjjjj';
+                //$result=$db->getAHouseTypeDetail($houseId);
+                
+                $row = mysql_fetch_array($result);
+                   $hasSQ=$row['hasSQ'];
+                  $hasCompound=$row['hasCompound'];
+                        
+
+                if ($hasCompound=='true' and $hasSQ=='true') {
+                    $hs->getAHouseTypeDetail();     
+                    }
+                else if ($hasCompound=='true' and $hasSQ=='false') {
+                    $hs->houseConditionWithCompound();     
+                  }
+               else if ($hasCompound=='false') {
+                    $hs->houseConditionNoCompound();     
+                }
+                ?>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("div select").live('change', General.selectionChanged);
+                });
+            </script>
+            <?php
+        }
+
     }
-
-}
+    

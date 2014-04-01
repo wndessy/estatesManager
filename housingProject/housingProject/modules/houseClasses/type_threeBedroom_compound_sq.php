@@ -1,15 +1,15 @@
 <?php
 
-class BF extends housesCommon {
+class type_threeBedroom_compound_sq extends housesCommon {
 
-    function BF() {
-        $this->setNoOfUnits(30);
-        $this->setRentPerUnitPerMonth(5500);
-        $this->setCategory("BF");
+    function type_threeBedroom_compound_sq() {
+        $this->setNoOfUnits(69);
+        $this->setRentPerUnitPerMonth(7000);
+        $this->setCategory("BH");
         $this->setNoOfBedrooms(3);
+        $this->setHasCompound(true);
         $this->setQualifyingGrade("XII and above");
-        $this->setHasCompound(false);
-        $this->setDescription($this->getNoOfBedrooms()." bedrooms, self contained(Turkana Flats)");
+        $this->setDescription($this->getNoOfBedrooms()." bedrooms, big compound with a servant quarters");
     }
 
     function repairs() {
@@ -27,6 +27,11 @@ class BF extends housesCommon {
             $this->houseDetails();
         }
         $this->commonHouseDetails();//the common stuff
+        ?>
+            <label>Servant Quarters(SQ)</label>
+            <label>Servant Quarters</label>
+        <?php
+             $this->houseDetails();
     }
 
 }

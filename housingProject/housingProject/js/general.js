@@ -256,11 +256,41 @@ var General = {
                 error: function(result) {
                     alert(result);
                 }});
-            //  }
+        }
+    },
+  /*
+   * select boxes function
+   * 
+   */
+    selectionChanged: function() {
+        if (this.id === "houseTypeselect") {
+            $.ajax({
+                type: "POST",
+                url: "../modules/mod_general.php?page=getHouseNumbers&houseType=" + this.value,
+                async: false,
+                success: function(result) {
+                    $('#houseNumberDiv').html(result);
+                },
+                error: function(result) {
+                    alert(result);
+                }});
 
         }
+          if (this.id === "houseNumberSelect") {
+            $.ajax({
+                type: "POST",
+                url: "../modules/mod_general.php?page=displayLettingForm&houseNo=" + this.value +"&houseType="+$('#houseTypeselect').val(),
+                async: false,
+                success: function(result) {
+                    alert(result);
+                  //  $('#houseNumberDiv').html(result);
+                },
+                error: function(result) {
+                    alert(result);
+                }});
 
-
+        }
+        
     }
 
 };

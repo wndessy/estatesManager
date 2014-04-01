@@ -1,8 +1,8 @@
 <?php
 
-class BF extends housesCommon {
+class type_threeBedroom_noCompound_noSq extends housesCommon {
 
-    function BF() {
+    function type_threeBedroom_noCompound_noSq() {
         $this->setNoOfUnits(30);
         $this->setRentPerUnitPerMonth(5500);
         $this->setCategory("BF");

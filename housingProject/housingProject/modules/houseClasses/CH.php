@@ -1,15 +1,15 @@
 <?php
 
-class BF extends housesCommon {
+class CH extends housesCommon {
 
-    function BF() {
-        $this->setNoOfUnits(30);
-        $this->setRentPerUnitPerMonth(5500);
-        $this->setCategory("BF");
-        $this->setNoOfBedrooms(3);
-        $this->setQualifyingGrade("XII and above");
-        $this->setHasCompound(false);
-        $this->setDescription($this->getNoOfBedrooms()." bedrooms, self contained(Turkana Flats)");
+    function CH() {
+        $this->setNoOfUnits(12);
+        $this->setRentPerUnitPerMonth(2000);
+        $this->setCategory("CH");
+        $this->setNoOfBedrooms(2);
+        $this->setQualifyingGrade("1-VI");
+        $this->setHasCompound(true);
+        $this->setDescription($this->getNoOfBedrooms()." bedrooms, and a small compound");
     }
 
     function repairs() {

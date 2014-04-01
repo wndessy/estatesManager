@@ -83,7 +83,7 @@ class housesCommon {
     public function commonHouseDetails() {
         ?>
 
- <label>Sittingroom</label>
+         <label>Sittingroom</label>
             <label>Sockets</label>
             <textarea cols="20" rows="3"></textarea>
             <label>Ceiling</label>
@@ -91,21 +91,21 @@ class housesCommon {
             <label>Switches</label>
             <textarea cols="20" rows="3"></textarea>
             <label>Lights</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3"></textarea><br/>
         <label>Bathroom</label>
             <label>Electrical</label>
             <textarea cols="20" rows="3"></textarea>
             <label>plumbing</label>
             <textarea cols="20" rows="3"></textarea>
             <label>Tiles</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3"></textarea><br/>
         <label>Toilet</label>
             <label>Electrical</label>
             <textarea cols="20" rows="3"></textarea>
             <label>plumbing</label>
             <textarea cols="20" rows="3"></textarea>
             <label>Tiles</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3"></textarea><br/>
         <label>Kitchen</label>
             <label>Electrical</label>
             <textarea cols="20" rows="3"></textarea>
