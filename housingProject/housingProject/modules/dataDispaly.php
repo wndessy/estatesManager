@@ -270,12 +270,13 @@ class dataDispaly {
                 <div class="header"> house type specific details  </div>
                 <?php
                 $db = new DbModules();
-                 $hs=new houseSpecific($houseId);
-                echo'hjjjjjjjjjjjjjjj';
-                //$result=$db->getAHouseTypeDetail($houseId);
+                 $hs=new houseSpecific($houseType);
+                 $result=$db->getAHouseTypeDetail($houseType);
                 
-                $row = mysql_fetch_array($result);
+                $row = mysql_fetch_assoc($result);
                    $hasSQ=$row['hasSQ'];
+                   echo $hasSQ;
+                   echo $row['hasCompound'];
                   $hasCompound=$row['hasCompound'];
                         
 

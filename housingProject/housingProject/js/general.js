@@ -283,7 +283,7 @@ var General = {
                 async: false,
                 success: function(result) {
                     alert(result);
-                  //  $('#houseNumberDiv').html(result);
+                $('#houseNumberDiv').html(result);
                 },
                 error: function(result) {
                     alert(result);

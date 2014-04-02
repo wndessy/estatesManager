@@ -186,7 +186,7 @@ class DbModules {
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
      return $results_set;
     }
- function getAHouseTypeDetail($houseId) {
+ function getAHouseTypeDetail($houseTypeId) {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
