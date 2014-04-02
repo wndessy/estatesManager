@@ -19,7 +19,7 @@ class newHouse {
     function addhouse($noOfUnits,$houseCategory){
         $cmd="create table  housecategory ,unitId units, ";
         $$cmd2="create tables repairs";
-        $
+        
                 
     }
 }

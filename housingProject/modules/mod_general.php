@@ -20,9 +20,7 @@ if (isset($_GET['page']) && $_GET['page'] == 'userLogin') {
 }
 /**
  * for validating users
- */
-// for general user validation 
-else if (isset($_GET['page']) && $_GET['page'] == 'validateUser') {
+ */ else if (isset($_GET['page']) && $_GET['page'] == 'validateUser') {
     include_once './Users.php';
     $form = new Users();
 
@@ -36,7 +34,9 @@ else if (isset($_GET['page']) && $_GET['page'] == 'validateUser') {
         }
     }
 }
-/* for staff validation */ else if (isset($_GET['page']) && $_GET['page'] == 'validateStaff') {
+/*
+ * for staff validation 
+ */ else if (isset($_GET['page']) && $_GET['page'] == 'validateStaff') {
     include_once './Users.php';
     $form = new Users();
 
@@ -54,21 +54,19 @@ else if (isset($_GET['page']) && $_GET['page'] == 'validateUser') {
 }
 /**
  * after fuccessfull logins then what happens
- */ 
-else if (isset($_GET['page']) && $_GET['page'] == 'successAdminLogin') {
+ */ else if (isset($_GET['page']) && $_GET['page'] == 'successAdminLogin') {
     include_once './Forms.php';
     $form = new Forms;
     $form->superUserHomepage();
-}else if (isset($_GET['page']) && $_GET['page'] == 'successManagerLogin') {
+} else if (isset($_GET['page']) && $_GET['page'] == 'successManagerLogin') {
     include_once './Forms.php';
     $form = new Forms;
     $form->managerHomePage();
-    
-}else if (isset($_GET['page']) && $_GET['page'] == 'successHousingOfficerLogin') {
+} else if (isset($_GET['page']) && $_GET['page'] == 'successHousingOfficerLogin') {
     include_once './Forms.php';
     $form = new Forms;
     $form->housingOfficerHomePage();
-}else if (isset($_GET['page']) && $_GET['page'] == 'successStaffLogin') {
+} else if (isset($_GET['page']) && $_GET['page'] == 'successStaffLogin') {
     include_once './Forms.php';
     $form = new Forms;
     $form->staffHomePage();
@@ -140,7 +138,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     session_start();
     $form = new Forms();
     echo $_SESSION['applicantId'];
-   $form->ViewAndEditDetails($_SESSION['applicantId']);
+    $form->ViewAndEditDetails($_SESSION['applicantId']);
 } else if (isset($_GET['page']) && $_GET['page'] == 'updateUser') {
     include_once './Users.php';
     $form = new Users();
@@ -183,57 +181,63 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
 
 /*
  * managing the manager pages and their menu
- */
-else if (isset($_GET['page']) && $_GET['page'] == 'manageApplicants') {
+ */ else if (isset($_GET['page']) && $_GET['page'] == 'manageApplicants') {
     include_once './DbModules.php';
     include_once './Forms.php';
     include_once './dataDispaly.php';
-  $output = new dataDispaly();
-  $output->applicantsList();
- }
- 
- else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
+    $output = new dataDispaly();
+    $output->applicantsList();
+} else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
     include_once './DbModules.php';
     include_once './Forms.php';
     include_once './dataDispaly.php';
-     $output = new dataDispaly();
-  $output->houseAallocationList();
-
- }
-else if (isset($_GET['page']) && $_GET['page'] == 'manageTenants') {
+    $output = new dataDispaly();
+    $output->houseAallocationList();
+} else if (isset($_GET['page']) && $_GET['page'] == 'manageTenants') {
     include_once './DbModules.php';
     include_once './Forms.php';
-        include_once './dataDispaly.php';
+    include_once './dataDispaly.php';
     $output = new dataDispaly();
     $output->tenantsList();
-
- }
- else if (isset($_GET['page']) && $_GET['page'] == 'manageRepairs') {
-    include_once './DbModules.php';
-    include_once './Forms.php';
-        include_once './dataDispaly.php';
- $output = new dataDispaly();
-  $output->applicantsList();
- }
- else if (isset($_GET['page']) && $_GET['page'] == 'manageReports') {
-    include_once './DbModules.php';
-    include_once './Forms.php';
-     include_once './dataDispaly.php';
- $output = new dataDispaly();
-  $output->applicantsList();
- }
- 
- /*
- * managing the housing officer  pages and their menu
- */
-else if (isset($_GET['page']) && $_GET['page'] == 'houseSignIns') {
+} else if (isset($_GET['page']) && $_GET['page'] == 'manageRepairs') {
     include_once './DbModules.php';
     include_once './Forms.php';
     include_once './dataDispaly.php';
-  $output = new dataDispaly();
-  $output->pageForHouseCondition();
- }
+    $output = new dataDispaly();
+    $output->applicantsList();
+} else if (isset($_GET['page']) && $_GET['page'] == 'manageReports') {
+    include_once './DbModules.php';
+    include_once './Forms.php';
+    include_once './dataDispaly.php';
+    $output = new dataDispaly();
+    $output->applicantsList();
+}
 
+/*
+ * managing the housing officer  pages and their menu
+ */ else if (isset($_GET['page']) && $_GET['page'] == 'houseSignIns') {
+    include_once './Forms.php';
+    include_once './dataDispaly.php';
+    include_once './houseClasses/housesCommon.php';
+    include_once './houseClasses/houseSpecific.php';
+    $output = new dataDispaly();
+    $output->pageForHouseCondition();
+} else if (isset($_GET['page']) && $_GET['page'] == 'getHouseNumbers') {
+    include_once './dataDispaly.php';
+    $output = new dataDispaly();
+    $houseType = trim($_GET["houseType"]);
+    $output->getHouseNumberSelectBox($houseType);
+}
+ else if (isset($_GET['page']) && $_GET['page'] == 'displayLettingForm') {
+    include_once './dataDispaly.php';
+    $output = new dataDispaly();
+    $houseType = trim($_GET["houseType"]);
+    $houseNo=trim($_GET["houseNo"]);
+  
+  $output->displayLettingForm($houseType,$houseNo);
+                
+
+}
 /*
  * to display o the default startpage
  */

@@ -576,7 +576,7 @@ class Forms {
         ?>
         <a href="" > </a>
         <a href="./mod_general.php?page=manageApplicants">Applicants</a>
-         <a href="./mod_general.php?page=manageHouseAllocation">House Allocations</a>
+        <a href="./mod_general.php?page=manageHouseAllocation">House Allocations</a>
         <a href="./mod_general.php?page=manageTenants">Tenants</a>
         <a href="./mod_general.php?page=manageRepairs">Repairs</a>
         <a href="./mod_general.php?page=manageReports">reports</a>
@@ -586,9 +586,9 @@ class Forms {
     function housingOfficerHomePage() {
         ?>
 
-        <a href="/mod_general.php?page=houseSignIns">sign in</a>
-        <a href="/mod_general.php?page=houseSignups">sign out</a>
-        <a href="/mod_general.php?page=houseRepairs">Repair</a>
+        <a href="./mod_general.php?page=houseSignIns">sign in</a>
+        <a href="./mod_general.php?page=houseSignups">sign out</a>
+        <a href="./mod_general.php?page=houseRepairs">Repair</a>
 
         <?php
     }

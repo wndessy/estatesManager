@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$(document).ready(function (){
+/*$(document).ready(function (){
     function hideDivs(){
         
     
@@ -13,6 +13,7 @@ $("button").click(function (){
 });
 /* $("input").click(function (){
   alert("am an input"); 
- });*/
+ });
 
 });
+*/
