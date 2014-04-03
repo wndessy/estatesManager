@@ -1,0 +1,41 @@
+commit dd2e9e8046d73ca37739d6981073a0535416ec10
+Author: wndessy <wndessy@gmail.com>
+Date:   Wed Apr 2 11:14:05 2014 +0300
+
+    starting to work directly on git
+
+commit f33ea414fec9318ce0b631830fd908a39ac7f708
+Author: wndessy <wndessy@gmail.com>
+Date:   Wed Apr 2 11:06:17 2014 +0300
+
+    and the latest sql
+
+commit fb693409c9fdaaf962a0650f986492718484539e
+Author: wndessy <wndessy@gmail.com>
+Date:   Wed Apr 2 11:02:35 2014 +0300
+
+    stil on housespecific
+
+commit 250d2be43d456af5193390c314f27678e757158e
+Author: wndessy <wndessy@gmail.com>
+Date:   Tue Apr 1 23:17:13 2014 +0300
+
+    housespecific fixed
+
+commit 18d6c6fa4dbb81f2736855c12367df4d92ab9507
+Author: wndessy <wndessy@gmail.com>
+Date:   Wed Mar 26 16:51:32 2014 +0300
+
+    after datadisplay correction
+
+commit 6cc9541f70878540cbcfcd1192af82bc2bcfd747
+Author: wndessy <wndessy@wndessy.(none)>
+Date:   Sat Mar 22 18:17:24 2014 +0300
+
+    lost dataModules file
+
+commit 9a51e5a5a6d7caa0fbdda695f0688e36a0e23aa7
+Author: wndessy <wndessy@gmail.com>
+Date:   Wed Mar 12 04:04:19 2014 -0700
+
+    Initial commit

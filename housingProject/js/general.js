@@ -282,8 +282,9 @@ var General = {
                 url: "../modules/mod_general.php?page=displayLettingForm&houseNo=" + this.value +"&houseType="+$('#houseTypeselect').val(),
                 async: false,
                 success: function(result) {
-                    alert(result);
-                $('#houseNumberDiv').html(result);
+                    console.log(result);
+                    //alert(result);
+                $('#DisplayettingForm').html(result);
                 },
                 error: function(result) {
                     alert(result);
@@ -292,5 +293,7 @@ var General = {
         }
         
     }
+    
+    
 
 };

@@ -217,14 +217,14 @@ class dataDispaly {
                     <?php }
                     ?>
                 </select>
-                <div id="houseNumberDiv"></div>
+                <div id="houseNumberDiv">
+                    
+                </div>
+                <div id="DisplayettingForm">
+                    
+                </div>
             </div>
-            <div class="container">
-                <div class="header"> house type specific details  </div>
-                <?php
-                
-                ?>
-            </div>
+           
             <script type="text/javascript">
                 $(document).ready(function() {
                     $("div select").live('change', General.selectionChanged);
@@ -245,9 +245,7 @@ class dataDispaly {
                 $values .="<option value=\"" . $unitIndex . "\">" . $unitIndex . "</option>\n";
             }
             $values.="</select>";
-            echo $values;
-            
-            
+            echo $values;            
             ?>
                  <script type="text/javascript">
                 $(document).ready(function() {
@@ -260,34 +258,39 @@ class dataDispaly {
 
 
   function displayLettingForm($houseType,$houseId) {
-                  
-            include_once '../modules/DbModules.php';
+              include_once '../modules/DbModules.php';
             include_once './houseClasses/houseSpecific.php';
+            $db = new DbModules();
+               $result= $db->getAHouseTypeDetail($houseType);
+              $row = mysql_fetch_array($result);
+                  /* print_r($row); 
+               echo$row['name'];  
+               echo $row['hasCompound'];
+               echo$row['noOfUnits'];
+               echo$row['noOfBedroms'];
+               echo$row['hasSQ'];
+               echo$row['qualifyingGrade'];    */                
                  ?>
             <script src="../js/general.js" type="text/javascript"></script>
             <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
             <div class="container">        
                 <div class="header"> house type specific details  </div>
                 <?php
-                $db = new DbModules();
-                 $hs=new houseSpecific($houseType);
-                 $result=$db->getAHouseTypeDetail($houseType);
-                
-                $row = mysql_fetch_assoc($result);
-                   $hasSQ=$row['hasSQ'];
-                   echo $hasSQ;
-                   echo $row['hasCompound'];
-                  $hasCompound=$row['hasCompound'];
+                     
+                   $hasSQ= trim($row['hasSQ']);
+                    echo $hasSQ;
+                    echo $row['hasCompound'];
+                   $hasCompound= trim($row['hasCompound']);
+                   $hs=new houseSpecific($houseType,$houseId);
                         
-
-                if ($hasCompound=='true' and $hasSQ=='true') {
-                    $hs->getAHouseTypeDetail();     
+                if ($hasCompound==='true' and $hasSQ==='true') {
+                    $hs->houseConditionNoCompoundNoSq();     
                     }
                 else if ($hasCompound=='true' and $hasSQ=='false') {
-                    $hs->houseConditionWithCompound();     
+                    $hs->houseConditionNoCompoundNoSq();     
                   }
                else if ($hasCompound=='false') {
-                    $hs->houseConditionNoCompound();     
+                    $hs->houseConditionNoCompoundNoSq();     
                 }
                 ?>
             </div>

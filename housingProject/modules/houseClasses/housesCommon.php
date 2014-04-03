@@ -1,20 +1,10 @@
+
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of housesCommon
- *
- * @author root
- */
 class housesCommon {
-
     //put your code here
     private $noOfUnits;
     private $category;
+    private $houseNo;
     private $rentPerUnitPerMonth;
     private $qualifyingGrade;
     private $Description;
@@ -28,7 +18,11 @@ class housesCommon {
     public function getCategory() {
         return $this->category;
     }
+    public function getHouseNo() {
+        return $this->houseNo;
+    }
 
+    
     public function getRentPerUnitPerMonth() {
         return $this->rentPerUnitPerMonth;
     }
@@ -48,7 +42,11 @@ class housesCommon {
     public function setCategory($category) {
         $this->category = $category;
     }
+    public function setHouseNo($houseNo) {
+        $this->houseNo = $houseNo;
+    }
 
+    
     public function setRentPerUnitPerMonth($rentPerUnitPerMonth) {
         $this->rentPerUnitPerMonth = $rentPerUnitPerMonth;
     }
@@ -85,69 +83,87 @@ class housesCommon {
 
          <label>Sittingroom</label>
             <label>Sockets</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Sockets" ?>"></textarea>
             <label>Ceiling</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Ceiling" ?>"></textarea>
             <label>Switches</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3"  id="<?php echo "Sittingroom".":"."Switches" ?>"></textarea>
             <label>Lights</label>
-            <textarea cols="20" rows="3"></textarea><br/>
+            <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Lights" ?>"></textarea><br/>
         <label>Bathroom</label>
             <label>Electrical</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>plumbing</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3"  id="<?php echo "Bathroom".":"."Electrical" ?>"></textarea>
+            <label>Plumbing</label>
+            <textarea cols="20" rows="3"  id="<?php echo "Bathroom".":"."Plumbing" ?>"></textarea>
             <label>Tiles</label>
-            <textarea cols="20" rows="3"></textarea><br/>
+            <textarea cols="20" rows="3" id="<?php echo "Bathroom".":"."Tiles" ?>"></textarea><br/>
         <label>Toilet</label>
             <label>Electrical</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>plumbing</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "Toilet".":"."Electrical" ?>"  ></textarea>
+            <label>Plumbing</label>
+            <textarea cols="20" rows="3" id="<?php echo "Toilet".":"."Plumbing" ?>"></textarea>
             <label>Tiles</label>
-            <textarea cols="20" rows="3"></textarea><br/>
+            <textarea cols="20" rows="3" id="<?php echo "Toilet".":"."Tiles" ?>"></textarea><br/>
         <label>Kitchen</label>
             <label>Electrical</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "Kitchen".":"."Electrical" ?>"></textarea>
             <label>plumbing</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "Kitchen".":"."Plumbing" ?>" ></textarea>
             <label>Tiles</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "Kitchen".":"."Tiles" ?>"></textarea>
         <?php
     }
-    public function houseDetails(){
+  
+    
+     public function wholeHouseDetails(){
+        ?>
+            <?php echo "wholeHouseDetails".":"."Sockets" ?>
+            <h> the whole house in general</h>
+            <label>Sockets</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Sockets" ?>" ></textarea>
+            <label>Ceilings/Roof</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Ceilings" ?>"></textarea>
+            <label>Switches</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Switches" ?>"></textarea>
+            <label>Lights</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Lights" ?>"></textarea>
+            <label>Floor</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Floor" ?>"></textarea>
+            <label>Door/Lock</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Door" ?>"></textarea>
+            <label>Walls</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Walls" ?>"></textarea>
+           
+                    <?php
+                    echo"whole house";
+    }
+      public function houseDetails($room){
         ?>
             <label>Sockets</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo $room.":"."Sockets" ?>"></textarea>
             <label>Ceilings/Roof</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo $room.":"."Ceilings" ?>"></textarea>
             <label>Switches</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo $room.":"."Switches" ?>"></textarea>
             <label>Lights</label>
+            <textarea cols="20" rows="3" id="<?php echo $room.":"."Lights" ?>"></textarea>
+           
+                    <?php
+    }
+      public function compound(){
+        ?>
+            <label>fence</label>
+            <textarea cols="20" rows="3"></textarea>
+            <label>garden</label>
+            <textarea cols="20" rows="3"></textarea>
+            <label>roof</label>
+            <textarea cols="20" rows="3"></textarea>
+            <label>etc</label>
             <textarea cols="20" rows="3"></textarea>
            
                     <?php
     }
     
-     public function wholeHouseDetails(){
-        ?>
-            <label>Sockets</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>Ceilings/Roof</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>Switches</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>Lights</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>Floor</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>Door/Lock</label>
-            <textarea cols="20" rows="3"></textarea>
-            <label>Walls</label>
-            <textarea cols="20" rows="3"></textarea>
-           
-                    <?php
-    }
 
     
 }

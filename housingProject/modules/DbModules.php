@@ -36,7 +36,7 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from applicantsdetails "
-                . "inner join houseapplicatiions ";
+                . "inner join house_applications ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
@@ -46,7 +46,7 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from applicantsdetails "
-                . "inner join houseapplicatiions "
+                . "inner join house_applications "
                 . "inner join houseallocation ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
@@ -57,7 +57,7 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from applicantsdetails "
-                . "inner join houseapplicatiions "
+                . "inner join house_applications "
                 . "inner join houseallocation "
                 . "inner join housesletting";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
@@ -106,13 +106,13 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
 
-        $cmd = "select * from " . $test->getDB_NAME() . ".houseapplicatiions where ApplicantId=\"" . $_SESSION['applicantId'] . "\" and houseType =\"" . $house . "\"";
+        $cmd = "select * from " . $test->getDB_NAME() . ".house_applications where ApplicantId=\"" . $_SESSION['applicantId'] . "\" and houseType =\"" . $house . "\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
 
         if (mysql_num_rows($results_set) > 0) {
             echo "you have already aplied forthe selected  house";
         } else {
-            $cmd = "insert Into " . $test->getDB_NAME() . ".houseapplicatiions(ApplicantId,houseType)"
+            $cmd = "insert Into " . $test->getDB_NAME() . ".house_applications(ApplicantId,houseType)"
                     . "VALUES ('" . $_SESSION['applicantId'] . "','" . $house . "')";
             mysql_query($cmd, $conn) or die(mysql_error());
         }
@@ -151,15 +151,25 @@ class DbModules {
     function disaproveHouseRepair($param) {
         
     }
-
-    function getHousesAppliadFor($applicantId) {
+    function houseToAplyFor(){
+        echo $_SESSION['Grade'];
         include_once '../Config.php';
-        session_start();
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd = "select * from " . $test->getDB_NAME() . ".house_qualifying_grade "
+                . "inner join " . $test->getDB_NAME() . ".house_types "
+               . "where grade=\"" . $_SESSION['Grade'] . "\" ";
+        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+        return $results_set;
+    }
+
+    function getHousesAppliadFor($applicantId){
+        include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from " . $test->getDB_NAME() . ".house_applications "
-                . "inner join " . $test->getDB_NAME() . ".house_category "
-                . "  where ApplicantId=\"" . $_SESSION['applicantId'] . "\" ";
+                . "inner join " . $test->getDB_NAME() . ".house_types "
+                . "where ApplicantId=\"" . $_SESSION['applicantId'] . "\" ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
@@ -172,7 +182,7 @@ class DbModules {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select * from " . $test->getDB_NAME() . ".house_types ";
+        $cmd ="select * from " . $test->getDB_NAME(). ".house_types ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
@@ -186,14 +196,15 @@ class DbModules {
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
      return $results_set;
     }
- function getAHouseTypeDetail($houseTypeId) {
+ function getAHouseTypeDetail($id) {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select * from " . $test->getDB_NAME() . ".house_types "
-                . " where  house_id=\"" . $houseId . "\"";
+        $cmd =  "select * from  ".$test->getDB_NAME().".house_types"
+                 . " where  house_id = \"". $id ."\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-        return $results_set;
+           return $results_set;
+         
     }  
     
     

@@ -90,25 +90,21 @@ if (isset($_GET['page']) && $_GET['page'] == 'userLogin') {
     }
 }
 
-
-
-
 /*
  * for user house application
  * 
  */
-
-
 //link tab to apply for a house page
-else if (isset($_GET['page']) && $_GET['page'] == 'applyForAhouse') {
 
-    include_once './Users.php';
-    include_once './Forms.php';
-    $applicationform = new Forms();
+else if (isset($_GET['page']) && $_GET['page'] == 'applyForAhouse') {
     session_start();
-    echo $_SESSION['Grade'];
-    $applicationform->housesAppliedForList($applicantId);
-    $applicationform->applyForHouse($_SESSION['Grade']);
+    include_once './Forms.php';
+    include_once './dataDispaly.php';
+    $form = new Forms();
+    $display= new dataDispaly();
+    $display->housesAppliedForList($_SESSION['applicantId']);
+    //$form->applyForHouse($_SESSION['Grade']);
+    $form->houseToApplyFor();
 } else if (isset($_GET['page']) && $_GET['page'] == 'houseChosenforApplication') {
     include_once './DbModules.php';
     include_once './Forms.php';
@@ -207,7 +203,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $output->applicantsList();
 } else if (isset($_GET['page']) && $_GET['page'] == 'manageReports') {
     include_once './DbModules.php';
-    include_once './Forms.php';
+        include_once './Forms.php';
     include_once './dataDispaly.php';
     $output = new dataDispaly();
     $output->applicantsList();
@@ -233,10 +229,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $output = new dataDispaly();
     $houseType = trim($_GET["houseType"]);
     $houseNo=trim($_GET["houseNo"]);
-  
-  $output->displayLettingForm($houseType,$houseNo);
-                
-
+  $output->displayLettingForm($houseType,$houseNo);       
 }
 /*
  * to display o the default startpage
