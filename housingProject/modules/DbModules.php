@@ -152,7 +152,7 @@ class DbModules {
         
     }
     function houseToAplyFor(){
-        echo $_SESSION['Grade'];
+       
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
