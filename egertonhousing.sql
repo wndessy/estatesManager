@@ -16,6 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `applicant_designations`
+--
+
+DROP TABLE IF EXISTS `applicant_designations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `applicant_designations` (
+  `designation_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`designation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `applicant_designations`
+--
+
+LOCK TABLES `applicant_designations` WRITE;
+/*!40000 ALTER TABLE `applicant_designations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `applicant_designations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `applicantsdetails`
 --
 
@@ -49,7 +71,7 @@ CREATE TABLE `applicantsdetails` (
 
 LOCK TABLES `applicantsdetails` WRITE;
 /*!40000 ALTER TABLE `applicantsdetails` DISABLE KEYS */;
-INSERT INTO `applicantsdetails` VALUES (1,'Telewa','Emmanuel','Male','Engaged',28437394,'emmanuelt2009@gmail.com','123',1111,'Computer Science ',0,'0000-00-00','Department','No','Winnie','Not'),(2,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(3,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(4,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(5,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(6,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(7,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','njj',3828292,'estates',4,'0000-00-00','6','','8','Not'),(8,'james','mnyole','Male ','Single ',2147483647,'jmnyole@gmail.com','123',387288,'2872828',10,'0000-00-00','winnie','','mr keband','Not'),(9,'james','mnyole','Male ','Single ',2147483647,'jmnyolei@gmail.com','123',387288,'2872828',10,'0000-00-00','winnie','','mr keband','Not'),(10,'aggy','bollo','Female','Single ',111,'aggy@gmail.com','123',111,'ssss',13,'0000-00-00','36','','222','Not'),(11,'naphtally','ndessy','Male ','Married',23412322,'nnn@gmail.com','123',12341,'',0,'0000-00-00','','','67654563632','Not'),(12,'','','','',0,'','',0,'',0,'0000-00-00','','','','Not'),(13,'test3','test3','Male ','Married',141414,'123@egerton.ac.ke','123',141414,'carpenter',6,'0000-00-00','estates','','mungai','Not');
+INSERT INTO `applicantsdetails` VALUES (1,'Telewa','Emmanuel','Male','Engaged',28437394,'emmanuelt2009@gmail.com','123',1111,'Computer Science ',6,'0000-00-00','Department','No','Winnie','Not'),(2,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',7,'0000-00-00','6','','8','Not'),(3,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',8,'0000-00-00','6','','8','Not'),(4,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',9,'0000-00-00','6','','8','Not'),(5,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(6,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(7,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','njj',3828292,'estates',10,'0000-00-00','6','','8','Not'),(8,'james','mnyole','Male ','Single ',2147483647,'jmnyole@gmail.com','123',387288,'2872828',13,'0000-00-00','winnie','','mr keband','Not'),(9,'james','mnyole','Male ','Single ',2147483647,'jmnyolei@gmail.com','123',387288,'2872828',10,'0000-00-00','winnie','','mr keband','Not'),(10,'aggy','bollo','Female','Single ',111,'aggy@gmail.com','123',111,'ssss',13,'0000-00-00','36','','222','Not'),(11,'naphtally','ndessy','Male ','Married',23412322,'nnn@gmail.com','123',12341,'',11,'0000-00-00','','','67654563632','Not'),(12,'','','','',0,'','',0,'',11,'0000-00-00','','','','Not'),(13,'test3','test3','Male ','Married',141414,'123@egerton.ac.ke','123',141414,'carpenter',6,'0000-00-00','estates','','mungai','Not');
 /*!40000 ALTER TABLE `applicantsdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,6 +107,33 @@ LOCK TABLES `children` WRITE;
 /*!40000 ALTER TABLE `children` DISABLE KEYS */;
 INSERT INTO `children` VALUES (9,1,'karama','mnyole','0000-00-00','female','No'),(9,3,'peter','mnyole','0000-00-00','male','No'),(9,4,'karis','mnyole','0000-00-00','male','No'),(9,5,'karis','mnyole','0000-00-00','male','No'),(10,6,'nyasudan','mnyole','0000-00-00','male','No'),(10,7,'nyasudan','akawambo','0000-00-00','female','No'),(10,8,'nyasudan','akawambo','0000-00-00','female','No'),(11,9,'kenedy','akawambo','0000-00-00','female','No'),(11,10,'kenedy','hoiaioa','0000-00-00','female','No');
 /*!40000 ALTER TABLE `children` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `house_allocation`
+--
+
+DROP TABLE IF EXISTS `house_allocation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `house_allocation` (
+  `allocation_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `applicationId` int(50) NOT NULL,
+  `unit_id` int(50) DEFAULT NULL,
+  `let_id` int(11) NOT NULL,
+  `allocationDate` int(50) NOT NULL,
+  `Confirmatiion` int(5) NOT NULL,
+  PRIMARY KEY (`allocation_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `house_allocation`
+--
+
+LOCK TABLES `house_allocation` WRITE;
+/*!40000 ALTER TABLE `house_allocation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `house_allocation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -173,6 +222,57 @@ LOCK TABLES `house_general_condition` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `house_let_in_and_out`
+--
+
+DROP TABLE IF EXISTS `house_let_in_and_out`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `house_let_in_and_out` (
+  `let_id` int(20) NOT NULL AUTO_INCREMENT,
+  `house_id` int(20) NOT NULL,
+  `unit_id` int(50) DEFAULT NULL,
+  `in_or_out` tinytext NOT NULL,
+  `StartDate` date NOT NULL,
+  `EndDate` date NOT NULL,
+  `allocationId` int(11) NOT NULL,
+  PRIMARY KEY (`let_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `house_let_in_and_out`
+--
+
+LOCK TABLES `house_let_in_and_out` WRITE;
+/*!40000 ALTER TABLE `house_let_in_and_out` DISABLE KEYS */;
+/*!40000 ALTER TABLE `house_let_in_and_out` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `house_qualifying_grade`
+--
+
+DROP TABLE IF EXISTS `house_qualifying_grade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `house_qualifying_grade` (
+  `house_id` int(11) NOT NULL,
+  `grade` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `house_qualifying_grade`
+--
+
+LOCK TABLES `house_qualifying_grade` WRITE;
+/*!40000 ALTER TABLE `house_qualifying_grade` DISABLE KEYS */;
+INSERT INTO `house_qualifying_grade` VALUES (1,6),(1,7),(2,9),(2,10),(2,10),(3,10),(3,10),(3,11),(4,11),(4,10),(4,12),(5,12),(5,10),(5,11),(6,13),(7,13),(5,12);
+/*!40000 ALTER TABLE `house_qualifying_grade` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `house_types`
 --
 
@@ -190,7 +290,7 @@ CREATE TABLE `house_types` (
   `rent` int(11) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`house_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +299,7 @@ CREATE TABLE `house_types` (
 
 LOCK TABLES `house_types` WRITE;
 /*!40000 ALTER TABLE `house_types` DISABLE KEYS */;
-INSERT INTO `house_types` VALUES (1,'XY',5,2,'false','false','1,7,3',30998,'ttttttttttttttttttttttttttttttttttttttt'),(2,'AH',20,4,'true','true','1,2,3',30998,'ttttttttttttttttttttttttttttttttttttttt');
+INSERT INTO `house_types` VALUES (1,'XY',5,2,'false','false','1,7,3',30998,'ttttttttttttttttttttttttttttttttttttttt'),(2,'AH',20,4,'true','true','1,2,3',30998,'ttttttttttttttttttttttttttttttttttttttt'),(3,'XY',5,2,'no','','1,7,3',30998,'ttttttttttttttttttttttttttttttttttttttt'),(4,'ABC',20,2,'true','false','123',2002,'eeeeeeeeeeeeeeeeeee'),(5,'DEF',20,3,'true','true','123',2002,'eeeeeeeeeeeeeeeeeee'),(6,'GHI',9,4,'false','false','123',2002,'eeeeeeeeeeeeeeeeeee'),(7,'MNO',9,1,'false','false','123',2002,'eeeeeeeeeeeeeeeeeee');
 /*!40000 ALTER TABLE `house_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,32 +329,6 @@ INSERT INTO `house_units` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,6),(6,1,8)
 UNLOCK TABLES;
 
 --
--- Table structure for table `houseallocation`
---
-
-DROP TABLE IF EXISTS `houseallocation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `houseallocation` (
-  `applicationId` int(50) NOT NULL,
-  `unit_id` int(50) DEFAULT NULL,
-  `allocationDate` int(50) NOT NULL,
-  `Confirmatiion` int(5) NOT NULL,
-  `allocationId` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`allocationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `houseallocation`
---
-
-LOCK TABLES `houseallocation` WRITE;
-/*!40000 ALTER TABLE `houseallocation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `houseallocation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `houserepair`
 --
 
@@ -277,33 +351,6 @@ CREATE TABLE `houserepair` (
 LOCK TABLES `houserepair` WRITE;
 /*!40000 ALTER TABLE `houserepair` DISABLE KEYS */;
 /*!40000 ALTER TABLE `houserepair` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `housesletting`
---
-
-DROP TABLE IF EXISTS `housesletting`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `housesletting` (
-  `LettingId` int(100) NOT NULL AUTO_INCREMENT,
-  `Category_id` int(20) NOT NULL,
-  `unit_id` int(50) DEFAULT NULL,
-  `StartDate` date NOT NULL,
-  `EndDate` date NOT NULL,
-  `allocationId` int(11) NOT NULL,
-  PRIMARY KEY (`LettingId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `housesletting`
---
-
-LOCK TABLES `housesletting` WRITE;
-/*!40000 ALTER TABLE `housesletting` DISABLE KEYS */;
-/*!40000 ALTER TABLE `housesletting` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -582,4 +629,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-02 11:05:06
+-- Dump completed on 2014-04-04 18:50:10
