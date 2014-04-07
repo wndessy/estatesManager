@@ -1,18 +1,20 @@
 <?php
+
 /**
  * Description of Config
  *
  * @author root
  */
 class Config {
-    
+
     private $DB_HOST = 'localhost';
     private $DB_NAME = 'egertonhousing';
     private $DB_USER = 'root';
-    private $DB_PASSWORD = 'w1nn1e';
-    
-    function __construct() {}
-    
+    private $DB_PASSWORD = 'w1nn1e';            
+    function __construct() {
+        
+    }
+
     public function getDB_HOST() {
         return $this->DB_HOST;
     }
@@ -28,4 +30,5 @@ class Config {
     public function getDB_PASSWORD() {
         return $this->DB_PASSWORD;
     }
+
 }

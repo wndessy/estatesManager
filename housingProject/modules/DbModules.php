@@ -7,13 +7,11 @@ class DbModules {
     }
 
     function getConnection() {
-        include_once '../Config.php';
+         include_once '../Config.php';
         $test = new Config();
-        error_reporting(0);
+       //error_reporting(0);
         $conn = mysql_connect($test->getDB_HOST(), $test->getDB_USER(), $test->getDB_PASSWORD());
-
         mysql_select_db($test->getDB_NAME(), $conn);
-
         return $conn;
     }
 
@@ -26,6 +24,7 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from applicantsdetails ";
+        //theta join house alocation;
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         $row = mysql_fetch_array($results_set);
         return $results_set;
@@ -36,7 +35,8 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from applicantsdetails "
-                . "inner join house_applications ";
+               ."natural join  house_applications "
+                ."natural join  house_types ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }

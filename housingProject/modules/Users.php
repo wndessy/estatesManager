@@ -58,15 +58,15 @@ class Users {
      * @return boolean
      */
     function validateUser($email, $password) {
-        include_once '../Config.php';
+         include_once '../Config.php';
         include_once './DbModules.php';
+       
         $db = new DbModules;
         $test = new Config;
-
         $conn = $db->getConnection();
-        $cmd = "select * from " . $test->getDB_NAME() . ".applicantsdetails where EmailAddress=\"" . $email . "\" and password =\"" . $password . "\"";
+          $cmd = "select * from " . $test->getDB_NAME() . ".applicantsdetails where EmailAddress=\"" . $email . "\" and password =\"" . $password . "\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-
+     
         if (mysql_num_rows($results_set) > 0) {
             $row = mysql_fetch_array($results_set);
              session_start();

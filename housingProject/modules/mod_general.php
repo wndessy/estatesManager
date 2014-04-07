@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/**qqqqqq
+/**
  * forselecting the approapriate login form
  */
 if (isset($_GET['page']) && $_GET['page'] == 'userLogin') {
@@ -27,6 +27,7 @@ if (isset($_GET['page']) && $_GET['page'] == 'userLogin') {
     if (isset($_GET['email']) && isset($_GET['password'])) {
         $email = $_GET['email'];
         $password = $_GET['password'];
+        
         if ($form->validateUser($email, $password)) {
             echo 'Welcome';
         } else {
