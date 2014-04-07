@@ -169,8 +169,8 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from " . $test->getDB_NAME() . ".house_applications "
-                . "inner join " . $test->getDB_NAME() . ".house_types "
-                . "where ApplicantId=\"" . $_SESSION['applicantId'] . "\" ";
+                . "natural join " . $test->getDB_NAME() . ".house_types "
+                . "where ApplicantId=\"" . $applicantId . "\" ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
@@ -221,28 +221,48 @@ class DbModules {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select * from  " . $test->getDB_NAME() . ".house_applications "
-                . "theta join " . $test->getDB_NAME() . ".house_allocation"
-                . " where  house_id='\"" . $houseTypeId . "\"";
+        $cmd = "select * from  " . $test->getDB_NAME() .".house_applications "
+               ." theta join " . $test->getDB_NAME() .".house_allocation"
+                . " where  house_id=\"" . $houseTypeId . "\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
 
     function allocateAHouse($applicantId, $unit_Id, $houseTypeId) {
+        //echo $applicantId;
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
         $cmd1 = "select aplicationId from  " . $test->getDB_NAME() . ".house_applications "
                 . " where ApplicantId=\"" . $applicantId . "\" and  house_id=\"" . $houseTypeId . "\"";
-        $result=mysql_query($cmd1, $conn) or die(mysql_error());
+         $result=mysql_query($cmd1, $conn) or die(mysql_error());
         $row1=  mysql_fetch_array($result);
         $applicationId=$row1['aplicationId'];
+                        
         $cmd = "insert into " . $test->getDB_NAME() . ".house_allocation "
                 . "(applicationId,unit_id,allocation_date)"
-                . " values (\"" . $applicationId . "\",\"" . $applicantId . "\",\"" . $unit_Id . "\")"
-                . " where  house_id='\"" . $houseTypeId . "\"";
-        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+                . " values ('" . $applicationId . "','" . $applicantId . "','" . $unit_Id ."')";
+           $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
 
+  function getStaffDateInterval($applicantId){
+       include_once '../Config.php';
+        $db = new DbModules;
+        $test = new Config;
+        $conn = $db->getConnection();
+        $cmd = "select CommencementOfDuty from " . $test->getDB_NAME() . ".applicantsdetails"
+                . " where ApplicantId=\"" . $applicantId . "\"";
+        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+        $row=  mysql_fetch_array($results_set);
+        $then= strtotime($row ['CommencementOfDuty']);
+        $now = time(); // or your date as well
+        $datediff = $now - $then;
+        $difference= $datediff/(60*60*24*364);
+       echo$difference;
+      return $datediff;
+  }  
+    
+    
+    
 }

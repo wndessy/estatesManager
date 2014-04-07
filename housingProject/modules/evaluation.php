@@ -8,14 +8,9 @@
 class evaluation {
 
     function LengthOfService($applicantId) {
-        include_once '../Config.php';
         include_once './DbModules.php';
-        $db = new DbModules;
-        $test = new Config;
-        $conn = $db->getConnection();
-        $cmd = "select CommencementOfDuty from " . $test->getDB_NAME() . ".applicantsdetails where ApplicantId=\"" . $applicantId . "\"";
-        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-        $yearsServed = date() - $results_set;
+          $db = new DbModules;
+         $yearsServed= $db->getStaffDateInterval($applicantId);
         if ($yearsServed <= 0 && $yearsServed <= 3)
             return 1;
         elseif ($yearsServed <= 4 && $yearsServed <= 6)
@@ -111,7 +106,7 @@ class evaluation {
     }
 
     function TotalPoints($applicantId) {
-        $Total = LengthOfService($applicant) + MaritalStatus($applicant) + AgesofChildren($applicant) + familySize($applicant) + natureOfDuty($applicant);
+        $Total = $this->LengthOfService($applicantId) + $this->MaritalStatus($applicantId) + $this->AgesofChildren($applicantId) + $this->familySize($applicantId) + $this->natureOfDuty($applicantId);
         return $Total;
     }
 
@@ -177,9 +172,9 @@ class evaluation {
          * for each applicant compute points and compare to get the highest points return the applicant
          * add the applicant to the allocation table
          */
-
+        
         $resultset = $db->getVacantHouses();
-        while ($row = mysql_fetch_array($resultset)) {
+           while ($row = mysql_fetch_array($resultset)) {
             $unit_id = $row['unit_id'];
             $house_id = $row['house_id'];
             $resultset2 = $db->getApplicantForAHouse($row['house_id']);
@@ -193,7 +188,8 @@ class evaluation {
                     $bestAplicantId = $applicantId;
                 }
             }
-            $db->allocateAHouse($applicantId, $unit_id, $house_id);
+            $db->allocateAHouse($bestAplicantId, $unit_id, $house_id);
+            echo"brrr";
         }
     }
 

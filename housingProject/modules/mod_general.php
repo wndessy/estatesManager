@@ -185,10 +185,19 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $output = new dataDispaly();
     $output->applicantsList();
     
-}else if (isset($_GET['page']) && $_GET['page'] == 'alocateHouses') {
-    include_once './evaluation.php';
-    $eval=new evaluation(); 
-    $eval->allocateHouse($houseCategory, $applicantId);
+}else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseApplication') {
+      include_once './dataDispaly.php';
+     $output = new dataDispaly(); 
+     $output->houseApplicationList();
+}
+
+else if (isset($_GET['page']) && $_GET['page'] == 'alocateHouses') {
+    
+     include_once './dataDispaly.php';
+      include_once './evaluation.php';
+     $eval=new evaluation(); 
+     $output = new dataDispaly(); 
+     $eval->allocateHouse();
     $output->houseAallocationList();
 }
 

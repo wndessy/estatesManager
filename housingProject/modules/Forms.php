@@ -604,7 +604,7 @@ class Forms {
             ?>
                 <a href="" > </a>
                 <a href="./mod_general.php?page=manageApplicants">Applicants</a>
-                <a href="./mod_general.php?page=manageHouseApplications">House Applications</a>
+                <a href="./mod_general.php?page=manageHouseApplication">House Applications</a>
                 <a href="./mod_general.php?page=manageHouseAllocation">House Allocations</a>
                 <a href="./mod_general.php?page=manageTenants">Tenants</a>
                 <a href="./mod_general.php?page=manageRepairs">Repairs</a>

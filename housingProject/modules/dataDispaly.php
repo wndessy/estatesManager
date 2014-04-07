@@ -93,8 +93,7 @@ class dataDispaly {
                 <?php
             }
         }
-
-        function tenantsList() {
+ function tenantsList() {
             ?>
             <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
             <script type="text/javascript" src="../js/general.js"></script>
@@ -135,20 +134,69 @@ class dataDispaly {
             <?php
         }
 
+        function houseApplicationList() {
+            ?>
+            <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
+            <script type="text/javascript" src="../js/general.js"></script>
+            <script type="text/javascript" src="../jquery/jquery.leanModal.min.js"></script>
+            <link rel="stylesheet" href="../css/customAlerts.css" type="text/css"/>
+            <div class="container" id="personalDetais">
+                <div class="header">Applicants</div>
+                <table>
+                    <tr><td>First name </td>
+                        <td>Last name</td>
+                        <td>Designation</td>
+                        <td>Department</td>
+                        <td>Houses Applied</td>
+                        <td>View Button</td>
+                        </tr>
+                        
+                    <?php
+                    include_once './DbModules.php';
+                    $db = new DbModules();
+                    $x = $db->listAllApplicants();
+                   
+
+                    while ($row = mysql_fetch_array($x)) {
+                        ?>
+                        <tr>
+                            <td><?php echo $row['FirstName']; ?></td>
+                            <td><?php echo $row['LastName']; ?></td>
+                            <td><?php echo $row['Designation']; ?></td>
+                            <td><?php echo $row['Department']; ?></td>
+                             <td>
+                                <?php  $house=$db->getHousesAppliadFor($row['ApplicantId']);
+                                while($row2=  mysql_fetch_array($house)){
+                                echo $row2['name'].",";    
+                                } ?>
+                             </td>
+                            <td><input type="button" class="exploreUser" id="<?php echo$row['ApplicantId']; ?>" value="Explore"/></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });</script>
+            <?php
+        }
+
         function houseAallocationList() {
             ?>
             <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
             <script type="text/javascript" src="../js/general.js"></script>
             <script type="text/javascript" src="../jquery/jquery.leanModal.min.js"></script>
             <link rel="stylesheet" href="../css/customAlerts.css" type="text/css"/>
-            <div><input type="button" class="triggerHouseAllocation">allocate houses</div></div>
+            <div><input type="button" class="triggerHouseAllocation"value="allocate houses"/></div></div>
         <div class="container" id="personalDetais">
             <div class="header">Applicants</div>
             <table>
                <tr>
                     <td> First name </td>
                     <td> Last name </td>
-                    <td>Designation</td>
+                    <td> Designation</td>
                     <td>Grade</td>
                     <td>houses applied for</td>
                     <td>View Button</td > 
