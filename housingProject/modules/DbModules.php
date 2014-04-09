@@ -7,9 +7,9 @@ class DbModules {
     }
 
     function getConnection() {
-         include_once '../Config.php';
+        include_once '../Config.php';
         $test = new Config();
-       //error_reporting(0);
+        //error_reporting(0);
         $conn = mysql_connect($test->getDB_HOST(), $test->getDB_USER(), $test->getDB_PASSWORD());
         mysql_select_db($test->getDB_NAME(), $conn);
         return $conn;
@@ -35,8 +35,8 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from applicantsdetails "
-               ."natural join  house_applications "
-                ."natural join  house_types ";
+                . "natural join  house_applications "
+                . "natural join  house_types ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
@@ -217,13 +217,17 @@ class DbModules {
         return $results_set;
     }
 
-    function getApplicantForAHouse($houseTypeId) {
+    function getApplicantsForAHouse($houseTypeId) {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select * from  " . $test->getDB_NAME() .".house_applications "
-               ." theta join " . $test->getDB_NAME() .".house_allocation"
-                . " where  house_id=\"" . $houseTypeId . "\"";
+        $cmd="select * from"
+                . " applicantsdetails natural join house_applications "
+                . "left join house_allocation natural join house_types "
+                . "on house_applications.aplicationId=house_allocation.applicationId"
+                . " where house_allocation.applicationId is null "
+                . "and house_applications.house_id=\"" . $houseTypeId . "\"";
+             
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
@@ -235,34 +239,64 @@ class DbModules {
         $conn = $this->getConnection();
         $cmd1 = "select aplicationId from  " . $test->getDB_NAME() . ".house_applications "
                 . " where ApplicantId=\"" . $applicantId . "\" and  house_id=\"" . $houseTypeId . "\"";
-         $result=mysql_query($cmd1, $conn) or die(mysql_error());
-        $row1=  mysql_fetch_array($result);
-        $applicationId=$row1['aplicationId'];
-                        
+        $result = mysql_query($cmd1, $conn) or die(mysql_error());
+        $row1 = mysql_fetch_array($result);
+        $applicationId = $row1['aplicationId'];
+
         $cmd = "insert into " . $test->getDB_NAME() . ".house_allocation "
                 . "(applicationId,unit_id,allocation_date)"
-                . " values ('" . $applicationId . "','" . $applicantId . "','" . $unit_Id ."')";
-           $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+                . " values ('" . $applicationId . "','" . $applicantId . "','" . $unit_Id . "')";
+        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
 
-  function getStaffDateInterval($applicantId){
-       include_once '../Config.php';
+    /*
+     * gets the commencement duty and rounds it off to the nererest
+     */
+
+    function getStafllenthOfService($applicantId) {
+        include_once '../Config.php';
         $db = new DbModules;
         $test = new Config;
         $conn = $db->getConnection();
-        $cmd = "select CommencementOfDuty from " . $test->getDB_NAME() . ".applicantsdetails"
+        $cmd = "SELECT CommencementOfDuty,DATEDIFF(CURRENT_TIMESTAMP,CommencementOfDuty) FROM " . $test->getDB_NAME() . ".applicantsdetails "
                 . " where ApplicantId=\"" . $applicantId . "\"";
-        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-        $row=  mysql_fetch_array($results_set);
-        $then= strtotime($row ['CommencementOfDuty']);
-        $now = time(); // or your date as well
-        $datediff = $now - $then;
-        $difference= $datediff/(60*60*24*364);
-       echo$difference;
-      return $datediff;
-  }  
-    
-    
-    
+
+        $result = mysql_query($cmd, $conn) or die(mysql_error());
+
+        return $result;
+    }
+
+    function getAgesofChildren($applicantId) {
+        include_once '../Config.php';
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd = "SELECT dob,DATEDIFF(CURRENT_TIMESTAMP,dob) FROM " . $test->getDB_NAME() . ".children "
+                . " where ApplicantId=\"" . $applicantId . "\"";
+        $result = mysql_query($cmd, $conn) or die(mysql_error());
+        print_r($result);
+        return $result;
+    }
+
+    function getFamilySize($applicantId) {
+        include_once '../Config.php';
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd = "select count(*) from " . $test->getDB_NAME() . ".applicantsdetails where ApplicantId=\"" . $applicantId . "\"";
+        $result = mysql_query($cmd, $conn) or die(mysql_error());
+        $row = mysql_fetch_array($result);
+        $noOfChildren = $row['count(*)'];
+        return $noOfChildren;
+    }
+
+    function getnatureOfDuty($applicantId) {
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd = "select nature_of_duty  from " . $test->getDB_NAME() . ".applicantsdetails where ApplicantId=\"" . $applicantId . "\"";
+        $result = mysql_query($cmd, $conn) or die(mysql_error());
+        $row = mysql_fetch_array($result);
+        $natureOfDuty = $row['nature_of_duty'];
+        return $natureOfDuty;
+    }
+
 }

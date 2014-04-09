@@ -10,7 +10,7 @@ class evaluation {
     function LengthOfService($applicantId) {
         include_once './DbModules.php';
           $db = new DbModules;
-         $yearsServed= $db->getStaffDateInterval($applicantId);
+         $yearsServed= $db->getStafllenthOfService($applicantId);
         if ($yearsServed <= 0 && $yearsServed <= 3)
             return 1;
         elseif ($yearsServed <= 4 && $yearsServed <= 6)
@@ -29,7 +29,6 @@ class evaluation {
         $db = new DbModules;
         $test = new Config;
         $conn = $db->getConnection();
-
         $cmd = "select maritalStatus from " . $test->getDB_NAME() . ".applicantsdetails where ApplicantId=\"" . $applicantId . "\"";
         $maritalStatus = mysql_query($cmd, $conn) or die(mysql_error());
         if ($maritalStatus == 'single')
@@ -40,17 +39,15 @@ class evaluation {
     }
 
     function AgesofChildren($applicantId) {
-        include_once '../Config.php';
         include_once './DbModules.php';
-        $db = new DbModules;
-        $test = new Config;
-        $conn = $db->getConnection();
-
-
-        $cmd = "select dob from " . $test->getDB_NAME() . ".children where ApplicantId=\"" . $applicantId . "\"";
+        $db=new DbModules();
+        $agediff=$db->getAgesofChildren($applicantId);
         $points = 0;
         $finalpoints = 0;
-        while ($age = mysql_fetch_array($cmd)) {
+        while($row=  mysql_fetch_array($agediff)){
+           $daydiff = $row['DATEDIFF(CURRENT_TIMESTAMP,dob)'];
+           $age=round($daydiff/364);
+    
             $Between0to5 = FALSE;
             $Between6to13 = FALSE;
             $Between14to25 = FALSE;
@@ -82,9 +79,10 @@ class evaluation {
     }
 
     function familySize($applicantId) {
-        $cmd = "select count from " . $test->getDB_NAME() . ".applicantsdetails where ApplicantId=\"" . $applicantId . "\"";
-        $noOfChildren = mysql_query($cmd, $conn) or die(mysql_error());
-        if ($noOfChildren <= 1 and $noOfChildren <= 2) {
+        include_once './DbModules.php';
+       $db = new DbModules();
+        $noOfChildren=$db->getFamilySize($applicantId);
+      if ($noOfChildren <= 1 and $noOfChildren <= 2) {
             $points = 3;
         } elseif ($noOfChildren > 2) {
             $points = 8;
@@ -94,20 +92,30 @@ class evaluation {
         return $points;
     }
 
-    function natureOfDuty($a) {
-        $natureOfDuty = NULL;
-        if ($natureOfDuty === 'Essential services') {
+    function natureOfDuty($applicantId) {
+            include_once './DbModules.php';
+        $db= new DbModules();
+        $natureOfDuty = $db->getnatureOfDuty($applicantId);
+        echo $natureOfDuty;
+        if ($natureOfDuty ==2) { //2 for esential services
             return 10;
-        } elseif ($natureOfDuty === 'Head of Department') {
+        } elseif ($natureOfDuty ==3) {// 3 for head of department
             return 5;
         } else {
-            return 3;
+            return 3;//1 for any other staff
         }
     }
 
-    function TotalPoints($applicantId) {
-        $Total = $this->LengthOfService($applicantId) + $this->MaritalStatus($applicantId) + $this->AgesofChildren($applicantId) + $this->familySize($applicantId) + $this->natureOfDuty($applicantId);
-        return $Total;
+    function TotalPoints($applicantId) { 
+       
+      echo $this->LengthOfService($applicantId) ;
+             // + $this->MaritalStatus($applicantId) +
+            //  $this->AgesofChildren($applicantId) + $this->familySize($applicantId) 
+             // + $this->natureOfDuty($applicantId);
+        
+       // $Total = $this->LengthOfService($applicantId) + $this->MaritalStatus($applicantId) + $this->AgesofChildren($applicantId) + $this->familySize($applicantId) + $this->natureOfDuty($applicantId);
+      // echo "Total".$bestAplicantId;
+        // return $Total;
     }
 
     /*
@@ -160,11 +168,7 @@ class evaluation {
     function houseAvailable($houseCategory) {
         //find out if a given house category is available
     }
-
-    function allocateHouse() {
-        include_once './DbModules.php';
-        $db = new DbModules();
-        /*
+ /*
          *  get vacant houses
          * 
          * //for each vacant house{
@@ -172,17 +176,24 @@ class evaluation {
          * for each applicant compute points and compare to get the highest points return the applicant
          * add the applicant to the allocation table
          */
-        
+    function allocateHouse() {
+        include_once './DbModules.php';
+      
+        $db = new DbModules();
         $resultset = $db->getVacantHouses();
+ //select the vacant houses
            while ($row = mysql_fetch_array($resultset)) {
-            $unit_id = $row['unit_id'];
+            $unit_id = $row['unit_index'];
             $house_id = $row['house_id'];
-            $resultset2 = $db->getApplicantForAHouse($row['house_id']);
+   //get applicants for each house  
+           $resultset2 = $db->getApplicantsForAHouse($row['house_id']);
             $bestAplicantId = 0;
             $maxPoints = 0;
-            while ($row2 = mysql_fetch_array($resultset2)) {
+                while ($row2 = mysql_fetch_array($resultset2)){ 
                 $applicantId = $row2['ApplicantId'];
+               //compute each total points
                 $points = $this->TotalPoints($applicantId);
+                //get the best applicant points
                 if ($maxPoints < $points) {
                     $maxPoints = $points;
                     $bestAplicantId = $applicantId;

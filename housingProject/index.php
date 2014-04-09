@@ -9,6 +9,7 @@
         include_once './modules/mod_general.php';
         include_once './Config.php';
         include_once './modules/Forms.php';
+
         $test = new General();
         $test->defaultPage();
         ?>
