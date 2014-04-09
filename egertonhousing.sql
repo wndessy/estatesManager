@@ -60,6 +60,8 @@ CREATE TABLE `applicantsdetails` (
   `Department` text CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `disabled` varchar(10) NOT NULL,
   `HeadOfDepartment` text NOT NULL,
+  `nature_of_duty` int(11) NOT NULL DEFAULT '1',
+  `application_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `aprovalStatus` varchar(10) NOT NULL DEFAULT 'Not',
   PRIMARY KEY (`ApplicantId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
@@ -71,7 +73,7 @@ CREATE TABLE `applicantsdetails` (
 
 LOCK TABLES `applicantsdetails` WRITE;
 /*!40000 ALTER TABLE `applicantsdetails` DISABLE KEYS */;
-INSERT INTO `applicantsdetails` VALUES (1,'Telewa','Emmanuel','Male','Engaged',28437394,'emmanuelt2009@gmail.com','123',1111,'Computer Science ',6,'0000-00-00','Department','No','Winnie','Not'),(2,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',7,'0000-00-00','6','','8','Not'),(3,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',8,'0000-00-00','6','','8','Not'),(4,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',9,'0000-00-00','6','','8','Not'),(5,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(6,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'0000-00-00','6','','8','Not'),(7,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','njj',3828292,'estates',10,'0000-00-00','6','','8','Not'),(8,'james','mnyole','Male ','Single ',2147483647,'jmnyole@gmail.com','123',387288,'2872828',13,'0000-00-00','winnie','','mr keband','Not'),(9,'james','mnyole','Male ','Single ',2147483647,'jmnyolei@gmail.com','123',387288,'2872828',10,'0000-00-00','winnie','','mr keband','Not'),(10,'aggy','bollo','Female','Single ',111,'aggy@gmail.com','123',111,'ssss',13,'0000-00-00','36','','222','Not'),(11,'naphtally','ndessy','Male ','Married',23412322,'nnn@gmail.com','123',12341,'',11,'0000-00-00','','','67654563632','Not'),(12,'','','','',0,'','',0,'',11,'0000-00-00','','','','Not'),(13,'test3','test3','Male ','Married',141414,'123@egerton.ac.ke','123',141414,'carpenter',6,'0000-00-00','estates','','mungai','Not');
+INSERT INTO `applicantsdetails` VALUES (1,'Telewa','Emmanuel','Male','Engaged',28437394,'emmanuelt2009@gmail.com','123',1111,'Computer Science ',6,'2010-11-30','Department','No','Winnie',1,'0000-00-00 00:00:00','Not'),(2,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',7,'2010-11-30','6','','8',1,'0000-00-00 00:00:00','Not'),(3,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',8,'2010-11-30','6','','8',1,'0000-00-00 00:00:00','Not'),(4,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',9,'2010-11-30','6','','8',1,'0000-00-00 00:00:00','Not'),(5,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'2010-11-30','6','','8',1,'0000-00-00 00:00:00','Not'),(6,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','',3828292,'estates',4,'2010-11-30','6','','8',1,'0000-00-00 00:00:00','Not'),(7,'winnie','ndessy','Female','Married',28321329,'wndessy@gmail.com','njj',3828292,'estates',10,'2010-11-30','6','','8',1,'0000-00-00 00:00:00','Not'),(8,'james','mnyole','Male ','Single ',2147483647,'jmnyole@gmail.com','123',387288,'2872828',13,'2010-11-30','winnie','','mr keband',1,'0000-00-00 00:00:00','Not'),(9,'james','mnyole','Male ','Single ',2147483647,'jmnyolei@gmail.com','123',387288,'2872828',10,'2010-11-30','winnie','','mr keband',1,'0000-00-00 00:00:00','Not'),(10,'aggy','bollo','Female','Single ',111,'aggy@gmail.com','123',111,'ssss',13,'2010-11-30','36','','222',1,'0000-00-00 00:00:00','Not'),(11,'naphtally','ndessy','Male ','Married',23412322,'nnn@gmail.com','123',12341,'',11,'2010-11-30','','','67654563632',1,'0000-00-00 00:00:00','Not'),(12,'','','','',0,'','',0,'',11,'2010-11-30','','','',1,'0000-00-00 00:00:00','Not'),(13,'test3','test3','Male ','Married',141414,'123@egerton.ac.ke','123',141414,'carpenter',6,'2010-11-30','estates','','mungai',1,'0000-00-00 00:00:00','Not');
 /*!40000 ALTER TABLE `applicantsdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,11 +122,9 @@ CREATE TABLE `house_allocation` (
   `allocation_Id` int(11) NOT NULL AUTO_INCREMENT,
   `applicationId` int(50) NOT NULL,
   `unit_id` int(50) DEFAULT NULL,
-  `let_id` int(11) NOT NULL,
-  `allocationDate` int(50) NOT NULL,
-  `Confirmatiion` int(5) NOT NULL,
+  `allocation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`allocation_Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,6 +133,7 @@ CREATE TABLE `house_allocation` (
 
 LOCK TABLES `house_allocation` WRITE;
 /*!40000 ALTER TABLE `house_allocation` DISABLE KEYS */;
+INSERT INTO `house_allocation` VALUES (1,2,2,'2014-04-09 11:59:03'),(2,1,1,'2014-04-09 11:59:12'),(3,0,0,'0000-00-00 00:00:00'),(4,0,0,'0000-00-00 00:00:00'),(5,0,0,'0000-00-00 00:00:00'),(6,0,0,'0000-00-00 00:00:00'),(7,0,0,'0000-00-00 00:00:00'),(8,0,0,'0000-00-00 00:00:00'),(9,0,0,'0000-00-00 00:00:00'),(10,0,0,'0000-00-00 00:00:00'),(11,0,0,'0000-00-00 00:00:00'),(12,0,0,'0000-00-00 00:00:00'),(13,0,0,'0000-00-00 00:00:00'),(14,0,0,'0000-00-00 00:00:00'),(15,0,0,'0000-00-00 00:00:00'),(16,0,0,'0000-00-00 00:00:00'),(17,0,0,'0000-00-00 00:00:00'),(18,0,0,'0000-00-00 00:00:00'),(19,0,0,'0000-00-00 00:00:00'),(20,0,0,'0000-00-00 00:00:00'),(21,0,0,'0000-00-00 00:00:00'),(22,0,0,'0000-00-00 00:00:00'),(23,0,0,'0000-00-00 00:00:00'),(24,0,0,'0000-00-00 00:00:00'),(25,0,0,'0000-00-00 00:00:00'),(26,0,0,'0000-00-00 00:00:00'),(27,0,0,'0000-00-00 00:00:00'),(28,0,0,'0000-00-00 00:00:00'),(29,0,0,'0000-00-00 00:00:00'),(30,0,0,'0000-00-00 00:00:00'),(31,0,0,'0000-00-00 00:00:00'),(32,0,0,'0000-00-00 00:00:00'),(33,0,0,'0000-00-00 00:00:00'),(34,0,0,'0000-00-00 00:00:00'),(35,0,0,'0000-00-00 00:00:00'),(36,0,0,'0000-00-00 00:00:00'),(37,0,0,'0000-00-00 00:00:00'),(38,0,0,'0000-00-00 00:00:00'),(39,0,0,'0000-00-00 00:00:00'),(40,0,0,'0000-00-00 00:00:00'),(41,0,0,'0000-00-00 00:00:00'),(42,0,0,'0000-00-00 00:00:00'),(43,0,0,'0000-00-00 00:00:00'),(44,0,0,'0000-00-00 00:00:00'),(45,0,0,'0000-00-00 00:00:00'),(46,0,0,'0000-00-00 00:00:00'),(47,0,0,'0000-00-00 00:00:00'),(48,0,0,'0000-00-00 00:00:00'),(49,0,0,'0000-00-00 00:00:00'),(50,0,0,'0000-00-00 00:00:00'),(51,0,0,'0000-00-00 00:00:00'),(52,0,0,'0000-00-00 00:00:00'),(53,0,0,'0000-00-00 00:00:00'),(54,0,0,'0000-00-00 00:00:00'),(55,0,0,'0000-00-00 00:00:00'),(56,0,0,'0000-00-00 00:00:00'),(57,0,0,'0000-00-00 00:00:00'),(58,0,0,'0000-00-00 00:00:00'),(59,0,0,'0000-00-00 00:00:00'),(60,0,0,'0000-00-00 00:00:00'),(61,0,0,'0000-00-00 00:00:00'),(62,0,0,'0000-00-00 00:00:00'),(63,0,0,'0000-00-00 00:00:00'),(64,0,0,'0000-00-00 00:00:00'),(65,0,0,'0000-00-00 00:00:00'),(66,0,0,'0000-00-00 00:00:00'),(67,0,0,'0000-00-00 00:00:00'),(68,0,0,'0000-00-00 00:00:00'),(69,0,0,'0000-00-00 00:00:00'),(70,0,0,'0000-00-00 00:00:00'),(71,0,0,'0000-00-00 00:00:00'),(72,0,0,'0000-00-00 00:00:00'),(73,0,0,'0000-00-00 00:00:00'),(74,0,0,'0000-00-00 00:00:00'),(75,0,0,'0000-00-00 00:00:00'),(76,0,0,'0000-00-00 00:00:00'),(77,0,0,'0000-00-00 00:00:00'),(78,0,0,'0000-00-00 00:00:00'),(79,0,0,'0000-00-00 00:00:00'),(80,0,0,'0000-00-00 00:00:00'),(81,0,0,'0000-00-00 00:00:00'),(82,0,0,'0000-00-00 00:00:00'),(83,0,0,'0000-00-00 00:00:00'),(84,0,0,'0000-00-00 00:00:00'),(85,0,0,'0000-00-00 00:00:00'),(86,0,0,'0000-00-00 00:00:00'),(87,0,0,'0000-00-00 00:00:00'),(88,0,0,'0000-00-00 00:00:00'),(89,0,0,'0000-00-00 00:00:00'),(90,0,0,'0000-00-00 00:00:00'),(91,0,0,'0000-00-00 00:00:00'),(92,0,0,'0000-00-00 00:00:00'),(93,0,0,'0000-00-00 00:00:00'),(94,0,0,'0000-00-00 00:00:00'),(95,0,0,'0000-00-00 00:00:00'),(96,0,0,'0000-00-00 00:00:00'),(97,0,0,'0000-00-00 00:00:00'),(98,0,0,'0000-00-00 00:00:00'),(99,0,0,'0000-00-00 00:00:00'),(100,0,0,'0000-00-00 00:00:00'),(101,0,0,'0000-00-00 00:00:00'),(102,0,0,'0000-00-00 00:00:00'),(103,0,0,'0000-00-00 00:00:00'),(104,0,0,'0000-00-00 00:00:00'),(105,0,0,'0000-00-00 00:00:00'),(106,0,0,'0000-00-00 00:00:00'),(107,0,0,'0000-00-00 00:00:00'),(108,0,0,'0000-00-00 00:00:00'),(109,0,0,'0000-00-00 00:00:00'),(110,0,0,'0000-00-00 00:00:00'),(111,0,0,'0000-00-00 00:00:00'),(112,0,0,'0000-00-00 00:00:00'),(113,0,0,'0000-00-00 00:00:00'),(114,0,0,'0000-00-00 00:00:00'),(115,0,0,'0000-00-00 00:00:00'),(116,0,0,'0000-00-00 00:00:00'),(117,0,0,'0000-00-00 00:00:00'),(118,0,0,'0000-00-00 00:00:00'),(119,0,0,'0000-00-00 00:00:00'),(120,0,0,'0000-00-00 00:00:00'),(121,0,0,'0000-00-00 00:00:00'),(122,0,0,'0000-00-00 00:00:00'),(123,0,0,'0000-00-00 00:00:00'),(124,0,0,'0000-00-00 00:00:00'),(125,0,0,'0000-00-00 00:00:00'),(126,0,0,'0000-00-00 00:00:00'),(127,0,0,'0000-00-00 00:00:00'),(128,0,0,'0000-00-00 00:00:00'),(129,0,0,'0000-00-00 00:00:00'),(130,0,0,'0000-00-00 00:00:00'),(131,0,0,'0000-00-00 00:00:00'),(132,0,0,'0000-00-00 00:00:00'),(133,0,0,'0000-00-00 00:00:00'),(134,0,0,'0000-00-00 00:00:00'),(135,0,0,'0000-00-00 00:00:00'),(136,0,0,'0000-00-00 00:00:00'),(137,0,0,'0000-00-00 00:00:00'),(138,0,0,'0000-00-00 00:00:00'),(139,0,0,'0000-00-00 00:00:00'),(140,0,0,'0000-00-00 00:00:00'),(141,0,0,'0000-00-00 00:00:00'),(142,0,0,'0000-00-00 00:00:00'),(143,0,0,'0000-00-00 00:00:00'),(144,0,0,'0000-00-00 00:00:00'),(145,0,0,'0000-00-00 00:00:00'),(146,0,0,'0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `house_allocation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,9 +148,8 @@ CREATE TABLE `house_applications` (
   `aplicationId` int(50) NOT NULL AUTO_INCREMENT,
   `ApplicantId` int(50) NOT NULL,
   `house_id` int(10) DEFAULT NULL,
-  `houseType` tinytext,
   PRIMARY KEY (`aplicationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +158,7 @@ CREATE TABLE `house_applications` (
 
 LOCK TABLES `house_applications` WRITE;
 /*!40000 ALTER TABLE `house_applications` DISABLE KEYS */;
-INSERT INTO `house_applications` VALUES (1,11,0,'BF'),(2,11,0,'BH'),(3,11,0,''),(4,11,0,'BF'),(5,11,0,'BH'),(6,0,0,'BF'),(7,0,0,'BH'),(8,11,0,'AH'),(9,11,0,'AH'),(10,11,0,'BH'),(11,11,0,'BH'),(12,11,0,'BH'),(13,11,0,'BH'),(14,11,0,'BH'),(15,11,0,'BH'),(16,11,0,'BH'),(17,11,0,'AH'),(18,13,0,'AH');
+INSERT INTO `house_applications` VALUES (1,13,1),(2,12,2),(3,11,3),(4,10,4);
 /*!40000 ALTER TABLE `house_applications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +233,7 @@ CREATE TABLE `house_let_in_and_out` (
   `house_id` int(20) NOT NULL,
   `unit_id` int(50) DEFAULT NULL,
   `in_or_out` tinytext NOT NULL,
-  `StartDate` date NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `EndDate` date NOT NULL,
   `allocationId` int(11) NOT NULL,
   PRIMARY KEY (`let_id`)
@@ -314,6 +314,7 @@ CREATE TABLE `house_units` (
   `unit_id` int(11) NOT NULL AUTO_INCREMENT,
   `house_id` int(11) NOT NULL,
   `unit_index` int(11) NOT NULL,
+  `ocupy_status` varchar(20) NOT NULL DEFAULT 'vacant',
   PRIMARY KEY (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -324,7 +325,7 @@ CREATE TABLE `house_units` (
 
 LOCK TABLES `house_units` WRITE;
 /*!40000 ALTER TABLE `house_units` DISABLE KEYS */;
-INSERT INTO `house_units` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,6),(6,1,8),(7,2,8),(8,3,8),(9,2,1),(10,2,5),(11,2,7),(12,2,10);
+INSERT INTO `house_units` VALUES (1,1,1,'vacant'),(2,1,2,'vacant'),(3,1,3,'vacant'),(4,1,4,'vacant'),(5,1,6,'vacant'),(6,1,8,'vacant'),(7,2,8,'vacant'),(8,3,8,'vacant'),(9,2,1,'vacant'),(10,2,5,'vacant'),(11,2,7,'vacant'),(12,2,10,'vacant');
 /*!40000 ALTER TABLE `house_units` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -629,4 +630,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 20:01:03
+-- Dump completed on 2014-04-09 19:46:30
