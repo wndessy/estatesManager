@@ -198,7 +198,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'alocateHouses') {
      $eval=new evaluation(); 
      $output = new dataDispaly(); 
      $eval->allocateHouse();
-    $output->houseAallocationList();
+  //  $output->houseAallocationList();
 }
 
 else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {

@@ -45,9 +45,8 @@ class evaluation {
         $points = 0;
         $finalpoints = 0;
         while($row=  mysql_fetch_array($agediff)){
-           $daydiff = $row['DATEDIFF(CURRENT_TIMESTAMP,dob)'];
+           $daydiff = $row['DATEDIFF(CURRENT_DATE,dob)'];
            $age=round($daydiff/364);
-    
             $Between0to5 = FALSE;
             $Between6to13 = FALSE;
             $Between14to25 = FALSE;
@@ -75,6 +74,7 @@ class evaluation {
                 $finalpoints = $points;
             }
         }
+       echo $finalpoints;
         return $finalpoints;
     }
 
@@ -90,13 +90,12 @@ class evaluation {
             $points = 0;
         }
         return $points;
-    }
+            }
 
     function natureOfDuty($applicantId) {
             include_once './DbModules.php';
         $db= new DbModules();
         $natureOfDuty = $db->getnatureOfDuty($applicantId);
-        echo $natureOfDuty;
         if ($natureOfDuty ==2) { //2 for esential services
             return 10;
         } elseif ($natureOfDuty ==3) {// 3 for head of department
@@ -107,59 +106,17 @@ class evaluation {
     }
 
     function TotalPoints($applicantId) { 
-       
-      echo $this->LengthOfService($applicantId) ;
-             // + $this->MaritalStatus($applicantId) +
-            //  $this->AgesofChildren($applicantId) + $this->familySize($applicantId) 
-             // + $this->natureOfDuty($applicantId);
-        
-       // $Total = $this->LengthOfService($applicantId) + $this->MaritalStatus($applicantId) + $this->AgesofChildren($applicantId) + $this->familySize($applicantId) + $this->natureOfDuty($applicantId);
+           $LengthOfService= $this->LengthOfService($applicantId) ;
+            $MaritalStatus= $this->MaritalStatus($applicantId) ;
+           $AgesofChildren= $this->AgesofChildren($applicantId);
+            $familySize= $this->familySize($applicantId) ;
+           $natureOfDuty= $this->natureOfDuty($applicantId);
+       $Total =$LengthOfService+$MaritalStatus + $AgesofChildren + $familySize +$natureOfDuty;
       // echo "Total".$bestAplicantId;
         // return $Total;
     }
 
-    /*
-     * for allocating a room
-     */
-
-    function alloacateRoom($FreeRoom) {
-//query for individuals with the highest points 
-//check the free houses
-//select the highest house and allocate.if not any qualified move to the next individual       
-
-        include_once '../Config.php';
-        include_once './DbModules.php';
-        $db = new DbModules;
-        $test = new Config;
-        $conn = $db->getConnection();
-
-        if ($FreeRoom == CH) {
-            allocateHouse(CH, $applicantId);
-            //query for persons of category 1-6    
-        } elseif ($FreeRoom == CF) {
-            allocateHouse(CF, $applicantId);
-            //query for category 7-10
-        } elseif ($FreeRoom == BF) {
-            if (appliedForAHOuse(BH) and appliedForAHOuse(AH) and houseAvailable(AH)) {
-                allocateHouse(AH, $applicantId);
-            } elseif (appliedForAHOuse(BH) and houseAvailable(BH)) {
-                allocateHouse(BH, $applicantId);
-            } elseif (appliedForAHOuse(AH) and houseAvailable(AH)) {
-                allocateHouse(AH, $applicantId);
-            } else {
-                allocateHouse(BF, $applicantId);
-            }
-        } elseif ($FreeRoom == BH) {
-            if (appliedForAHOuse(AH) and houseAvailable(AH)) {
-                allocateHouse(AH, $applicantId);
-            } else {
-                allocateHouse(BH, $applicantId);
-            }
-        } elseif ($FreeRoom == AH) {
-            allocateHouse(AH, $applicantId);
-        }
-    }
-
+   
     function appliedForAHOuse($houeCategory) {
         $cmd = "select ApplicantId,HouseAppliedFor from " . $test->getDB_NAME() . ".houseapplications where HouseAppliedFor=\"" . $FreeRoom . "\"";
         //find the house then return true
@@ -192,6 +149,7 @@ class evaluation {
                 while ($row2 = mysql_fetch_array($resultset2)){ 
                 $applicantId = $row2['ApplicantId'];
                //compute each total points
+                echo"nnnnnnnnnnn";
                 $points = $this->TotalPoints($applicantId);
                 //get the best applicant points
                 if ($maxPoints < $points) {
@@ -199,8 +157,8 @@ class evaluation {
                     $bestAplicantId = $applicantId;
                 }
             }
-            $db->allocateAHouse($bestAplicantId, $unit_id, $house_id);
-            echo"brrr";
+          //  $db->allocateAHouse($bestAplicantId, $unit_id, $house_id);
+            
         }
     }
 

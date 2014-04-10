@@ -271,10 +271,9 @@ class DbModules {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "SELECT dob,DATEDIFF(CURRENT_TIMESTAMP,dob) FROM " . $test->getDB_NAME() . ".children "
+        $cmd = "SELECT fname, dob,DATEDIFF(CURRENT_DATE,dob) FROM " . $test->getDB_NAME() . ".children "
                 . " where ApplicantId=\"" . $applicantId . "\"";
         $result = mysql_query($cmd, $conn) or die(mysql_error());
-        print_r($result);
         return $result;
     }
 
@@ -282,7 +281,8 @@ class DbModules {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select count(*) from " . $test->getDB_NAME() . ".applicantsdetails where ApplicantId=\"" . $applicantId . "\"";
+        $cmd = "select count(*) from " . $test->getDB_NAME() . ".children"
+                . " where ApplicantId=\"" . $applicantId . "\"";
         $result = mysql_query($cmd, $conn) or die(mysql_error());
         $row = mysql_fetch_array($result);
         $noOfChildren = $row['count(*)'];
