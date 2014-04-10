@@ -244,8 +244,8 @@ class DbModules {
         $applicationId = $row1['aplicationId'];
 
         $cmd = "insert into " . $test->getDB_NAME() . ".house_allocation "
-                . "(applicationId,unit_id,allocation_date)"
-                . " values ('" . $applicationId . "','" . $applicantId . "','" . $unit_Id . "')";
+                . "(applicationId,unit_id)"
+                . " values ('" . $applicationId . "','" . $applicantId . "')";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;
     }
