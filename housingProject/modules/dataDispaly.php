@@ -259,39 +259,80 @@ class dataDispaly {
      * for displaying the housing officers pages
      */
 
-    function pageForHouseCondition() {
+   function pageForHouseCondition() {
         include_once '../modules/DbModules.php';
         $db = new DbModules();
         ?>
-        <script src="../js/general.js" type="text/javascript"></script>
-        <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
-        <div class="container">
-            <label >House Type</label>
-            <select id="houseTypeselect">
-                <option value='-1' selected='true '> --Choose--</option>
-                <?php
-                $result = $db->getHouseTypes();
-                while ($row = mysql_fetch_array($result)) {
-                    $houseType = $row ['name'];
-                    $houseId = $row['house_id'];
-                    ?>
-                    <option  value='<?php echo $houseId; ?>'> <?php echo $houseType; ?> </option>
-                <?php }
-                ?>
-            </select>
-            <div id="houseNumberDiv">
+        <html>
+            <head>
+                <meta charset="utf-8">
+                <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+                <script src="../js/general.js" type="text/javascript"></script>
+                <link href="../css/popup.css" rel="stylesheet" type="text/css" media="all" />
+            </head>
+            <body>
+                <div class="container">
+                    <label >House Type</label>
+                    <select id="houseTypeselect">
+                        <option value='-1' selected="true"> --Choose--</option>
+                        <?php
+                        $result = $db->getHouseTypes();
+                        while ($row = mysql_fetch_array($result)) {
+                            $houseType = $row ['name'];
+                            $houseId = $row['house_id'];
+                            ?>
+                            <option  value='<?php echo $houseId; ?>'> <?php echo $houseType; ?> </option>
+                        <?php }
+                        ?>
+                    </select>
+                    <div id="houseNumberDiv">
 
-            </div>
-            <div id="DisplayettingForm">
+                    </div>
 
-            </div>
-        </div>
+                    <div id="toPopup">
+                        <div class="close"></div>
+                        <span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
+                        <div id="popup_content"> <!--your content start-->
+                            <div id="DisplayettingForm">
+                                put here the content of the pop up
+                            </div>
+                        </div> <!--your content end-->
+                    </div> <!--toPopup end-->
+                    <div class="loader"></div>
+                    <div id="backgroundPopup"></div>
+                </div>
 
-        <script type="text/javascript">
+                <script type="text/javascript">
                 $(document).ready(function() {
                     $("div select").live('change', General.selectionChanged);
+                    $("#houseTypeselect").val(' --Choose--');
+                    /* event for close the popup */
+                    $("div.close").hover(
+                            function() {
+                                $('span.ecs_tooltip').show();
+                            },
+                            function() {
+                                $('span.ecs_tooltip').hide();
+                            }
+                    );
+
+                    $("div.close").click(function() {
+                        General.disablePopup();  // function close pop up
+                    });
+
+                    $(this).keyup(function(event) {
+                        if (event.which == 27) { // 27 is 'Ecs' in the keyboard
+                            General.disablePopup();  // function close pop up
+                        }
+                    });
+
+                    $("div#backgroundPopup").click(function() {
+                        General.disablePopup();  // function close pop up
+                    });
                 });
-        </script>
+                </script>
+            </body>
+        </html>
         <?php
     }
 
@@ -326,13 +367,6 @@ class dataDispaly {
         $db = new DbModules();
         $result = $db->getAHouseTypeDetail($houseType);
         $row = mysql_fetch_array($result);
-        /* print_r($row); 
-          echo$row['name'];
-          echo $row['hasCompound'];
-          echo$row['noOfUnits'];
-          echo$row['noOfBedroms'];
-          echo$row['hasSQ'];
-          echo$row['qualifyingGrade']; */
         ?>
         <script src="../js/general.js" type="text/javascript"></script>
         <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
@@ -340,24 +374,25 @@ class dataDispaly {
             <div class="header"> house type specific details  </div>
             <?php
             $hasSQ = trim($row['hasSQ']);
-            echo $hasSQ;
-            echo $row['hasCompound'];
+            //echo $hasSQ;
+            //echo $row['hasCompound'];
             $hasCompound = trim($row['hasCompound']);
             $hs = new houseSpecific($houseType, $houseId);
 
             if ($hasCompound === 'true' and $hasSQ === 'true') {
-                $hs->houseConditionNoCompoundNoSq();
+                $hs->houseConditionWithCompoundAndSq();
             } else if ($hasCompound == 'true' and $hasSQ == 'false') {
-                $hs->houseConditionNoCompoundNoSq();
+                $hs->houseConditionWithCompoundAndNoSq();
             } else if ($hasCompound == 'false') {
                 $hs->houseConditionNoCompoundNoSq();
             }
             ?>
+            <input type="button" class="submitletDetails" id="<?php ?>" value="Submit details">
         </div>
         <script type="text/javascript">
-            $(document).ready(function() {
-                $("div select").live('change', General.selectionChanged);
-            });
+             $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });
         </script>
         <?php
     }

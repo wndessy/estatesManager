@@ -27,17 +27,19 @@ class houseSpecific extends housesCommon{
            $this->wholeHouseDetails();
         for ($i = 1; $i <= $this->getNoOfBedrooms(); $i++) {
                         ?>
-            <label>Bedroom no: <?php echo $i; ?></label><br/>
+<h1> <label>Bedroom no: <?php echo $i; ?></label></h1><br/>
             <?php
-            $this->houseDetails(Bedroom.$i);
+            $this->houseDetails("Bedroom".$i);
         }
         $this->commonHouseDetails(); //the common stuff
         ?>
         <label>Servant Quarters(SQ)</label>
         <?php
-        $this->houseDetails(SQ);
+        $this->houseDetails("SQ");
       ?>
-        <label>Compound</label>
+        <label>Plumbing</label>
+            <textarea cols="20" rows="3" id="<?php echo "SQ".":"."Plumbing" ?>"></textarea>
+            <h1><label>Compound</label></h1>
         <?php
         $this->compound();
     }
@@ -48,11 +50,12 @@ class houseSpecific extends housesCommon{
             ?>
             <label>Bedroom no: <?php echo $i; ?></label><br/>
             <?php
-            $this->houseDetails(Bedroom.$i);
+            $this->houseDetails("Bedroom".$i);
         }
         $this->commonHouseDetails(); //the common stuff
         ?> <label>Compound</label>
         <?php
+    $this->compound();
              }
 
     function houseConditionNoCompoundNoSq() {
@@ -61,7 +64,7 @@ class houseSpecific extends housesCommon{
             ?>
             <label>Bedroom no: <?php echo $i; ?></label><br/>
             <?php
-            $this->houseDetails(Bedroom.$i);
+            $this->houseDetails("Bedroom".$i);
         }
         $this->commonHouseDetails(); //the common stuff
     }

@@ -118,31 +118,19 @@ class Forms {
                             </div>
                             <div id="page3" class="hide">
                                 <div class="container" >
+                                    <?php $child_count = 0; ?>
                                     <div class="header">Children  Details</div>
-                                    <p>this is a child detail</p>
-                                    <div class="input">
-                                        <label>First Name </label> <input type="text" name="Fname"/> 
-                                    </div>
-                                    <div class="input">
-                                        <label>Last Name </label> <input type="text" name="Mname"/> 
-                                    </div>
-                                    <div class="input">
-                                        <label>Date of Birth</label> <input type="date" name="Dob"/> 
-                                    </div>
-                                    <div class="input">
-                                        <label>Disabled</label> 
-                                        <select id="Disabled">
-                                            <option value="">--Choose--</option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No"> No </option>
-                                        </select>
+                                    <div id="children_container">
+                                        <?php 
+                                                include_once './Forms.php';
+                                                $form = new Forms();
+                                                $form->childDetailAddition($child_count);
+                                        ?>
                                     </div>
                                     <div class="linkbutton">
-                                        <input  type="button" id="AddAChild" value="Add Child"/> 
-                                        <input type="button" id="childToNext" value="Next"/>
+                                        <input type="button" id="AddAChild" class="AddAChild" value="Add Child"/> 
                                     </div>
                                 </div>
-
                                 <input type="button" onclick="goNext('page2_nav')" value="Previous page" />
                                 <input type="button" onclick="goNext('page4_nav')" value="Next page" />
                             </div>
@@ -360,41 +348,30 @@ class Forms {
         <?php
     }
 
-    function childDetailAddition($childNumber) {
+    function childDetailAddition($child_count) {
         ?>
-        <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
-        <div class="input">
-            <label>First Name </label> <input type="text" Id="<?php
-        echo"Fname";
-        echo $childNumber;
-        ?>"/> 
-        </div>
-        <div class="input">
-            <label>Last Name </label> <input type="text" Id="<?php
-        echo"Mname";
-        echo $childNumber;
-        ?>"/> 
-        </div>
-        <div class="input">
-            <label>Date of Birth</label> <input type="date" Id="<?php
-        echo"Dob";
-        echo $childNumber;
-        ?>"/> 
-        </div>
-        <div class="input">
-            <label>Disabled</label> 
-            <select id="<?php
-        echo"Disabled";
-        echo $childNumber;
-        ?>" >
-                <option value="">--Choose--</option>
-                <option value="Yes">Yes</option>
-                <option value="No"> No </option>
-            </select>
+        <div id="<?php echo "child_number_" . $child_count ?>">
+            <p>Child number <?php echo $child_count ?></p>
+            <div class="input">
+                <label>First Name </label> <input id="<?php echo "f_name_" . $child_count; ?>" type="text" /> 
+            </div>
+            <div class="input">
+                <label>Last Name </label> <input id="<?php echo "m_name_" . $child_count; ?>" type="text"/> 
+            </div>
+            <div class="input">
+                <label>Date of Birth</label> <input id="<?php echo "dob_" . $child_count; ?>" type="date" /> 
+            </div>
+            <div class="input">
+                <label>Disabled</label> 
+                <select id="<?php echo "child_number_" . $child_count."_disabled" ?>">
+                    <option value="">--Choose--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No"> No </option>
+                </select>
+            </div>
         </div>
         <?php
     }
-
     /**
      * This form is for adding staff
      */

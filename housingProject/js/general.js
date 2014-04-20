@@ -1,4 +1,5 @@
 var index = 0;
+var popupStatus = 0; // set value
 var General = {
     buttonClicked: function() {
 
@@ -93,21 +94,12 @@ var General = {
         }
 
         if (this.className === "submitDetails") {
-            /* if ($("Email").val==""){
-             $("Email").focus();
-             }
-             if ($("password").val==""){
-             $("password").focus();
-             }
-             if ($("password2").val==""){
-             $("password2").focus();
-             }*
-             if($("password2").val()!== $("password").val()){
-             window.alert("Ensure the two passwords are matching");
-             $("password2").focus();
-             $("password").focus();
-             }*/
 
+
+            var children = {};    // Create empty javascript object
+            $("#children_container :input").each(function() {           // Iterate over inputs
+                children[$(this).attr('id')] = $(this).val();  // Add each to features object
+            });
 
 
             var applicantDetail = {
@@ -129,7 +121,7 @@ var General = {
             };
             $.ajax({
                 type: "POST",
-                url: "../modules/mod_general.php?page=addUser&applicantDetail=" + JSON.stringify(applicantDetail),
+                url: "../modules/mod_general.php?page=addUser&applicantDetail=" + JSON.stringify(applicantDetail) + "$children=" + JSON.stringify(children),
                 async: false,
                 success: function(result) {
                     alert(result);
@@ -145,21 +137,7 @@ var General = {
             $("input").prop(':disabled', true);
             /* if ($("Email").val==""){
              $("Email").focus();
-             }
-             if ($("password").val==""){
-             $("password").focus();
-             }
-             if ($("password2").val==""){
-             $("password2").focus();
-             }*
-             if($("password2").val()!== $("password").val()){
-             window.alert("Ensure the two passwords are matching");
-             $("password2").focus();
-             $("password").focus();
              }*/
-
-
-
             var updateApplicantDetails = {
                 "Mstatus": $("#Mstatus").val(),
                 "disabled": $("#disabled").val(),
@@ -192,17 +170,14 @@ var General = {
                 url: "../modules/mod_general.php?page=addAChild&childNumber=" + index,
                 async: false,
                 success: function(result) {
-                    $('#newChild').html(result);
-                    //alert(result);
+                    $("#children_container").append(result);
                 },
                 error: function(result) {
                     alert(result);
                 }});
 
         }
-        if (this.className === "cancelAddAChild") {
-            $('#newChild').html("");
-        }
+
         if (this.className === "selectedHouse") {
             var x = $("input:checked");
             var values = "";
@@ -257,9 +232,9 @@ var General = {
                     alert(result);
                 }});
         }
-        
-          if (this.className === "triggerHouseAllocation") {
-                 $.ajax({
+
+        if (this.className === "triggerHouseAllocation") {
+            $.ajax({
                 type: "POST",
                 url: "../modules/mod_general.php?page=alocateHouses",
                 async: false,
@@ -269,14 +244,33 @@ var General = {
                 error: function(result) {
                     alert(result);
                 }});
-              
-          }
-        
+        }
+
+
+        if (this.className === "submitletDetails") {
+            var features = {};    // Create empty javascript object
+            $("textarea").each(function() {           // Iterate over inputs
+                features[$(this).attr('id')] = $(this).val();  // Add each to features object
+            });
+            $.ajax({
+                type: "POST",
+                url: "../modules/mod_general.php?page=submitLetDetails&features=" + JSON.stringify(features),
+                async: false,
+                success: function(result) {
+                    alert(result);
+                    console.log(result);
+                    //  window.location = "../modules/mod_general.php?page=tenantHomepage"
+                },
+                error: function(result) {
+                    alert(result);
+                }});
+
+        }
     },
-  /*
-   * select boxes function
-   * 
-   */
+    /*
+     * select boxes function
+     * 
+     */
     selectionChanged: function() {
         if (this.id === "houseTypeselect") {
             $.ajax({
@@ -291,24 +285,50 @@ var General = {
                 }});
 
         }
-          if (this.id === "houseNumberSelect") {
+        if (this.id === "houseNumberSelect") {
             $.ajax({
                 type: "POST",
-                url: "../modules/mod_general.php?page=displayLettingForm&houseNo=" + this.value +"&houseType="+$('#houseTypeselect').val(),
+                url: "../modules/mod_general.php?page=displayLettingForm&houseNo=" + this.value + "&houseType=" + $('#houseTypeselect').val(),
                 async: false,
                 success: function(result) {
-                    console.log(result);
+                    //console.log(result);
                     //alert(result);
-                $('#DisplayettingForm').html(result);
+                    $('#DisplayettingForm').html(result);
+
+                    General.loading(); // loading
+                    setTimeout(function() { // then show popup, deley in .5 second
+                        General.loadPopup(); // function show popup 
+                    }, 500); // .5 second
+
                 },
                 error: function(result) {
                     alert(result);
                 }});
 
         }
-        
-    }
-    
-    
 
+    },
+    /************** start: functions. **************/
+    loading: function() {
+        $("div.loader").show();
+    },
+    closeloading: function() {
+        $("div.loader").fadeOut('normal');
+    },
+    loadPopup: function() {
+        if (popupStatus == 0) { // if value is 0, show popup
+            General.closeloading(); // fadeout loading
+            $("#toPopup").fadeIn(0500); // fadein popup div
+            $("#backgroundPopup").css("opacity", "0.7"); // css opacity, supports IE7, IE8
+            $("#backgroundPopup").fadeIn(0001);
+            popupStatus = 1; // and set value to 1
+        }
+    },
+    disablePopup: function() {
+        if (popupStatus == 1) { // if value is 1, close popup
+            $("#toPopup").fadeOut("normal");
+            $("#backgroundPopup").fadeOut("normal");
+            popupStatus = 0;  // and set value to 0
+        }
+    }
 };

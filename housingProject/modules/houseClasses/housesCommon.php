@@ -81,7 +81,7 @@ class housesCommon {
     public function commonHouseDetails() {
         ?>
 
-         <label>Sittingroom</label>
+         <label>Sitting room</label>
             <label>Sockets</label>
             <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Sockets" ?>"></textarea>
             <label>Ceiling</label>
@@ -90,6 +90,13 @@ class housesCommon {
             <textarea cols="20" rows="3"  id="<?php echo "Sittingroom".":"."Switches" ?>"></textarea>
             <label>Lights</label>
             <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Lights" ?>"></textarea><br/>
+             <label>Floor</label>
+            <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Floor" ?>"></textarea>
+            <label>Door/lock</label>
+            <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Door" ?>"></textarea>
+            <label>Walls</label>
+            <textarea cols="20" rows="3" id="<?php echo "Sittingroom".":"."Walls" ?>"></textarea>
+           
         <label>Bathroom</label>
             <label>Electrical</label>
             <textarea cols="20" rows="3"  id="<?php echo "Bathroom".":"."Electrical" ?>"></textarea>
@@ -117,8 +124,8 @@ class housesCommon {
     
      public function wholeHouseDetails(){
         ?>
-            <?php echo "wholeHouseDetails".":"."Sockets" ?>
-            <h> the whole house in general</h>
+            <?php //echo "wholeHouseDetails".":"."Sockets" ?>
+            <h> the whole house in general</h><br/>
             <label>Sockets</label>
             <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Sockets" ?>" ></textarea>
             <label>Ceilings/Roof</label>
@@ -133,7 +140,10 @@ class housesCommon {
             <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Door" ?>"></textarea>
             <label>Walls</label>
             <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."Walls" ?>"></textarea>
-           
+           <label>No. of keys</label>
+            <textarea cols="20" rows="3" id="<?php echo "wholeHouseDetails".":"."noOfKeys" ?>"></textarea>
+          
+            
                     <?php
                     echo"whole house";
     }
@@ -147,19 +157,25 @@ class housesCommon {
             <textarea cols="20" rows="3" id="<?php echo $room.":"."Switches" ?>"></textarea>
             <label>Lights</label>
             <textarea cols="20" rows="3" id="<?php echo $room.":"."Lights" ?>"></textarea>
+            <label>Floor</label>
+            <textarea cols="20" rows="3" id="<?php echo $room.":"."Floor" ?>"></textarea>
+            <label>Door/lock</label>
+            <textarea cols="20" rows="3" id="<?php echo $room.":"."Door" ?>"></textarea>
+            <label>Walls</label>
+            <textarea cols="20" rows="3" id="<?php echo $room.":"."Walls" ?>"></textarea>
            
                     <?php
     }
       public function compound(){
         ?>
             <label>fence</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3"  id="<?php echo "compound".":"."fence" ?>" ></textarea>
             <label>garden</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3"  id="<?php echo "compound".":"."garden" ?>"></textarea>
             <label>roof</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "compound".":"."roof" ?>"></textarea>
             <label>etc</label>
-            <textarea cols="20" rows="3"></textarea>
+            <textarea cols="20" rows="3" id="<?php echo "compound".":"."etc" ?>"></textarea>
            
                     <?php
     }

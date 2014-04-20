@@ -84,9 +84,10 @@ if (isset($_GET['page']) && $_GET['page'] == 'userLogin') {
     include_once './Users.php';
     $form = new Users();
     if (isset($_GET['applicantDetail'])) {
-        $json = $_GET['applicantDetail'];
-        $form->addUsser($_GET['applicantDetail']);
-    } else {
+        $pesonal = $_GET['applicantDetail'];
+        $children=$_GET['children'];
+        $form->addUsser($pesonal,$children);
+            } else {
         echo "Erorr addding new user";
     }
 }
@@ -249,6 +250,14 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
     $houseNo=trim($_GET["houseNo"]);
   $output->displayLettingForm($houseType,$houseNo);       
 }
+else if (isset($_GET['page']) && $_GET['page'] == 'submitLetDetails') {
+    include_once './DbModules.php';
+    $db = new DbModules();
+    $details=$_GET["features"];
+  $db->addLetintDetails($details);       
+}
+
+
 /*
  * to display o the default startpage
  */
