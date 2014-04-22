@@ -1,7 +1,7 @@
 <?php
 include_once 'housesCommon.php';
 class houseSpecific extends housesCommon{   
-   function houseSpecific($houseTypeId,$houseIndex){
+   function houseSpecific($houseTypeId){
       $db = new DbModules();
         $result = $db->getAHouseTypeDetail($houseTypeId);
        $row = mysql_fetch_assoc($result);
@@ -9,7 +9,7 @@ class houseSpecific extends housesCommon{
          //echo$row['name'];
         $this->setRentPerUnitPerMonth(trim($row['rent']));
         $this->setCategory($row['name']);
-        $this->setHouseNo($houseIndex);
+       // $this->setHouseNo($houseIndex);
         $this->setNoOfBedrooms(trim($row['noOfBedroms']));
         $this->setHasCompound($row['noOfBedroms']);
         $this->setQualifyingGrade($row['qualifyingGrade']); //to be fetched as an array

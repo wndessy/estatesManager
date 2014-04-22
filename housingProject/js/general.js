@@ -246,6 +246,31 @@ var General = {
                 }});
         }
 
+if (this.className === "loadLetForm") {
+             var thisId = this.id;
+             var array =thisId.split(" ");
+             var allocationId=array[0];
+             var unitId=array[1];
+             var houseId=array[2];
+                        
+           
+          $.ajax({
+                type: "POST",
+                url: "../modules/mod_general.php?page=displayLettingForm&houseNo=" + this.value + "&houseType=" + $('#houseTypeselect').val(),
+                async: false,
+                success: function(result) {
+                       $('#DisplayettingForm').html(result);
+
+                    General.loading(); // loading
+                    setTimeout(function() { // then show popup, deley in .5 second
+                        General.loadPopup(); // function show popup 
+                    }, 500); // .5 second
+
+                },
+                error: function(result) {
+                    alert(result);
+                }});
+        }
 
         if (this.className === "submitletDetails") {
             var features = {};    // Create empty javascript object
@@ -291,9 +316,7 @@ var General = {
                 url: "../modules/mod_general.php?page=displayLettingForm&houseNo=" + this.value + "&houseType=" + $('#houseTypeselect').val(),
                 async: false,
                 success: function(result) {
-                    //console.log(result);
-                    //alert(result);
-                    $('#DisplayettingForm').html(result);
+                       $('#DisplayettingForm').html(result);
 
                     General.loading(); // loading
                     setTimeout(function() { // then show popup, deley in .5 second

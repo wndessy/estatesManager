@@ -293,6 +293,7 @@ class dataDispaly {
                     </div>
 
                     <div id="housesForLetting" class="container">
+                        <td> <input type="hidden" id="letInOrOut" value="<?php  echo $letinOrOut;?> "/>
                         <table>
                             <tr>
                                 <td>Applicant Name</td>
@@ -302,12 +303,14 @@ class dataDispaly {
                         
                         <?php
                         $myresultSet = $db->getLetinOrOutIndividuals("vacant");
-                        
                        while ($row = mysql_fetch_array($myresultSet)) {
+                          
                             ?>
                             <tr> <td> <?php echo $row ['FirstName'] . "  " . $row ['LastName'] ?> </td>
                                  <td> <?php echo $row['name']." ". $row['unit_index']; ?></td>
-                                 <td> <input type="button" id="<?phpecho $row ['allocation_Id'] . "  " . $row ['unit_Id']  ?>"</td>
+                                 
+                                     <input type="button" id="<?php  echo $row ['allocation_Id'] . " " . $row ['unit_id']." ".$row['house_id']; ?>" value="Let in tenant" class="loadLetForm">
+                                 </td>
                             </tr>
                         </table>
         <?php } ?>
@@ -327,10 +330,16 @@ class dataDispaly {
                 </div>
 
                 <script type = "text/javascript">
+                    
+                    $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });
+                    
         $(document).ready(function() {
             $("div select").live('change', General.selectionChanged);
             $("#houseTypeselect").val(' --Choose--');
-            /* event for close the popup */
+           
+        /* event for close the popup */
             $("div.close").hover(
                     function() {
                         $('span.ecs_tooltip').show();
@@ -385,7 +394,7 @@ class dataDispaly {
         <?php
     }
 
-    function displayLettingForm($houseType, $houseId) {
+    function displayLettingForm($houseType) {
         include_once '../modules/DbModules.php';
         include_once './houseClasses/houseSpecific.php';
         $db = new DbModules();
@@ -401,7 +410,7 @@ class dataDispaly {
 //echo $hasSQ;
 //echo $row['hasCompound'];
             $hasCompound = trim($row['hasCompound']);
-            $hs = new houseSpecific($houseType, $houseId);
+            $hs = new houseSpecific($houseType);
 
             if ($hasCompound === 'true' and $hasSQ === 'true') {
                 $hs->houseConditionWithCompoundAndSq();

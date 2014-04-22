@@ -306,7 +306,7 @@ class DbModules {
          include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select FirstName,LastName,allocation_Id,unit_id,name ,unit_index from " . $test->getDB_NAME() .". applicantsdetails natural join house_applications natural join house_allocation natural join house_units natural join house_types "
+        $cmd = "select FirstName,LastName,allocation_Id,unit_id,house_id,name,unit_index from " . $test->getDB_NAME() .". applicantsdetails natural join house_applications natural join house_allocation natural join house_units natural join house_types "
              . "where house_units.ocupy_status =\"" .$occupyStatus. "\"";
         $result = mysql_query($cmd, $conn) or die(mysql_error());
         return $result;

@@ -244,8 +244,8 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
     include_once './dataDispaly.php';
     $output = new dataDispaly();
     $houseType = trim($_GET["houseType"]);
-    $houseNo=trim($_GET["houseNo"]);
-  $output->displayLettingForm($houseType,$houseNo);       
+   // $houseNo=trim($_GET["houseNo"]);
+  $output->displayLettingForm($houseType);       
 }
 else if (isset($_GET['page']) && $_GET['page'] == 'submitLetDetails') {
     include_once './DbModules.php';
