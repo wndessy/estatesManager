@@ -299,6 +299,18 @@ class DbModules {
         $natureOfDuty = $row['nature_of_duty'];
         return $natureOfDuty;
     }
+    
+    
+    
+    function getLetinOrOutIndividuals($occupyStatus) {
+         include_once '../Config.php';
+        $test = new Config;
+        $conn = $this->getConnection();
+        $cmd = "select FirstName,LastName,allocation_Id,unit_id,name ,unit_index from " . $test->getDB_NAME() .". applicantsdetails natural join house_applications natural join house_allocation natural join house_units natural join house_types "
+             . "where house_units.ocupy_status =\"" .$occupyStatus. "\"";
+        $result = mysql_query($cmd, $conn) or die(mysql_error());
+        return $result;
+    }
 
     function addLetintDetails($details) {
 
@@ -306,22 +318,23 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection(); 
         $p = json_decode($details, true);
-        $today= date("d/m/Y");
-        $interval="5 years";
-        $then=  date_add($today, $interval);
-        echo $then;
-         /*$house_let_in_and_out = "insert into " . $test->getDB_NAME() . ".house_let_in_and_out "
-                . "(allocation_Id,in_or_out,end_date) values"
-                . "('" . 1 . "','" . 1. "','" . $p['wholeHouseDetails:Ceilings'] . "',"
-                . "'" . $p['wholeHouseDetails:Switches'] .*/
-        
+       
+        $allocationId=11;
+        $letinOrOut="in";
+        $unitId=1;
+        $officerIncharge="satiti sitati";
+         $endDate = date('Y-m-d', mktime(0, 0, 0, date('d'), date('m') , date('Y')+5));
+         
+        $house_let_in_and_out = "insert into " . $test->getDB_NAME() . ".house_let_in_and_out "
+                . "(allocation_Id,in_or_out,end_date,officer_incharge)"
+                . " values('" . $allocationId. "','" . $letinOrOut. "','" . $endDate . "','" . $officerIncharge . "')";
+         mysql_query($house_let_in_and_out, $conn) or die(mysql_error());
+         
          $cmd = "select max(let_id)as myLetId from " . $test->getDB_NAME() . ".house_let_in_and_out";
         $result = mysql_query($cmd, $conn) or die(mysql_error());
         $row = mysql_fetch_array($result);
-        print_r($row);
-       // $letid = $row['myLetId'];
-       // echo $letid;
-       
+       $letid = $row['myLetId'];
+           
 
         $house_general_condition = "insert into " . $test->getDB_NAME() . ".house_general_condition "
                 . "(let_id,sockets,ceiling,switches,lights,floor,doorLock,wals,no_of_keys) values"
@@ -416,13 +429,28 @@ class DbModules {
           
         }
 
-        if (array_key_exists('compound:fence', $p)) {
+       if (array_key_exists('compound:fence', $p)) {
             
-            $rooms_servant_quaters= "insert into " . $test->getDB_NAME() . ".rooms_servant_quaters "
+            $house_compound= "insert into " . $test->getDB_NAME() . ".rooms_servant_quaters "
                 . "(fence,garden,roof,etc) values"
                 . "('" . $letid . "','" . $p['compound:fence'] . "','" . $p['compound:garden'] . "',"
                 . "'" . $p['compound:roof'] . "','" . $p['compound:etc'] . "'";
+             mysql_query($house_compound, $conn) or die(mysql_error());   
         }
+        
+       if ($letinOrOut==="in") {
+           $ocupyStatus="occupied";   
+       }
+       else {
+           $ocupyStatus="vacant";
+       }
+    //change the status of a house to occupied
+         $changeOcupyStatus= "update  " . $test->getDB_NAME() . ".house_units set"
+                 . " ocupy_status=\"".$ocupyStatus."\" where unit_id=\"".$unitId."\"";
+          mysql_query($changeOcupyStatus, $conn) or die(mysql_error());   
+          
+          
+        
+        }
+     
     }
-
-}

@@ -54,7 +54,7 @@ class dataDispaly {
                         <td ><?php echo $row['aprovalStatus']; ?> </td>
                         <td > <input type = "button" class = "exploreUser" id = "<?php echo$row['ApplicantId']; ?>" value = "Explore" /> </td>
                     </tr>
-                <?php } ?>
+        <?php } ?>
             </table>
 
         </div>
@@ -82,18 +82,19 @@ class dataDispaly {
                     <tr>
                         <td>House Type</td><td>Rent</td><td>description</td>
                     </tr>
-                    <?php while ($row = mysql_fetch_array($x)) { ?>
+            <?php while ($row = mysql_fetch_array($x)) { ?>
                         <tr>
                             <td><?php $row ['houseType']; ?></td>
                             <td><?php $row ['rent']; ?></td>
                             <td><?php $row ['description']; ?></td>
                         </tr>
-                    <?php } ?>
+                <?php } ?>
                 </table>
                 <?php
             }
         }
- function tenantsList() {
+
+        function tenantsList() {
             ?>
             <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
             <script type="text/javascript" src="../js/general.js"></script>
@@ -123,7 +124,7 @@ class dataDispaly {
                             <td><?php echo $row['aprovalStatus']; ?></td>
                             <td><input type="button" class="exploreUser" id="<?php echo$row['ApplicantId']; ?>" value="Explore"/></td>
                         </tr>
-                    <?php } ?>
+        <?php } ?>
                 </table>
 
             </div>
@@ -149,13 +150,13 @@ class dataDispaly {
                         <td>Department</td>
                         <td>Houses Applied</td>
                         <td>View Button</td>
-                        </tr>
-                        
+                    </tr>
+
                     <?php
                     include_once './DbModules.php';
                     $db = new DbModules();
                     $x = $db->listAllApplicants();
-                   
+
 
                     while ($row = mysql_fetch_array($x)) {
                         ?>
@@ -164,15 +165,17 @@ class dataDispaly {
                             <td><?php echo $row['LastName']; ?></td>
                             <td><?php echo $row['Designation']; ?></td>
                             <td><?php echo $row['Department']; ?></td>
-                             <td>
-                                <?php  $house=$db->getHousesAppliadFor($row['ApplicantId']);
-                                while($row2=  mysql_fetch_array($house)){
-                                echo $row2['name'].",";    
-                                } ?>
-                             </td>
+                            <td>
+                                <?php
+                                $house = $db->getHousesAppliadFor($row['ApplicantId']);
+                                while ($row2 = mysql_fetch_array($house)) {
+                                    echo $row2['name'] . ",";
+                                }
+                                ?>
+                            </td>
                             <td><input type="button" class="exploreUser" id="<?php echo$row['ApplicantId']; ?>" value="Explore"/></td>
                         </tr>
-                    <?php } ?>
+        <?php } ?>
                 </table>
 
             </div>
@@ -193,7 +196,7 @@ class dataDispaly {
         <div class="container" id="personalDetais">
             <div class="header">Applicants</div>
             <table>
-               <tr>
+                <tr>
                     <td> First name </td>
                     <td> Last name </td>
                     <td> Designation</td>
@@ -218,7 +221,7 @@ class dataDispaly {
                         <td><?php echo $row['name']; ?></td>
                         <td><input type="button" class="exploreUser" id="<?php echo$row['ApplicantId']; ?>" value="Explore"/></td>
                     </tr>
-                <?php } ?>
+        <?php } ?>
             </table>
 
         </div>
@@ -259,7 +262,7 @@ class dataDispaly {
      * for displaying the housing officers pages
      */
 
-   function pageForHouseCondition() {
+    function pageForHouseCondition() {
         include_once '../modules/DbModules.php';
         $db = new DbModules();
         ?>
@@ -282,54 +285,75 @@ class dataDispaly {
                             $houseId = $row['house_id'];
                             ?>
                             <option  value='<?php echo $houseId; ?>'> <?php echo $houseType; ?> </option>
-                        <?php }
-                        ?>
+        <?php }
+        ?>
                     </select>
                     <div id="houseNumberDiv">
 
                     </div>
 
-                    <div id="toPopup">
-                        <div class="close"></div>
-                        <span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
-                        <div id="popup_content"> <!--your content start-->
-                            <div id="DisplayettingForm">
+                    <div id="housesForLetting" class="container">
+                        <table>
+                            <tr>
+                                <td>Applicant Name</td>
+                                <td> house to let in</td>
+                                <td> </td>
+                            </tr>
+                        
+                        <?php
+                        $myresultSet = $db->getLetinOrOutIndividuals("vacant");
+                        
+                       while ($row = mysql_fetch_array($myresultSet)) {
+                            ?>
+                            <tr> <td> <?php echo $row ['FirstName'] . "  " . $row ['LastName'] ?> </td>
+                                 <td> <?php echo $row['name']." ". $row['unit_index']; ?></td>
+                                 <td> <input type="button" id="<?phpecho $row ['allocation_Id'] . "  " . $row ['unit_Id']  ?>"</td>
+                            </tr>
+                        </table>
+        <?php } ?>
+
+                    </div>
+                    <div id = "toPopup">
+                        <div class = "close"></div>
+                        <span class = "ecs_tooltip">Press Esc to close <span class = "arrow"></span></span>
+                        <div id = "popup_content"> <!--your content start-->
+                            <div id = "DisplayettingForm">
                                 put here the content of the pop up
                             </div>
                         </div> <!--your content end-->
                     </div> <!--toPopup end-->
-                    <div class="loader"></div>
-                    <div id="backgroundPopup"></div>
+                    <div class = "loader"></div>
+                    <div id = "backgroundPopup"></div>
                 </div>
 
-                <script type="text/javascript">
-                $(document).ready(function() {
-                    $("div select").live('change', General.selectionChanged);
-                    $("#houseTypeselect").val(' --Choose--');
-                    /* event for close the popup */
-                    $("div.close").hover(
-                            function() {
-                                $('span.ecs_tooltip').show();
-                            },
-                            function() {
-                                $('span.ecs_tooltip').hide();
-                            }
-                    );
+                <script type = "text/javascript">
+        $(document).ready(function() {
+            $("div select").live('change', General.selectionChanged);
+            $("#houseTypeselect").val(' --Choose--');
+            /* event for close the popup */
+            $("div.close").hover(
+                    function() {
+                        $('span.ecs_tooltip').show();
+                    },
+                    function() {
+                        $('span.ecs_tooltip').hide();
+                    }
+            );
 
-                    $("div.close").click(function() {
-                        General.disablePopup();  // function close pop up
-                    });
+            $("div.close").click(function() {
+                General.disablePopup();  // function close pop up
+            });
 
-                    $(this).keyup(function(event) {
-                        if (event.which == 27) { // 27 is 'Ecs' in the keyboard
-                            General.disablePopup();  // function close pop up
-                        }
-                    });
+            $(this).keyup(function(event) {
+                if (event.which == 27) { // 27 is 'Ecs' in the keyboard
+                    General.disablePopup();  // function close pop up
+                }
+            });
 
-                    $("div#backgroundPopup").click(function() {
-                        General.disablePopup();  // function close pop up
-                    });
-                });
+            $("div#backgroundPopup").click(function() {
+                General.disablePopup();  // function close pop up
+            });
+        });
                 </script>
             </body>
         </html>
@@ -358,7 +382,7 @@ class dataDispaly {
         </script>
 
 
-    <?php
+        <?php
     }
 
     function displayLettingForm($houseType, $houseId) {
@@ -374,8 +398,8 @@ class dataDispaly {
             <div class="header"> house type specific details  </div>
             <?php
             $hasSQ = trim($row['hasSQ']);
-            //echo $hasSQ;
-            //echo $row['hasCompound'];
+//echo $hasSQ;
+//echo $row['hasCompound'];
             $hasCompound = trim($row['hasCompound']);
             $hs = new houseSpecific($houseType, $houseId);
 
@@ -390,9 +414,9 @@ class dataDispaly {
             <input type="button" class="submitletDetails" id="<?php ?>" value="Submit details">
         </div>
         <script type="text/javascript">
-             $(document).ready(function() {
-                    $("[type=button]").live('click', General.buttonClicked);
-                });
+            $(document).ready(function() {
+                $("[type=button]").live('click', General.buttonClicked);
+            });
         </script>
         <?php
     }

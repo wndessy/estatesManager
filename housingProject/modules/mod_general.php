@@ -231,10 +231,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
 /*
  * managing the housing officer  pages and their menu
  */ else if (isset($_GET['page']) && $_GET['page'] == 'houseSignIns') {
-    include_once './Forms.php';
     include_once './dataDispaly.php';
-    include_once './houseClasses/housesCommon.php';
-    include_once './houseClasses/houseSpecific.php';
     $output = new dataDispaly();
     $output->pageForHouseCondition();
 } else if (isset($_GET['page']) && $_GET['page'] == 'getHouseNumbers') {
