@@ -73,7 +73,7 @@ class DbModules {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
-        $cmd = "select * from " . $test->getDB_NAME() . ".children where ApplicantId=\"" . $applicantId . "\" ";
+        $cmd = "select * from " . $test->getDB_NAME() . ".applicantsdetails where ApplicantId=\"" . $applicantId . "\" ";
         $row = mysql_query($cmd, $conn) or die(mysql_error());
         return $row;
     }
@@ -303,7 +303,7 @@ class DbModules {
     
     
     function getLetinOrOutIndividuals($occupyStatus) {
-         include_once '../Config.php';
+             include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select FirstName,LastName,allocation_Id,unit_id,house_id,name,unit_index from " . $test->getDB_NAME() .". applicantsdetails natural join house_applications natural join house_allocation natural join house_units natural join house_types "
@@ -313,15 +313,19 @@ class DbModules {
     }
 
     function addLetintDetails($details) {
-
+       
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection(); 
         $p = json_decode($details, true);
-       
-        $allocationId=11;
+        $details=$p['otherDetailString'];
+       //an array in which allocationId=array[0];unitId=array[1];houseId=array[2];
+        $array= explode(",",$details);
+        
+     
+        $allocationId=$array[0];
         $letinOrOut="in";
-        $unitId=1;
+        $unitId=$array[1];
         $officerIncharge="satiti sitati";
          $endDate = date('Y-m-d', mktime(0, 0, 0, date('d'), date('m') , date('Y')+5));
          
@@ -431,11 +435,13 @@ class DbModules {
 
        if (array_key_exists('compound:fence', $p)) {
             
-            $house_compound= "insert into " . $test->getDB_NAME() . ".rooms_servant_quaters "
-                . "(fence,garden,roof,etc) values"
+           $house_compound= "insert into " . $test->getDB_NAME() .".rooms_servant_quaters "
+                . "(let_id,fence,garden,roof,etc) values"
                 . "('" . $letid . "','" . $p['compound:fence'] . "','" . $p['compound:garden'] . "',"
                 . "'" . $p['compound:roof'] . "','" . $p['compound:etc'] . "'";
-             mysql_query($house_compound, $conn) or die(mysql_error());   
+             mysql_query($house_compound, $conn) or die(mysql_error());  
+          
+          
         }
         
        if ($letinOrOut==="in") {

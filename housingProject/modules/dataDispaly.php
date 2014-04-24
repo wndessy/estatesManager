@@ -309,7 +309,7 @@ class dataDispaly {
                             <tr> <td> <?php echo $row ['FirstName'] . "  " . $row ['LastName'] ?> </td>
                                  <td> <?php echo $row['name']." ". $row['unit_index']; ?></td>
                                  
-                                     <input type="button" id="<?php  echo $row ['allocation_Id'] . " " . $row ['unit_id']." ".$row['house_id']; ?>" value="Let in tenant" class="loadLetForm">
+                                 <td>  <input type="button" id="<?php  echo $row ['allocation_Id'] . " " . $row ['unit_id']." ".$row['house_id']; ?>" value="Let in tenant" class="loadLetForm">
                                  </td>
                             </tr>
                         </table>
@@ -394,7 +394,8 @@ class dataDispaly {
         <?php
     }
 
-    function displayLettingForm($houseType) {
+    function displayLettingForm($houseType,$array) {
+      
         include_once '../modules/DbModules.php';
         include_once './houseClasses/houseSpecific.php';
         $db = new DbModules();
@@ -407,8 +408,7 @@ class dataDispaly {
             <div class="header"> house type specific details  </div>
             <?php
             $hasSQ = trim($row['hasSQ']);
-//echo $hasSQ;
-//echo $row['hasCompound'];
+
             $hasCompound = trim($row['hasCompound']);
             $hs = new houseSpecific($houseType);
 
@@ -420,7 +420,7 @@ class dataDispaly {
                 $hs->houseConditionNoCompoundNoSq();
             }
             ?>
-            <input type="button" class="submitletDetails" id="<?php ?>" value="Submit details">
+            <input type="button" class="submitletDetails" id="<?php echo $array ?>" value="Submit details">
         </div>
         <script type="text/javascript">
             $(document).ready(function() {

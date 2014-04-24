@@ -44,8 +44,10 @@ class Forms {
                             <li class="nav-three"><a href="#page3" id="page3_nav">Children Details</a></li>
                             <li class="nav-four last"><a href="#page4" id="page4_nav">Account Details</a></li>
                         </ul>
+                        <div id="allInputsWrap">
                         <div class="list-wrap">
                             <div id="page1">
+                                
                                 <div class="container" id="personalDetais">
                                     <div class="header">Personal Details</div>
                                     <div class="input">
@@ -85,10 +87,7 @@ class Forms {
                                     <div class="input">
                                         <label>Phone number</label> <input type="number" id="phone"/>
                                     </div>
-                                    <div class="input">
-                                        <input type="button" id="personalNext" class="personalNext" value="Next"/> 
-                                    </div>
-                                </div>
+                                   </div>
                                 <input type="button" onclick="goNext('page2_nav')" value="Next page" />
                             </div>
                             <div id="page2" class="hide">
@@ -108,10 +107,7 @@ class Forms {
                                     </div>
                                     <div class="input"> <label>Head of department </label> <input type="date" id="HeadOfDepartment"/>
                                     </div>
-                                    <div class="link button">
-                                        <input type="button" id="jobToNext" class="jobToNext" value="Next"/>
                                     </div>
-                                </div>
 
                                 <input type="button" onclick="goNext('page1_nav')" value="Previous page" />
                                 <input type="button" onclick="goNext('page3_nav')" value="Next page" />
@@ -156,6 +152,7 @@ class Forms {
                         </div> <!-- END List Wrap -->
                     </div>
                 </div>
+                </div>
                 <script type="text/javascript">
                     $(document).ready(function() {
                         $("[type=button]").live('click', General.buttonClicked);
@@ -176,9 +173,11 @@ class Forms {
     function ViewAndEditDetails($applicantId) {
         include_once './DbModules.php';
         $db = new DbModules();
+        //$$resultset1=$db->viewApplicantsChildren($applicantId);
+        //$row1=  mysql_fetch_array($resultset1);
         $resultset = $db->viewApplicantDetails($applicantId);
         $row = mysql_fetch_array($resultset);
-        ?>
+          ?>
         <html>
             <head>
                 <link rel="stylesheet" href="../css/style.css">
@@ -215,7 +214,7 @@ class Forms {
                             <div class="list-wrap">
                                 <div id="page1">
                                     <div class="container" id="personalDetais">
-                                        --<div class="header">Personal Details</div>
+                                        <div class="header">Personal Details</div>
                                         <div class="input">
                                             <label>First Name</label> <input type="text"   id="fname" value="<?php echo $row['FirstName']; ?>"/>
                                         </div>
@@ -232,7 +231,7 @@ class Forms {
                                             </script>
                                             <label id="gender">Gender</label>
                                             <select>
-                                                <option value="choose" >Choose</option>
+                                                <option value="choose" ><?php echo $row['Gender']; ?></option>
                                                 <option value="Male" >Male</option>
                                                 <option value="Female">Female</option>
                                             </select>
@@ -240,7 +239,7 @@ class Forms {
                                         <div class="input">
                                             <label>Marital Status</label>
                                             <select id="Mstatus">
-                                                <option value="">--Choose--</option>
+                                                <option value="">--<?php echo $row['maritalStatus']; ?>--</option>
                                                 <option value="Single ">Single </option>
                                                 <option value="Married">Married</option>
                                             </select>
@@ -248,7 +247,7 @@ class Forms {
                                         <div class="input">
                                             <label>Disabled</label>  
                                             <select id="disabled">
-                                                <option value=""> --Choose--</option>
+                                                <option value=""> --<?php echo $row['disabled']; ?>--</option>
                                                 <option value="Yes"> Yes </option>
                                                 <option value="No"> No </option>
                                             </select>
@@ -286,6 +285,7 @@ class Forms {
                                 <div id="page3" class="hide">
                                     <div class="container" >
                                         <div class="header">Children  Details</div>
+                                        <div id="children_container">
                                         <?php
                                         $resultset = $db->viewApplicantsChildren($applicantId);
                                         if ($resultset != null) {
@@ -298,26 +298,19 @@ class Forms {
                                                 while ($row1 = mysql_fetch_array($resultset)) {
                                                     ?>
                                                     <tr>
-                                                        <td><?php echo $row1['fname']; ?></td><td><?php echo $row1['sname']; ?></td><td><?php echo $row['dob']; ?></td><td><?php echo $row['gender']; ?></td><td><?php echo $row['disabled']; ?></td>
+                                                        <td><?php echo $row1['fname']; ?></td><td><?php echo $row1['sname']; ?></td><td><?php echo $row1['dob']; ?></td><td><?php echo $row1['gender']; ?></td><td><?php echo $row1['disabled']; ?></td>
                                                     </tr>
                                                     <?php
                                                 }
                                                 ?>
                                             </table>
                                             <?php
-                                        }
-                                        if ($_SESSION['userLevel'] == '2') {
-                                            
-                                        } else {
-                                            ?>
-                                            <div id="newChild"></div>
+                                        }?>
+                                        </div>
                                             <div class="linkbutton">
                                                 <input  type="button" class="AddAChild" id="AddAChild" value="Add Child"/> 
-                                                <input  type="button" class="cancelAddAChild" id="cancelAddAChild" value="Cancel"/> 
                                             </div>
-                                            <?php }
-                                        ?>
-                                    </div>
+                                                   </div>
                                     <input type="button" onclick="goNext('page2_nav')" value="Previous page" />
                                     <input type="button" onclick="goNext('page4_nav')" value="Next page" />
                                 </div>
@@ -326,10 +319,10 @@ class Forms {
                                     <div class="container" id="accountLogin">
                                         <div class="header">account login Details</div>
                                         <div class="input">
-                                            <label>Email address</label><input type="text" disabled="" id="Email"/>
+                                            <label>Email address</label><input type="text" disabled="" value="<?php echo $row['EmailAddress']; ?>"id="Email"/>
                                         </div>
                                         <div class="linkbutton">
-                                            <input  type="button" id="submitDetails" class="submitDetails" value="Submit Details"/> 
+                                            <input  type="button" class="updateProfile" value="Submit Details"/> 
                                         </div>
                                     </div>
                                     <input type="button" onclick="goNext('page3_nav')" value="Previous page" />
@@ -350,8 +343,8 @@ class Forms {
 
     function childDetailAddition($child_count) {
         ?>
-        <div id="<?php echo "child_number_" . $child_count ?>">
-            <p>Child number <?php echo $child_count ?></p>
+        <div id="<?php echo "child_number_" . $child_count; ?>">
+            <p>Child number <?php echo $child_count+1 ?></p>
             <div class="input">
                 <label>First Name </label> <input id="<?php echo "f_name_" . $child_count; ?>" type="text" /> 
             </div>
@@ -363,13 +356,14 @@ class Forms {
             </div>
             <div class="input">
                 <label>Disabled</label> 
-                <select id="<?php echo "child_number_" . $child_count."_disabled" ?>">
+                <select id="<?php echo "disabled_" . $child_count;?>">
                     <option value="">--Choose--</option>
                     <option value="Yes">Yes</option>
                     <option value="No"> No </option>
                 </select>
-            </div>
-        </div>
+                <input type="hidden" id="CountParser" value="<?php echo $child_count ?>"/>
+                 </div>
+               </div>
         <?php
     }
     /**

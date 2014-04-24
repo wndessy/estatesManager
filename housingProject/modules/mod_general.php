@@ -85,10 +85,23 @@ if (isset($_GET['page']) && $_GET['page'] == 'userLogin') {
     $form = new Users();
     if (isset($_GET['applicantDetail'])) {
         $pesonal = $_GET['applicantDetail'];
-        $children=$_GET['children'];
-        $form->addUsser($pesonal,$children);
+       
+       $form->addUsser($pesonal);
+     
             } else {
         echo "Erorr addding new user";
+    }
+}
+ else if (isset($_GET['page']) && $_GET['page'] == 'updateProfile') {
+    include_once './Users.php';
+    $users = new Users();
+    if (isset($_GET['applicantDetail'])) {
+        $pesonal = $_GET['applicantDetail'];
+       
+       $users->updateUser($pesonal);
+     
+            } else {
+        echo "Erorr updating your details please try later";
     }
 }
 
@@ -243,14 +256,17 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
  else if (isset($_GET['page']) && $_GET['page'] == 'displayLettingForm') {
     include_once './dataDispaly.php';
     $output = new dataDispaly();
-    $houseType = trim($_GET["houseType"]);
+    $array = $_GET["values"];
+    $houseType =$array[2];
+    //echo $houseType;
    // $houseNo=trim($_GET["houseNo"]);
-  $output->displayLettingForm($houseType);       
+  $output->displayLettingForm($houseType,$array);       
 }
 else if (isset($_GET['page']) && $_GET['page'] == 'submitLetDetails') {
     include_once './DbModules.php';
     $db = new DbModules();
     $details=$_GET["features"];
+    
   $db->addLetintDetails($details);       
 }
 
