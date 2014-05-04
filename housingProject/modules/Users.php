@@ -9,6 +9,8 @@ class Users {
 
     function addUsser($jsonSting) {
         include_once '../Config.php';
+        include_once './DbModules.php';
+        $db= new DbModules();
         $test = new Config;
         $p = json_decode($jsonSting, true);
         //echo $p['fname'];
@@ -34,8 +36,8 @@ class Users {
                 $mname = "m_name_" . $count;
                 $dob = "dob_" . $count;
                 $disabled = "disabled_" . $count;
-                $addChild = "INSERT INTO " . $test->getDB_NAME() . ".children(ApplicantId,fname,sname,dob,disabled)VALUES "
-                        . "('" .$applicant . "','" . $p[$fname] . "','" . $p[$mname] . "','" . $p[$dob] . "','" . $p[$disabled] . "')";
+                $addChild = "INSERT INTO " . $test->getDB_NAME() . ".children(ApplicantId,fname,sname,dob)VALUES "
+                        . "('" .$applicant . "','" . $p[$fname] . "','" . $p[$mname] . "','" . $p[$dob] . "')";
                 
                  mysql_query($addChild, $conn) or die(mysql_error());
                 
@@ -48,6 +50,8 @@ class Users {
 
     function updateUser($jsonSting) {
         include_once '../Config.php';
+        include_once './DbModules.php';
+       $db=new DbModules();
          $test = new Config;
         $p = json_decode($jsonSting, true);
     
@@ -58,8 +62,6 @@ class Users {
         $conn = $db->getConnection();
         $cmd = "update  " . $test->getDB_NAME() . ".applicantsdetails "
                 . "set Designation=\"" . $p['Designation'] . "\",   Grade=\"" . $p['Grade'] . "\", Department=\"" . $p['Department'] . "\""
-                
-                
                 . " where ApplicantId=\"" .$applicant . "\"";
         mysql_query($cmd, $conn) or die(mysql_error());
         
@@ -70,13 +72,14 @@ class Users {
                 $mname = "m_name_" . $count;
                 $dob = "dob_" . $count;
                 $disabled = "disabled_" . $count;
-                $addChild = "INSERT INTO " . $test->getDB_NAME() . ".children(ApplicantId,fname,sname,dob,disabled)VALUES "
-                        . "('" .$applicant . "','" . $p[$fname] . "','" . $p[$mname] . "','" . $p[$dob] . "','" . $p[$disabled] . "')";
+                $addChild = "INSERT INTO " . $test->getDB_NAME() . ".children(ApplicantId,fname,sname,dob)VALUES "
+                        . "('" .$applicant . "','" . $p[$fname] . "','" . $p[$mname] . "','" . $p[$dob] . "')";
                 
                  mysql_query($addChild, $conn) or die(mysql_error());
                 
                 $count++;
             }
+             echo"Update successful";
         
     }
 
@@ -106,6 +109,7 @@ class Users {
             $_SESSION['email'] = $row['EmailAddress'];
             $_SESSION['applicantId'] = $row['ApplicantId'];
             $_SESSION['Grade'] = $row['Grade'];
+            $_SESSION['userLevel']=$row['user_stage'];
 
             return true;
         } else {
@@ -199,4 +203,10 @@ class Users {
         return $result;
     }
 
+    function logout() {
+        session_start();
+        session_destroy();
+       header("location:../index.php");
+        
+    }
 }

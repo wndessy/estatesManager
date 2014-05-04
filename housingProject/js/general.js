@@ -95,35 +95,32 @@ var General = {
 
         if (this.className === "submitDetails") {
             var applicantDetail = {}
-              var children = {};    // Create empty javascript object
-             $("#children_container :input").each(function() {           // Iterate over inputs
-             children[$(this).attr('id')] = $(this).val();  // Add each to features object
-             });
-             var applicantDetail = {
-             "fname": $("#fname").val(),
-             "lname": $("#lname").val(),
-             "gender": $("#gender").val(),
-             "Mstatus": $("#Mstatus").val(),
-             "disabled": $("#disabled").val(),
-             "IdOrPasport": $("#IdOrPasport").val(),
-             "phone": $("#phone").val(),
-             "PayrolNumber": $("#PayrolNumber").val(),
-             "Designation": $("#Designation").val(),
-             "Grade": $("#Grade").val(),
-             "CommencementOfDuty": $("#CommencementOfDuty").val(),
-             "Department": $("#Department").val(),
-             "HeadOfDepartment": $("#HeadOfDepartment").val(),
-             "Email": $("#Email").val(),
-             "password": $("#password").val(),
-             };
-             
-           $("#children_container :input").each(function() {           // Iterate over inputs
-             applicantDetail[$(this).attr('id')] = $(this).val();  // Add each to features object
-             });
-             applicantDetail[CountParser]=$ ("#CountParser").val();
-                       
-            
-           $.ajax({
+
+            var applicantDetail = {
+                "fname": $("#fname").val(),
+                "lname": $("#lname").val(),
+                "gender": $("#gender").val(),
+                "Mstatus": $("#Mstatus").val(),
+                "disabled": $("#disabled").val(),
+                "IdOrPasport": $("#IdOrPasport").val(),
+                "phone": $("#phone").val(),
+                "PayrolNumber": $("#PayrolNumber").val(),
+                "Designation": $("#Designation").val(),
+                "Grade": $("#Grade").val(),
+                "CommencementOfDuty": $("#CommencementOfDuty").val(),
+                "Department": $("#Department").val(),
+                "HeadOfDepartment": $("#HeadOfDepartment").val(),
+                "Email": $("#Email").val(),
+                "password": $("#password").val(),
+            };
+
+            $("#children_container :input").each(function() {           // Iterate over inputs
+                applicantDetail[$(this).attr('id')] = $(this).val();  // Add each to features object
+            });
+            applicantDetail[CountParser] = $("#CountParser").val();
+
+
+            $.ajax({
                 type: "POST",
                 url: "../modules/mod_general.php?page=addUser&applicantDetail=" + JSON.stringify(applicantDetail),
                 async: false,
@@ -138,38 +135,33 @@ var General = {
         }
 
         if (this.className === "updateProfile") {
-             var applicantDetail = {};
-              var children = {};    // Create empty javascript object
-             $("#children_container :input").each(function() {           // Iterate over inputs
-             children[$(this).attr('id')] = $(this).val();  // Add each to features object
-             });
-             var applicantDetail = {
-             "fname": $("#fname").val(),
-             "lname": $("#lname").val(),
-             "gender": $("#gender").val(),
-             "Mstatus": $("#Mstatus").val(),
-             "disabled": $("#disabled").val(),
-             "IdOrPasport": $("#IdOrPasport").val(),
-             "phone": $("#phone").val(),
-             "PayrolNumber": $("#PayrolNumber").val(),
-             "Designation": $("#Designation").val(),
-             "Grade": $("#Grade").val(),
-             "CommencementOfDuty": $("#CommencementOfDuty").val(),
-             "Department": $("#Department").val(),
-             "HeadOfDepartment": $("#HeadOfDepartment").val(),
-             "Email": $("#Email").val(),
-             "password": $("#password").val(),
-             };
-             
-           $("#children_container :input").each(function() {           // Iterate over inputs
-             applicantDetail[$(this).attr('id')] = $(this).val();  // Add each to features object
-             });
-             applicantDetail[CountParser]=$ ("#CountParser").val();
-                       
-           
+            var applicantDetail = {};
+
+            var applicantDetail = {
+                "fname": $("#fname").val(),
+                "lname": $("#lname").val(),
+                "gender": $("#gender").val(),
+                "Mstatus": $("#Mstatus").val(),
+                "disabled": $("#disabled").val(),
+                "IdOrPasport": $("#IdOrPasport").val(),
+                "phone": $("#phone").val(),
+                "PayrolNumber": $("#PayrolNumber").val(),
+                "Designation": $("#Designation").val(),
+                "Grade": $("#Grade").val(),
+                "CommencementOfDuty": $("#CommencementOfDuty").val(),
+                "Department": $("#Department").val(),
+                "HeadOfDepartment": $("#HeadOfDepartment").val(),
+                "Email": $("#Email").val(),
+                "password": $("#password").val(),
+            };
+            $("#children_container :input").each(function() {           // Iterate over inputs
+                applicantDetail[$(this).attr('id')] = $(this).val();  // Add each to features object
+            });
+            applicantDetail[CountParser] = $("#CountParser").val();
+
             $.ajax({
                 type: "POST",
-                url: "../modules/mod_general.php?page=updateUser&updateProfile=" + JSON.stringify(applicantDetail),
+                url: "../modules/mod_general.php?page=updateUser&applicantDetail=" + JSON.stringify(applicantDetail),
                 async: false,
                 success: function(result) {
                     alert(result);
@@ -199,29 +191,35 @@ var General = {
         }
 
         if (this.className === "selectedHouse") {
-            var x = $("input:checked");
-            var values = "";
-            for (i = 0; i < x.length; i++) {
-                if (i < x.length - 1) {
-                    values += (x[i].value) + ",";
-                }
-                else {
-                    values += (x[i].value);
-                }
-            }
-            $.ajax({
-                type: "GET",
-                url: "../modules/mod_general.php?page=houseChosenforApplication&selectedHouses=" + values,
-                async: false,
-                success: function(result) {
-                    alert(result);
-                    window.location = "../modules/mod_general.php?page=tenantHomepage";
-                    //window.location = "../modules/mod_general.php?page=adminLogin"
+            var houses = "";
+            $("input:checkbox:checked").each(function() {           // Iterate over inputs
+                houses += $(this).attr("value");
+            });
+            console.log(houses);
 
-                },
-                error: function(result) {
-                    alert("error adding an application detail");
-                }});
+
+            /*var x = $("input:checked");
+             var values = "";
+             for (i = 0; i < x.length; i++) {
+             if (i < x.length - 1) {
+             values += (x[i].value) + ",";
+             }
+             else {
+             values += (x[i].value);
+             }
+             }*/
+             $.ajax({
+             type: "GET",
+             url: "../modules/mod_general.php?page=houseChosenforApplication&selectedHouses=" + houses,
+             async: false,
+             success: function(result) {
+             alert(result);
+             window.location = "../modules/mod_general.php?page=tenantHomepage";
+             //window.location = "../modules/mod_general.php?page=adminLogin"
+             },
+             error: function(result) {
+             alert("error adding an house application detail");
+             }});
 
         }
 

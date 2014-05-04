@@ -106,13 +106,13 @@ class DbModules {
         $test = new Config;
         $conn = $this->getConnection();
 
-        $cmd = "select * from " . $test->getDB_NAME() . ".house_applications where ApplicantId=\"" . $_SESSION['applicantId'] . "\" and houseType =\"" . $house . "\"";
+        $cmd = "select * from " . $test->getDB_NAME() . ".house_applications where ApplicantId=\"" . $_SESSION['applicantId'] . "\" and house_id =\"" . $house . "\"";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
 
         if (mysql_num_rows($results_set) > 0) {
             echo "you have already aplied forthe selected  house";
         } else {
-            $cmd = "insert Into " . $test->getDB_NAME() . ".house_applications(ApplicantId,houseType)"
+            $cmd = "insert Into " . $test->getDB_NAME() . ".house_applications(ApplicantId,house_id)"
                     . "VALUES ('" . $_SESSION['applicantId'] . "','" . $house . "')";
             mysql_query($cmd, $conn) or die(mysql_error());
         }
@@ -153,12 +153,11 @@ class DbModules {
     }
 
     function houseToAplyFor() {
-
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from " . $test->getDB_NAME() . ".house_qualifying_grade "
-                . "inner join " . $test->getDB_NAME() . ".house_types "
+                . "natural join " . $test->getDB_NAME() . ".house_types "
                 . "where grade=\"" . $_SESSION['Grade'] . "\" ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
         return $results_set;

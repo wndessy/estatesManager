@@ -14,7 +14,7 @@
         }
 
         $(function () { 
-            $("#div1").hide();
+           // $("#div1").hide();
             $("#div1").draggable();            
         });
 
