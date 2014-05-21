@@ -244,14 +244,22 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $output = new dataDispaly();
     $array = $_GET["values"];
     $houseType = $array[2];
-  
    $output->displayLettingForm($houseType, $array);
+   
 } else if (isset($_GET['page']) && $_GET['page'] == 'submitLetDetails') {
     include_once './DbModules.php';
     $db = new DbModules();
     $details = $_GET["features"];
     $db->addLetintDetails($details);
 }
+
+ else if (isset($_GET['page']) && $_GET['page'] == 'houseRepairs') {
+    include_once './Forms.php';
+    $form = new Forms();
+    $form->login("user");
+}
+
+
 /*for managing tenant  pages and their menus
  * 
  * 

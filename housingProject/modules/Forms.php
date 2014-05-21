@@ -26,7 +26,15 @@ class Forms {
             function goNext(name) {
                 $("#" + name).click();
             }
+
+            //set up the datepickers
+            $(document).ready(function() {
+                $('input[type=date]').datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            })
         </script>
+
         <style>
             .header{
                 font-size:  20px;
@@ -109,9 +117,9 @@ class Forms {
                                         </div>
                                         <div class="input"> <label>Commencement of duty </label> <input type="date" id="CommencementOfDuty"/>
                                         </div>
-                                        <div class="input"> <label>Department </label> <input type="date" id="Department"/>
+                                        <div class="input"> <label>Department </label> <input type="text" id="Department"/>
                                         </div>
-                                        <div class="input"> <label>Head of department </label> <input type="date" id="HeadOfDepartment"/>
+                                        <div class="input"> <label>Head of department </label> <input type="text" id="HeadOfDepartment"/>
                                         </div>
                                     </div>
 
@@ -173,7 +181,7 @@ class Forms {
      * This form is for general users to sign up
      */
     function ViewAndEditDetails($applicantId) {
-       
+
         $this->login("user");
         ?>
         <div class="main_container">
@@ -409,19 +417,19 @@ class Forms {
                 </div>
                 </form>
             </div>
-        <?php
-        $this->footer();
-        ?>
-        </div>
             <?php
-        }
-
-        /*
-         * can be staff or normal users
-         */
-
-        function login($user) {
+            $this->footer();
             ?>
+        </div>
+        <?php
+    }
+
+    /*
+     * can be staff or normal users
+     */
+
+    function login($user) {
+        ?>
         <?php
         $this->header();
         ?>
@@ -433,11 +441,11 @@ class Forms {
                     </div>
                 </div>
             </div>
-        <?php
-        session_start();
+            <?php
+            session_start();
             if (!isset($_SESSION['userLevel']) || (trim($_SESSION['userLevel']) == '' and $_SESSION['email']) || (trim($_SESSION['email']) == '' )) {
-            //if requesting page not default or user or staff login
-            ?>
+                //if requesting page not default or user or staff login
+                ?>
                 <div class="menu"></div>
                 <div class="center_content">
                     <form action="" method="POST">
@@ -445,15 +453,15 @@ class Forms {
                             <div class="welcome">
                                 <div class="container" id="personalDetais">
                                     <span class="orange">
-            <?php
-            include_once '../Config.php';
-            $Config = new Config();
-            if (trim($user) == "user") {
-                echo "<h2>" . $Config->STRING->user_login_page_header . "</h2>";
-            } else if (trim($user) == "staff") {
-                echo "<h2>" . $Config->STRING->staff_login_page_header . "</h2>";
-            }
-            ?>
+                                        <?php
+                                        include_once '../Config.php';
+                                        $Config = new Config();
+                                        if (trim($user) == "user") {
+                                            echo "<h2>" . $Config->STRING->user_login_page_header . "</h2>";
+                                        } else if (trim($user) == "staff") {
+                                            echo "<h2>" . $Config->STRING->staff_login_page_header . "</h2>";
+                                        }
+                                        ?>
                                     </span>
                                     <div class="input">
                                         <label>Email</label>   <input type="text"     id="email"/> <br/>
@@ -465,33 +473,33 @@ class Forms {
                             </div>
                         </div>
                     </form>
-            <?php
-            $this->footer();
-            ?>
-                </div>
                     <?php
-                } elseif (isset($_SESSION['userLevel'])) {
-                   
-                    if ($_SESSION['userLevel'] == 11) {
-                        $this->applicantHomepage();
-                    } else if ($_SESSION['userLevel'] == 12) {
-                        $this->tenantHomepage();
-                    } else if ($_SESSION['userLevel'] == 1) {
-                        $this->superUserHomepage();
-                    } else if ($_SESSION['userLevel'] == 2) {
-                        $this->managerHomePage();
-                    } else if ($_SESSION['userLevel'] == 3) {
-                        $this->housingOfficerHomePage();
-                    }
-                }
-                ?>
-        </div>
-            <?php
-        }
+                    $this->footer();
+                    ?>
+                </div>
+                <?php
+            } elseif (isset($_SESSION['userLevel'])) {
 
-        function defaultPage() {
-            $this->header();
+                if ($_SESSION['userLevel'] == 11) {
+                    $this->applicantHomepage();
+                } else if ($_SESSION['userLevel'] == 12) {
+                    $this->tenantHomepage();
+                } else if ($_SESSION['userLevel'] == 1) {
+                    $this->superUserHomepage();
+                } else if ($_SESSION['userLevel'] == 2) {
+                    $this->managerHomePage();
+                } else if ($_SESSION['userLevel'] == 3) {
+                    $this->housingOfficerHomePage();
+                }
+            }
             ?>
+        </div>
+        <?php
+    }
+
+    function defaultPage() {
+        $this->header();
+        ?>
         <div class="main_container">
             <div id="header"> 
                 <div id="header">
@@ -502,29 +510,32 @@ class Forms {
             </div>
             <div class="menu"></div>
             <div class="center_content">
-        <?php
-        include_once '../Config.php';
-        $Config = new Config();
-        echo "<h2>" . $Config->STRING->header_home_page . "</h2>";
-        ?>
+                <?php
+                include_once '../Config.php';
+                $Config = new Config();
+                echo "<h2>" . $Config->STRING->header_home_page . "</h2>";
+                ?>
                 <a href="./mod_general.php?page=userLogin">User login</a><br/>
                 <a href="./mod_general.php?page=staffLogin">Staff login</a><br/>
                 <a href="./mod_general.php?page=register">Register</a><br/>
             </div>
-        <?php
-        $this->footer();
-        ?>
-        </div>
             <?php
-        }
-
-        function header() {
+            $this->footer();
             ?>
+        </div>
+        <?php
+    }
+
+    function header() {
+        ?>
         <link rel="stylesheet" href="../css/specific_style.css">
         <link rel="stylesheet" href="../css/general_style.css"/>
+        <link rel="stylesheet" href="../css/jquery-ui.css">
+
         <script src='../js/general.js'></script>
         <script src='../jquery/jquery-1.8.3.min.js'></script>
         <script src="../jquery/organictabs.jquery.js"></script>
+        <script src="../jquery/jquery-ui.js"></script>
         <?php
     }
 
@@ -558,23 +569,23 @@ class Forms {
         $result = $db->houseToAplyFor();
         ?><table class="hiden_layout_tables">
             <?php
-        while ($row = mysql_fetch_array($result)) {
-            ?><tr>
-                <td>
-                <label><?php echo $row['name']; ?></label>
-                </td>
-                <td>
-                <input type="checkbox" value=" <?php echo $row['house_id'] ?>" /><br/>
-                </td>
-            </tr>
-            <?php } ?>
-        </table>
+            while ($row = mysql_fetch_array($result)) {
+                ?><tr>
+                        <td>
+                            <label><?php echo $row['name']; ?></label>
+                        </td>
+                        <td>
+                            <input type="checkbox" value=" <?php echo $row['house_id'] ?>" /><br/>
+                        </td>
+                    </tr>
+        <?php } ?>
+            </table>
             <div class="input">
-            <input type="button"  class="selectedHouse" value="Button">
+                <input type="button"  class="selectedHouse" value="Button">
+            </div>
         </div>
         </div>
-        </div>
-                <?php
+        <?php
         $this->footer();
     }
 
@@ -597,7 +608,7 @@ class Forms {
                             <span class="orange">
 
                                 <div class="header"> Tenancy Contract Details </div>
-                                >
+
                                 <label>Current House</label> <p>the house you are in<p><br/>
 
                                     <label>contract start date</label>   <p><?php echo $eval->houseRenewDetails("start_date") ?></p><br/>
@@ -607,8 +618,8 @@ class Forms {
                                 <label>renewable</label>     <p><?php echo $eval->houseRenewDetails(renewable); ?></p><br/>
         <?php if ($eval->houseRenewDetails($applicantId, renewable) == 'yes') { ?>
                                     <button id="renew" value="Renew"/> 
-        <?php } else if ($eval->houseRenewDetails($applicantId, renewable) == 'Aplied') {
-            ?>
+                                <?php } else if ($eval->houseRenewDetails($applicantId, renewable) == 'Aplied') {
+                                    ?>
                                     <p>Applied for renewal</p>
                                 <?php } else if ($eval->houseRenewDetails($applicantId, renewable) == 'Aproved') {
                                     ?>
@@ -619,12 +630,12 @@ class Forms {
                                 <?php } ?>
                         </div>
                     </div>
-                                <?php
-                                $this->footer();
-                            }
+        <?php
+        $this->footer();
+    }
 
-                            function applyForHouseRepair() {
-                                ?>
+    function applyForHouseRepair() {
+        ?>
                     <?php
                     $this->login("user");
                     ?>
@@ -657,6 +668,39 @@ class Forms {
 
         <?php
         $this->footer();
+    }
+
+    function viewRepair() {
+        ?>                <?php
+                        include_once './DbModules.php';
+                        $db = new DbModules();
+                        $x = $db->listAllHouseApplications();
+
+                        while ($row = mysql_fetch_array($x)) {
+                            ?>
+
+
+                            <tr>
+                                <td><?php echo $row['FirstName']; ?></td>
+                                <td><?php echo $row['LastName']; ?></td>
+                                <td><?php echo $row['Designation']; ?></td>
+                                <td><?php echo $row['Grade']; ?></td>
+                                <td><?php echo $row['name']; ?></td>
+                                <td><input type="button" class="exploreUser" id="<?php echo$row['ApplicantId']; ?>" value="Explore"/></td>
+                            </tr>
+                        <?php } ?>
+        
+    }
+    
+    
+    function recordRepair() {
+        ?>                <label>Description</label> <textarea  id="repair_desciption"cols="50"rows="10" ></textarea>
+                         <label>Estimated cost</label> <input  id="repair_cost"/>
+                                                <input type="button"  class="submit_repair_application" value="Button">
+                                            </div>
+                         <div class="center_content">
+                        <?php
+        
     }
 
     /* ----------------------------header------------------------------- */
