@@ -10,9 +10,11 @@ class Config {
     private $DB_HOST = 'localhost';
     private $DB_NAME = 'egertonhousing';
     private $DB_USER = 'root';
-    private $DB_PASSWORD = 'w1nn1e';            
+    private $DB_PASSWORD = 'root';   
+    public $STRING;
+    
     function __construct() {
-        
+        $this->STRING = simplexml_load_file("../resources/strings.xml");
     }
 
     public function getDB_HOST() {

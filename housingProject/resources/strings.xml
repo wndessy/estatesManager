@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<note>
+<header_home_page>Default page </header_home_page>
+<user_login_page_header>User login Details</user_login_page_header>
+<staff_login_page_header>Staff login Details</staff_login_page_header>
+<login_successful_message>Welcome, Successful login</login_successful_message>
+<login_failure_message>Login failure, Please try again</login_failure_message>
+</note>

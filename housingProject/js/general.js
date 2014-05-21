@@ -11,17 +11,15 @@ var General = {
                     type: "GET", url: '../modules/mod_general.php?page=validateUser&email=' + email + "&password=" + password,
                     async: false,
                     error: function(data) {
-                        console.log(data);
                         alert(data);
                     },
                     success: function(data) {
-                        if ($.trim(data) === 'Welcome') {
+                        if ($.trim(data) === 'Welcome, Successful login') {
                             alert(data);
-                            window.location = "../modules/mod_general.php?page=successUserLogin";
+                            window.location = "../modules/mod_general.php?page=userLogin";
                         }
                         else {
                             alert("Sorry. Please check your email or password");
-                            alert(data);
                         }
                     }
                 });
@@ -44,16 +42,7 @@ var General = {
                     success: function(data) {
                         alert(data);
                         if ($.trim(data) !== '') {
-                            if ($.trim(data) === '1') {
-                                window.location = "../modules/mod_general.php?page=successAdminLogin";
-                            } else if ($.trim(data) === '2') {
-                                window.location = "../modules/mod_general.php?page=successManagerLogin";
-                            } else if ($.trim(data) === '3') {
-                                window.location = "../modules/mod_general.php?page=successHousingOfficerLogin";
-                            } else {
-                                window.location = "../modules/mod_general.php?page=successStaffLogin";
-                            }
-
+                            window.location = "../modules/mod_general.php?page=staffLogin";
                         }
                         else {
                             alert("Sorry. Please check your email or password");
@@ -208,18 +197,18 @@ var General = {
              values += (x[i].value);
              }
              }*/
-             $.ajax({
-             type: "GET",
-             url: "../modules/mod_general.php?page=houseChosenforApplication&selectedHouses=" + houses,
-             async: false,
-             success: function(result) {
-             alert(result);
-             window.location = "../modules/mod_general.php?page=tenantHomepage";
-             //window.location = "../modules/mod_general.php?page=adminLogin"
-             },
-             error: function(result) {
-             alert("error adding an house application detail");
-             }});
+            $.ajax({
+                type: "GET",
+                url: "../modules/mod_general.php?page=houseChosenforApplication&selectedHouses=" + houses,
+                async: false,
+                success: function(result) {
+                    alert(result);
+                    window.location = "../modules/mod_general.php?page=tenantHomepage";
+                    //window.location = "../modules/mod_general.php?page=adminLogin"
+                },
+                error: function(result) {
+                    alert("error adding an house application detail");
+                }});
 
         }
 

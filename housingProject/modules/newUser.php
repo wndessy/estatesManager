@@ -1,6 +1,5 @@
 <?php
-
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -85,13 +84,13 @@
                 </div>
                 <div class="input">
                     <label>Disabled</label> Yes<input type="radio" name="cdisabled" value="1"/> 
-                                              No<input type="radio" name="cdisabled" value="0"/> 
+                    No<input type="radio" name="cdisabled" value="0"/> 
                 </div>
                 <div class="linkbutton">
                     <button type="button" name="AddAChild"> Add a Child</button>
                 </div>
-                </div>
-             
+            </div>
+
             <!-- for account login details-->
             <div class="container" >
                 <div class="header">account login Details</div>
@@ -107,8 +106,8 @@
                 <div class="linkbutton">
                     <button type="submit" name="submit">Submit details</button>
                 </div>
-  
-               </div>
+
+            </div>
         </form>   
     </body>
 </html>
@@ -116,24 +115,5 @@
 
 
 <?php
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 ?>
 

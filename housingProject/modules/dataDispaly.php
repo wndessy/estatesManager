@@ -415,9 +415,10 @@ class dataDispaly {
                 $db = new DbModules();
                 $result = $db->getAHouseTypeDetail($houseType);
                 $row = mysql_fetch_array($result);
+                $form = new Forms();
+                $form->header();
                 ?>
-                <script src="../js/general.js" type="text/javascript"></script>
-                <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+
                 <div class="container">        
                     <div class="header"> house type specific details  </div>
                     <?php
