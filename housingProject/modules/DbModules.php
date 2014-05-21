@@ -118,7 +118,21 @@ class DbModules {
         }
     }
 
-    function applyForHouseRepair() {
+    function applyForHouseRepair($category,$description) {
+                include_once '../Config.php';
+        session_start();
+        $test = new Config;
+        $conn = $this->getConnection();
+      $cmd="select distinct let_id from  house_applications natural join house_allocation "
+              . "natural join house_let_in_and_out where ApplicantId=\"" . $_SESSION['applicantId'] . "\" ";
+            $result = mysql_query($cmd, $conn) or die(mysql_error());
+            $row = mysql_fetch_array($result);
+            $letId = $row['let_id'];
+///has got a bug to be done later        
+        $cmd = "insert Into " . $test->getDB_NAME() . ".houserepair(repair_type,tenant_description)values('".$category."','".$description. "')";
+            mysql_query($cmd, $conn) or die(mysql_error());
+            echo 'Succesfully applied for repair.check to see when the repair shall have been approved by estates department ';
+
         
     }
 

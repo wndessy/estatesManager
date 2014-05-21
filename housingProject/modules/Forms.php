@@ -173,11 +173,25 @@ class Forms {
      * This form is for general users to sign up
      */
     function ViewAndEditDetails($applicantId) {
+        
+                ?>
+        <?php
+         $this->header();
+        ?>
+        <div class="main_container">
+            <div id="header"> 
+                <div id="header">
+                    <div class="logo">
+                        <img border="0" title="" alt="" src="../images/logo.gif">
+                    </div>
+                </div>
+            </div>
+              <div class="menu"></div>
+                <div class="center_content">
+                <?php
         include_once './DbModules.php';
         $db = new DbModules();
-        //$$resultset1=$db->viewApplicantsChildren($applicantId);
-        //$row1=  mysql_fetch_array($resultset1);
-        $resultset = $db->viewApplicantDetails($applicantId);
+            $resultset = $db->viewApplicantDetails($applicantId);
         $row = mysql_fetch_array($resultset);
         $this->header();
         ?>
@@ -196,15 +210,7 @@ class Forms {
                 font-size:  20px;
             }
         </style>
-        <div class="main_container">
-            <div id="header"> 
-                <div id="header">
-                    <div class="logo">
-                        <img border="0" title="" alt="" src="../images/logo.gif">
-                    </div>
-                </div>
-            </div>
-            <div class="center_content">
+  
                 <div id="page-wrap">
                     <div id="example-two">
                         <ul class="nav">
@@ -346,6 +352,9 @@ class Forms {
                             </div> <!-- END List Wrap -->
                         </div>
                     </div>
+                </div>
+                </div>
+        
                     <?php
                     $this->footer();
                     ?>
@@ -474,7 +483,9 @@ class Forms {
             ?>
                 </div>
             <?php
+            
         } elseif (isset($_SESSION['userLevel'])) {
+            //print_r($_SESSION);
             if ($_SESSION['userLevel'] == 11) {
                 $this->applicantHomepage();
             } else if ($_SESSION['userLevel'] == 12) {
@@ -549,54 +560,6 @@ class Forms {
         <?php
     }
 
-    /**
-     * Apply for a house after creating account and loggin in
-     * 
-     * @param type $userJobCategory
-     */
-    /* function applyForHouse($userJobCategory) {
-      ?>
-      <script src="../js/general.js" type="text/javascript"></script>
-      <script src="../jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
-
-      <div class="container" id="personalDetais">
-      <div class="header">Apply for a house </div>
-      <div class="input">
-      <label>Select a house</label>
-      <?php if ($userJobCategory > 10 and $userJobCategory < 13) { ?>
-      BF <input type="checkbox" name="choose" value="BF">
-      BH<input type="checkbox" name="choose" value="BH">
-      AH<input type="checkbox" name="choose" value="AH">
-      </div>
-
-      <?php
-      } elseif ($userJobCategory == 13) {
-      ?>
-      AH<input type="checkbox" name="choose" value="AH" checked="cheked">
-      </div>
-
-      <?php
-      } elseif ($userJobCategory < 7) {
-      ?>
-      AH<input type="checkbox" name="choose" value="AH" checked="cheked">
-      </div>
-
-      <?php } else {
-      ?>
-      AH<input type="checkbox" name="choose" value="AH" checked="cheked">
-      </div>
-      <?php } ?>
-      <div class="input">
-      <input type="button"  class="selectedHouse" value="Button">
-      </div>
-      <script type="text/javascript">
-      $(document).ready(function() {
-      $("[type=button]").live('click', General.buttonClicked);
-      });
-      </script>
-      <?php
-      }
-     */
     function houseToApplyFor() {
         $this->header();
         ?>
@@ -638,8 +601,24 @@ class Forms {
         include_once './evaluation.php';
         $eval = new evaluation();
         ?>
-            <script src="/js/general.js" type="text/javascript"></script>
-            <div class="container" id="personalDetais">
+             $this->header();
+        ?>
+        <div class="main_container">
+            <div id="header"> 
+                <div id="header">
+                    <div class="logo">
+                        <img border="0" title="" alt="" src="../images/logo.gif">
+                    </div>
+                </div>
+            </div>
+              <div class="menu"></div>
+                <div class="center_content">
+                        <div class=" welcome_box">
+                            <div class="welcome">
+                                <div class="container" id="personalDetais">
+                                    <span class="orange">
+            
+                    <div class="header"> House application Details </div>
                 <div class="header"> Contract Details </div>
                 <div class="input">
                     <label>Current House</label> <p>the house you are in<p><br/>
@@ -661,31 +640,48 @@ class Forms {
                 </div>
             </div>
         <?php
+            $this->footer();
     }
 
     function applyForHouseRepair() {
+        $this->header();
         ?>
-            <script src="/js/general.js" type="text/javascript"></script>
-            <div class="container" id="personalDetais">
-                <div class="header"> House application Details </div>
-                <div class="input">
-                    <div class="header"> House application Details </div>
-
-                    <label>category</label>
-                    <select>
-                        <option>plumbing</option>
-                        <option>Electrical</option>
-                        <option>Other </option> 
-                    </select>
-                    <label>Description</label>
-                    <textarea cols="50"rows="10" />
-                </div> 
-
-                <div class="input">
-                    <button > submit</button>s
+        <div class="main_container">
+            <div id="header"> 
+                <div id="header">
+                    <div class="logo">
+                        <img border="0" title="" alt="" src="../images/logo.gif">
+                    </div>
                 </div>
             </div>
+              <div class="menu"></div>
+                <div class="center_content">
+                        <div class=" welcome_box">
+                            <div class="welcome">
+                                <div class="container" id="personalDetais">
+                                    <span class="orange">
+            
+                    <div class="header"> House application Details </div>
+                    <label>Category</label>
+                    <select id="repair_category">
+                        <option value=""> --Choose--</option>
+                        <option value="plumbing"> plumbing</option>
+                        <option value="Electical">Electrical</option>
+                        <option value="Other">Other </option> 
+                    </select>
+                  
+                    <label>Description</label> <textarea  id="repair_desciption"cols="50"rows="10" ></textarea>
+                 <div class="input">
+                   <input type="button"  class="submit_repair_application" value="Button">
+                </div>
+              </div> 
+                            </div>
+            </div>
+                </div>
+        
+           
         <?php
+          $this->footer();
     }
 
     /* ----------------------------header------------------------------- */
@@ -739,10 +735,9 @@ class Forms {
         ?>
                 <div class="menu">
                     <ul>
-                        <li> <a href="modules/mod_general.php?page=manageProfile">Manage profile</a></li>
-                        <li>  <a href="">manage profile</a></li>
-                        <li> <a href="">apply for repair</a></li>
-                        <li><a href="">view contract details</a></li>
+                        <li>  <a href="./mod_general.php?page=manageProfile">Manage profile</a></li>
+                        <li> <a href="./mod_general.php?page=applyForRepair">apply for repair</a></li>
+                        <li><a href="./mod_general.php?page=contractDetails">view contract details</a></li>
                         <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
                     </ul>
                 </div>

@@ -112,13 +112,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'applyForAhouse') {
         $dbinsert->addHouseApplication($d);
         echo "success fully applied for the selected houses";
     }
-} else if (isset($_GET['page']) && $_GET['page'] == 'tenantHomepage') {
-    include_once './DbModules.php';
-    include_once './Forms.php';
-    $form->header();
-    $form = new Forms();
-    $form->tenantHomepage();
-}
+} 
 
 /*
  * 
@@ -250,8 +244,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $output = new dataDispaly();
     $array = $_GET["values"];
     $houseType = $array[2];
-    //echo $houseType;
-    // $houseNo=trim($_GET["houseNo"]);
+  
     $output->displayLettingForm($houseType, $array);
 } else if (isset($_GET['page']) && $_GET['page'] == 'submitLetDetails') {
     include_once './DbModules.php';
@@ -259,6 +252,42 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $details = $_GET["features"];
     $db->addLetintDetails($details);
 }
+/*for managing tenant  pages and their menus
+ * 
+ * 
+ */
+ else if (isset($_GET['page']) && $_GET['page'] == 'applyForRepair') {
+    include_once './Forms.php';
+    $form = new Forms();
+    $display = $form->applyForHouseRepair();
+
+ }
+ else if (isset($_GET['page']) && $_GET['page'] == 'submit_repair_application') {
+    include_once './DbModules.php';
+    $db = new DbModules();
+    $category = $_GET["category"];
+     $description = $_GET["description"];
+    $db->applyForHouseRepair($category,$description);
+}
+ 
+else if (isset($_GET['page']) && $_GET['page'] == 'submit_repair_application') {
+    include_once './DbModules.php';
+    $db = new DbModules();
+    $category = $_GET["category"];
+     $description = $_GET["description"];
+    $db->applyForHouseRepair($category,$description);
+}
+
+
+else if (isset($_GET['page']) && $_GET['page'] == 'tenantHomepage') {
+    include_once './DbModules.php';
+    include_once './Forms.php';
+    $form->header();
+    $form = new Forms();
+    $form->tenantHomepage();
+}
+//contractDetails
+
 /*
  * -------------------------------logout-----------------------
  */ 

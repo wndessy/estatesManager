@@ -155,7 +155,7 @@ var General = {
                 success: function(result) {
                     alert(result);
                     console.log(result);
-                    //  window.location = "../modules/mod_general.php?page=tenantHomepage"
+                    window.location = "../modules/mod_general.php?page=userLogin";
                 },
                 error: function(result) {
                     alert(result);
@@ -186,17 +186,6 @@ var General = {
             });
             console.log(houses);
 
-
-            /*var x = $("input:checked");
-             var values = "";
-             for (i = 0; i < x.length; i++) {
-             if (i < x.length - 1) {
-             values += (x[i].value) + ",";
-             }
-             else {
-             values += (x[i].value);
-             }
-             }*/
             $.ajax({
                 type: "GET",
                 url: "../modules/mod_general.php?page=houseChosenforApplication&selectedHouses=" + houses,
@@ -204,7 +193,6 @@ var General = {
                 success: function(result) {
                     alert(result);
                     window.location = "../modules/mod_general.php?page=tenantHomepage";
-                    //window.location = "../modules/mod_general.php?page=adminLogin"
                 },
                 error: function(result) {
                     alert("error adding an house application detail");
@@ -216,10 +204,6 @@ var General = {
 
         if (this.className === "addStaff") {
 
-            // if (($("#name").val() === "") ||($("#email").val() === "")||( $("#password").val())|| ($("#userLevel").val())){
-            //   alert("please fill in all fields");
-            //}
-            // else {
             var staffDetail = {
                 "name": $("#name").val(),
                 "email": $("#email").val(),
@@ -233,7 +217,7 @@ var General = {
                 success: function(result) {
                     alert(result);
                     console.log(result);
-                    //window.location = "../modules/mod_general.php?page=staffLogin"
+                    window.location = "../modules/mod_general.php?page=userLogin";
                 },
                 error: function(result) {
                     alert(result);
@@ -292,13 +276,39 @@ var General = {
                 async: false,
                 success: function(result) {
                     alert(result);
-                    //console.log(result);
-                    //  window.location = "../modules/mod_general.php?page=tenantHomepage"
+                    window.location = "../modules/mod_general.php?page=userLogin";
                 },
                 error: function(result) {
                     alert(result);
                 }});
 
+        }
+
+        /*
+         * submiting repair details
+         * @returns {undefined}
+         */
+
+        if (this.className === "submit_repair_application") {
+
+            var category = $("#repair_category").val(), description = $("#repair_desciption").val();
+            if ((category !== "") && (description !== "")) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "../modules/mod_general.php?page=submit_repair_application&category=" + category + "&description=" + description,
+                    async: false,
+                    success: function(result) {
+                        alert(result);
+                        window.location = "../modules/mod_general.php?page=userLogin";
+                    },
+                    error: function(result) {
+                        alert(result);
+                    }});
+            }
+            else {
+                alert("please ensure you fill in all the inputs approapriately")
+            }
         }
     },
     /*
