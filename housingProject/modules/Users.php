@@ -135,13 +135,14 @@ class Users {
                 . " where email=\"" . $email . "\" and password =DES_ENCRYPT(\"" . $password . "\",'mine')";
         // $cmd=" select * from  " . $test->getDB_NAME() . ".staffDetails where email='mimi@mimi.com' and password =DES_ENCRYPT('123','mine')";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-        //echo $cmd;    
         if (mysql_num_rows($results_set) > 0) {
             $row = mysql_fetch_array($results_set);
             $name = $row['name'];
             $email = $row['email'];
             $userLevel = $row['userLevel'];
+            
             session_start();
+            $_SESSION['staff_id']
             $_SESSION['name'] = $name;
             $_SESSION['email'] = $email;
             $_SESSION['userLevel'] = $userLevel;

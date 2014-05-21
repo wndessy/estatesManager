@@ -177,14 +177,15 @@ class DbModules {
         return $results_set;
     }
 
-    function getHousesAppliadFor($applicantId) {
+    function getHousesAppliadFor() {
         include_once '../Config.php';
         $test = new Config;
         $conn = $this->getConnection();
         $cmd = "select * from " . $test->getDB_NAME() . ".house_applications "
                 . "natural join " . $test->getDB_NAME() . ".house_types "
-                . "where ApplicantId=\"" . $applicantId . "\" ";
+                . "where ApplicantId=\"" . $_SESSION['applicantId'] . "\" ";
         $results_set = mysql_query($cmd, $conn) or die(mysql_error());
+         
         return $results_set;
     }
 

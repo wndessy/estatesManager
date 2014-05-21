@@ -94,13 +94,12 @@ if (isset($_GET['page']) && $_GET['page'] == 'default_page') {
  */
 //link tab to apply for a house page
 else if (isset($_GET['page']) && $_GET['page'] == 'applyForAhouse') {
-    session_start();
     include_once './Forms.php';
     include_once './dataDispaly.php';
     $form = new Forms();
     $display = new dataDispaly();
-    $display->housesAppliedForList($_SESSION['applicantId']);
-    $form->houseToApplyFor();
+    $display->housesAppliedForList();
+   $form->houseToApplyFor();
 } else if (isset($_GET['page']) && $_GET['page'] == 'houseChosenforApplication') {
     include_once './DbModules.php';
     include_once './Forms.php';
@@ -279,13 +278,13 @@ else if (isset($_GET['page']) && $_GET['page'] == 'submit_repair_application') {
 }
 
 
-else if (isset($_GET['page']) && $_GET['page'] == 'tenantHomepage') {
+else if (isset($_GET['page']) && $_GET['page'] == 'contractDetails') {
     include_once './DbModules.php';
     include_once './Forms.php';
-    $form->header();
-    $form = new Forms();
-    $form->tenantHomepage();
+       $form = new Forms();
+    $form->contractRenewal($UserId);
 }
+
 //contractDetails
 
 /*

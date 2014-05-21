@@ -8,100 +8,84 @@
  */
 class dataDispaly {
 
-    function dataDispaly() {
+    function applicantsList() {
         ?>
-        <html>
-            <head>
-                <link rel="stylesheet" href="../css/specific_style.css">
-                <link rel="stylesheet" href="../css/general_style.css"/>
-                <script src='../js/general.js'></script>
-                <script src='../jquery/jquery-1.8.3.min.js'></script>
-                <script src="../jquery/organictabs.jquery.js"></script>
-                <script type="text/javascript" src="../jquery/jquery-1.8.3.min.js"></script>
-                <script type="text/javascript" src="../js/general.js"></script>
-                <link rel="stylesheet" href="../css/customAlerts.css" type="text/css"/>
-                <script type="text/javascript" src="../js/customAlertWindows.js"></script>
-            </head>
-            <div class="main_container">
-             
-                 <div class="center_content">
-                
-                
-                
-                
+
+        <div class="container" id="personalDetais">
+            <div class = "header" > Applicants </div>
+            <table>
+                <tr>
+                    <td> First name </td>
+                    <td> Last name </td>
+                    <td> Gender </td>
+                    <td>Designation</td>
+                    <td>Grade</td>
+                    <td>Department</td>
+                    <td>Approval Status</td>
+                    <td>View Button</td > 
+                </tr>
                 <?php
-            }
+                include_once './DbModules.php';
+                $db = new DbModules();
+                $x = $db->listAllApplicants();
 
-            function applicantsList() {
-                ?>
-
-                <div class="container" id="personalDetais">
-                    <div class = "header" > Applicants </div>
-                    <table>
-                        <tr>
-                            <td> First name </td>
-                            <td> Last name </td>
-                            <td> Gender </td>
-                            <td>Designation</td>
-                            <td>Grade</td>
-                            <td>Department</td>
-                            <td>Approval Status</td>
-                            <td>View Button</td > 
-                        </tr>
-                        <?php
-                        include_once './DbModules.php';
-                        $db = new DbModules();
-                        $x = $db->listAllApplicants();
-
-                        while ($row = mysql_fetch_array($x)) {
-                            ?>
+                while ($row = mysql_fetch_array($x)) {
+                    ?>
 
 
-                            <tr >
-                                <td ><?php echo $row['FirstName']; ?> </td>
+                    <tr >
+                        <td ><?php echo $row['FirstName']; ?> </td>
 
-                                <td ><?php echo $row['LastName']; ?> </td>
-                                <td ><?php echo $row['Gender']; ?> </td>
-                                <td ><?php echo $row['Designation']; ?> </td>
-                                <td ><?php echo $row['Grade']; ?> </td>
-                                <td><?php echo $row['Department']; ?> </td>
-                                <td ><?php echo $row['aprovalStatus']; ?> </td>
-                                <td > <input type = "button" class = "exploreUser" id = "<?php echo$row['ApplicantId']; ?>" value = "Explore" /> </td>
-                            </tr>
-                        <?php } ?>
-                    </table>
+                        <td ><?php echo $row['LastName']; ?> </td>
+                        <td ><?php echo $row['Gender']; ?> </td>
+                        <td ><?php echo $row['Designation']; ?> </td>
+                        <td ><?php echo $row['Grade']; ?> </td>
+                        <td><?php echo $row['Department']; ?> </td>
+                        <td ><?php echo $row['aprovalStatus']; ?> </td>
+                        <td > <input type = "button" class = "exploreUser" id = "<?php echo$row['ApplicantId']; ?>" value = "Explore" /> </td>
+                    </tr>
+                <?php } ?>
+            </table>
 
-                </div>
-                <div class = "container" id = "exploreWindow" >
-                    <input type = "button" value = "Ok" onclick = "cancelDiv()" style = "float: right; margin-right: 20px;
-                           font-weight: bold; width: 50px" />
-                    <input type = "button" value = "click me" onclick = "ShowDiv()" />
-                    <script type = "text/javascript" >
-                        $(document).ready(function() {
-                            $("[type=button]").live('click', General.buttonClicked);
-                        });
-                                            </script>
+        </div>
+        <div class = "container" id = "exploreWindow" >
+            <input type = "button" value = "Ok" onclick = "cancelDiv()" style = "float: right; margin-right: 20px;
+                   font-weight: bold; width: 50px" />
+            <input type = "button" value = "click me" onclick = "ShowDiv()" />
+            <script type = "text/javascript" >
+                $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });
+            </script>
+            <?php
+        }
+
+        function housesAppliedForList() {
+            include_once './Forms.php';
+            include_once './DbModules.php';
+            $db = new DbModules();
+            $forms = new Forms();
+            $forms->login("user");
+            ?>
+            <div class="main_container">
+                <div class="center_content">
                     <?php
-                }
-
-                function housesAppliedForList($applicantId) {
-                    include_once './DbModules.php';
-                    $db = new DbModules();
-                    $x = $db->getHousesAppliadFor($applicantId);
-                    if ($x == null) {
-                        echo"there is no  house applied for yet";
+                    $result_set = $db->getHousesAppliadFor();
+                    if ($x = NULL) {
+                        echo"you have not applied for any house yet";
                     } else {
                         ?>
-
                         <table>
                             <tr>
                                 <td>House Type</td><td>Rent</td><td>description</td>
-                            </tr>
-                            <?php while ($row = mysql_fetch_array($x)) { ?>
+                            </tr> 
+                            <?php while ($row = mysql_fetch_array($result_set)) {
+                                ?>
+
                                 <tr>
-                                    <td><?php $row ['houseType']; ?></td>
-                                    <td><?php $row ['rent']; ?></td>
-                                    <td><?php $row ['description']; ?></td>
+                                    <td><?php echo $row ['name']; ?></td>
+                                    <td><?php echo $row ['rent']; ?></td>
+                                    <td><?php echo $row ['description']; ?></td>
                                 </tr>
                             <?php } ?>
                         </table>
@@ -144,9 +128,9 @@ class dataDispaly {
 
                     </div>
                     <script type="text/javascript">
-                        $(document).ready(function() {
-                            $("[type=button]").live('click', General.buttonClicked);
-                        });</script>
+                $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });</script>
                     <?php
                 }
 
@@ -195,9 +179,9 @@ class dataDispaly {
 
                     </div>
                     <script type="text/javascript">
-                        $(document).ready(function() {
-                            $("[type=button]").live('click', General.buttonClicked);
-                        });</script>
+                $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });</script>
                     <?php
                 }
 
@@ -241,9 +225,9 @@ class dataDispaly {
 
                 </div>
                 <script type="text/javascript">
-                        $(document).ready(function() {
-                            $("[type=button]").live('click', General.buttonClicked);
-                        });
+                $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });
                 </script>
                 <?php
             }
@@ -345,38 +329,38 @@ class dataDispaly {
 
                         <script type = "text/javascript">
 
-                        $(document).ready(function() {
-                            $("[type=button]").live('click', General.buttonClicked);
-                        });
+                $(document).ready(function() {
+                    $("[type=button]").live('click', General.buttonClicked);
+                });
 
-                        $(document).ready(function() {
-                            $("div select").live('change', General.selectionChanged);
-                            $("#houseTypeselect").val(' --Choose--');
+                $(document).ready(function() {
+                    $("div select").live('change', General.selectionChanged);
+                    $("#houseTypeselect").val(' --Choose--');
 
-                            /* event for close the popup */
-                            $("div.close").hover(
-                                    function() {
-                                        $('span.ecs_tooltip').show();
-                                    },
-                                    function() {
-                                        $('span.ecs_tooltip').hide();
-                                    }
-                            );
+                    /* event for close the popup */
+                    $("div.close").hover(
+                            function() {
+                                $('span.ecs_tooltip').show();
+                            },
+                            function() {
+                                $('span.ecs_tooltip').hide();
+                            }
+                    );
 
-                            $("div.close").click(function() {
-                                General.disablePopup();  // function close pop up
-                            });
+                    $("div.close").click(function() {
+                        General.disablePopup();  // function close pop up
+                    });
 
-                            $(this).keyup(function(event) {
-                                if (event.which == 27) { // 27 is 'Ecs' in the keyboard
-                                    General.disablePopup();  // function close pop up
-                                }
-                            });
+                    $(this).keyup(function(event) {
+                        if (event.which == 27) { // 27 is 'Ecs' in the keyboard
+                            General.disablePopup();  // function close pop up
+                        }
+                    });
 
-                            $("div#backgroundPopup").click(function() {
-                                General.disablePopup();  // function close pop up
-                            });
-                        });
+                    $("div#backgroundPopup").click(function() {
+                        General.disablePopup();  // function close pop up
+                    });
+                });
                         </script>
                     </body>
                 </html>
@@ -444,35 +428,32 @@ class dataDispaly {
                 </script>
                 <?php
             }
-            
-            
-            
-            function childDetailAddition($child_count) {
-                    ?>
-                    <div id="<?php echo "child_number_" . $child_count; ?>">
-                        <p>Child number <?php echo $child_count + 1 ?></p>
-                        <div class="input">
-                            <label>First Name </label> <input id="<?php echo "f_name_" . $child_count; ?>" type="text" /> 
-                        </div>
-                        <div class="input">
-                            <label>Last Name </label> <input id="<?php echo "m_name_" . $child_count; ?>" type="text"/> 
-                        </div>
-                        <div class="input">
-                            <label>Date of Birth</label> <input id="<?php echo "dob_" . $child_count; ?>" type="date" /> 
-                        </div>
-                        <div class="input">
-                            <label>Disabled</label> 
-                            <select id="<?php echo "disabled_" . $child_count; ?>">
-                                <option value="">--Choose--</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No"> No </option>
-                            </select>
-                            <input type="hidden" id="CountParser" value="<?php echo $child_count ?>"/>
-                        </div>
-                    </div>
-                    <?php
-                }
 
+            function childDetailAddition($child_count) {
+                ?>
+                <div id="<?php echo "child_number_" . $child_count; ?>">
+                    <p>Child number <?php echo $child_count + 1 ?></p>
+                    <div class="input">
+                        <label>First Name </label> <input id="<?php echo "f_name_" . $child_count; ?>" type="text" /> 
+                    </div>
+                    <div class="input">
+                        <label>Last Name </label> <input id="<?php echo "m_name_" . $child_count; ?>" type="text"/> 
+                    </div>
+                    <div class="input">
+                        <label>Date of Birth</label> <input id="<?php echo "dob_" . $child_count; ?>" type="date" /> 
+                    </div>
+                    <div class="input">
+                        <label>Disabled</label> 
+                        <select id="<?php echo "disabled_" . $child_count; ?>">
+                            <option value="">--Choose--</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No"> No </option>
+                        </select>
+                        <input type="hidden" id="CountParser" value="<?php echo $child_count ?>"/>
+                    </div>
+                </div>
+                <?php
+            }
 
         }
         

@@ -173,44 +173,35 @@ class Forms {
      * This form is for general users to sign up
      */
     function ViewAndEditDetails($applicantId) {
-        
-                ?>
+        ?>
         <?php
-         $this->header();
+        $this->login("user");
         ?>
         <div class="main_container">
-            <div id="header"> 
-                <div id="header">
-                    <div class="logo">
-                        <img border="0" title="" alt="" src="../images/logo.gif">
-                    </div>
-                </div>
-            </div>
-              <div class="menu"></div>
-                <div class="center_content">
+            <div class="center_content">
                 <?php
-        include_once './DbModules.php';
-        $db = new DbModules();
-            $resultset = $db->viewApplicantDetails($applicantId);
-        $row = mysql_fetch_array($resultset);
-        $this->header();
-        ?>
-        <script type="text/javascript">
-            $(function() {
-                $("#example-two").organicTabs({
-                    "speed": 200
-                });
-            });
-            function goNext(name) {
-                $("#" + name).click();
-            }
-        </script>
-        <style>
-            .header{
-                font-size:  20px;
-            }
-        </style>
-  
+                include_once './DbModules.php';
+                $db = new DbModules();
+                $resultset = $db->viewApplicantDetails($applicantId);
+                $row = mysql_fetch_array($resultset);
+                $this->header();
+                ?>
+                <script type="text/javascript">
+                    $(function() {
+                        $("#example-two").organicTabs({
+                            "speed": 200
+                        });
+                    });
+                    function goNext(name) {
+                        $("#" + name).click();
+                    }
+                </script>
+                <style>
+                    .header{
+                        font-size:  20px;
+                    }
+                </style>
+
                 <div id="page-wrap">
                     <div id="example-two">
                         <ul class="nav">
@@ -353,13 +344,13 @@ class Forms {
                         </div>
                     </div>
                 </div>
-                </div>
-        
-                    <?php
-                    $this->footer();
-                    ?>
-                </div>
             </div>
+
+            <?php
+            $this->footer();
+            ?>
+        </div>
+        </div>
         </div>
 
         <script type="text/javascript">
@@ -392,50 +383,46 @@ class Forms {
      * This form is for adding staff
      */
     function addStaffForm() {
-        $this->header();
+        ?>
+        <?php
+        $this->login("user");
         ?>
         <div class="main_container">
-            <div id="header"> 
-                <div id="header">
-                    <div class="logo">
-                        <img border="0" title="" alt="" src="../images/logo.gif">
+            <div class="center_content">
+
+
+                <div class="container" id="personalDetais">
+                    <h2>New Staff Details</h2>
+                    <div class="input">
+                        <label>Name</label><input type="text" id="name"/><br />
+                        <label>category</label>
+                        <select id="userLevel">
+                            <option value="1">Choose</option>
+                            <option value="2">housing manager</option>
+                            <option value="3">plumbing</option>
+                            <option value="4">carpentry</option>
+                        </select>
+                        <div style="clear: both"></div>
+                        <label>Email</label><input type="text" id="email"/><br />
+                        <label>Password</label><input type="password" id="password"/><br />
+                        <input type="button" id="addStaff" class="addStaff" value="Add"/>
                     </div>
                 </div>
-            </div>
-            <div class="center_content">
-                <form action="" method="POST">
-                    <div class="container" id="personalDetais">
-                        <h2>New Staff Details</h2>
-                        <div class="input">
-                            <label>Name</label><input type="text" id="name"/><br />
-                            <label>category</label>
-                            <select id="userLevel">
-                                <option value="1">Choose</option>
-                                <option value="2">housing manager</option>
-                                <option value="3">plumbing</option>
-                                <option value="4">carpentry</option>
-                            </select>
-                            <div style="clear: both"></div>
-                            <label>Email</label><input type="text" id="email"/><br />
-                            <label>Password</label><input type="password" id="password"/><br />
-                            <input type="button" id="addStaff" class="addStaff" value="Add"/>
-                        </div>
-                    </div>
                 </form>
             </div>
-            <?php
-            $this->footer();
-            ?>
-        </div>
         <?php
-    }
-
-    /*
-     * can be staff or normal users
-     */
-
-    function login($user) {
+        $this->footer();
         ?>
+        </div>
+            <?php
+        }
+
+        /*
+         * can be staff or normal users
+         */
+
+        function login($user) {
+            ?>
         <?php
         $this->header();
         ?>
@@ -447,26 +434,27 @@ class Forms {
                     </div>
                 </div>
             </div>
-            <?php
-            session_start();
-            if (!isset($_SESSION['userLevel']) || (trim($_SESSION['userLevel']) == '' and $_SESSION['email']) || (trim($_SESSION['email']) == '' )) {
-                ?>
-            <div class="menu"></div>
+        <?php
+        session_start();
+        if (!isset($_SESSION['userLevel']) || (trim($_SESSION['userLevel']) == '' and $_SESSION['email']) || (trim($_SESSION['email']) == '' )) {
+            //if requesting page not default or user or staff login
+            ?>
+                <div class="menu"></div>
                 <div class="center_content">
                     <form action="" method="POST">
                         <div class=" welcome_box">
                             <div class="welcome">
                                 <div class="container" id="personalDetais">
                                     <span class="orange">
-                                        <?php
-                                        include_once '../Config.php';
-                                        $Config = new Config();
-                                        if (trim($user) == "user") {
-                                            echo "<h2>" . $Config->STRING->user_login_page_header . "</h2>";
-                                        } else if (trim($user) == "staff") {
-                                            echo "<h2>" . $Config->STRING->staff_login_page_header . "</h2>";
-                                        }
-                                        ?>
+            <?php
+            include_once '../Config.php';
+            $Config = new Config();
+            if (trim($user) == "user") {
+                echo "<h2>" . $Config->STRING->user_login_page_header . "</h2>";
+            } else if (trim($user) == "staff") {
+                echo "<h2>" . $Config->STRING->staff_login_page_header . "</h2>";
+            }
+            ?>
                                     </span>
                                     <div class="input">
                                         <label>Email</label>   <input type="text"     id="email"/> <br/>
@@ -478,27 +466,26 @@ class Forms {
                             </div>
                         </div>
                     </form>
-                                <?php
+            <?php
             $this->footer();
             ?>
                 </div>
-            <?php
-            
-        } elseif (isset($_SESSION['userLevel'])) {
-            //print_r($_SESSION);
-            if ($_SESSION['userLevel'] == 11) {
-                $this->applicantHomepage();
-            } else if ($_SESSION['userLevel'] == 12) {
-                $this->tenantHomepage();
-            } else if ($_SESSION['userLevel'] == 1) {
-                $this->superUserHomepage();
-            } else if ($_SESSION['userLevel'] == 2) {
-                $this->managerHomePage();
-            } else if ($_SESSION['userLevel'] === 3) {
-                $this->housingOfficerHomePage();
-            }
-        }
-        ?>
+                    <?php
+                } elseif (isset($_SESSION['userLevel'])) {
+                    //print_r($_SESSION);
+                    if ($_SESSION['userLevel'] == 11) {
+                        $this->applicantHomepage();
+                    } else if ($_SESSION['userLevel'] == 12) {
+                        $this->tenantHomepage();
+                    } else if ($_SESSION['userLevel'] == 1) {
+                        $this->superUserHomepage();
+                    } else if ($_SESSION['userLevel'] == 2) {
+                        $this->managerHomePage();
+                    } else if ($_SESSION['userLevel'] === 3) {
+                        $this->housingOfficerHomePage();
+                    }
+                }
+                ?>
         </div>
             <?php
         }
@@ -561,37 +548,35 @@ class Forms {
     }
 
     function houseToApplyFor() {
-        $this->header();
         ?>
-        <div id="header"> 
-                <div id="header">
-                    <div class="logo">
-                        <img border="0" title="" alt="" src="../images/logo.gif">
-                    </div>
-                </div>
-            </div>
-            <div class="menu"></div>
-            <div class="center_content">
         <div class="container" id="personalDetais">
             <div class="header">Apply for a house </div>
-            <div class="input">
-                <label>Select a house</label>
+
+            <h2 >Select a house</h2><br/>
         <?php
+        include_once './DbModules.php';
         $db = new DbModules();
         $result = $db->houseToAplyFor();
+        ?><table class="hiden_layout_tables">
+            <?php
         while ($row = mysql_fetch_array($result)) {
-            ?>
-                    <label><?php echo $row['name']; ?></label>
-                    <input type="checkbox" value=" <?php echo $row['house_id'] ?>" /><br/>
-        <?php } ?>    
-            </div>
+            ?><tr>
+                <td>
+                <label><?php echo $row['name']; ?></label>
+                </td>
+                <td>
+                <input type="checkbox" value=" <?php echo $row['house_id'] ?>" /><br/>
+                </td>
+            </tr>
+            <?php } ?>
+        </table>
             <div class="input">
-                <input type="button"  class="selectedHouse" value="Button">
-            </div>
+            <input type="button"  class="selectedHouse" value="Button">
         </div>
-            </div>
-            
-        <?php
+        </div>
+        </div>
+                <?php
+        $this->footer();
     }
 
     /**
@@ -601,160 +586,151 @@ class Forms {
         include_once './evaluation.php';
         $eval = new evaluation();
         ?>
-             $this->header();
+        <?php
+        $this->login("user");
         ?>
         <div class="main_container">
-            <div id="header"> 
-                <div id="header">
-                    <div class="logo">
-                        <img border="0" title="" alt="" src="../images/logo.gif">
-                    </div>
-                </div>
-            </div>
-              <div class="menu"></div>
-                <div class="center_content">
-                        <div class=" welcome_box">
-                            <div class="welcome">
-                                <div class="container" id="personalDetais">
-                                    <span class="orange">
-            
-                    <div class="header"> House application Details </div>
-                <div class="header"> Contract Details </div>
-                <div class="input">
-                    <label>Current House</label> <p>the house you are in<p><br/>
-                        <label>contract start date</label><p><?php echo $eval->houseRenewDetails($applicantId, StartDate) ?></p><br/>
-                    <label>Contract end date</label><p><?php echo $eval->houseRenewDetails($applicantId, EndDate); ?></p><br/>
-                    <label>renewable</label><p><?php echo $eval->houseRenewDetails($applicantId, renewable); ?></p><br/>
-        <?php if ($eval->houseRenewDetails($applicantId, renewable) == 'yes') { ?>
-                        <button id="renew" value="Renew"/> 
-                    <?php } else if ($eval->houseRenewDetails($applicantId, renewable) == 'Aplied') {
-                        ?>
-                        <p>Applied for renewal</p>
-                    <?php } else if ($eval->houseRenewDetails($applicantId, renewable) == 'Aproved') {
-                        ?>
-                        <p>Renewal Approved</p>
-                    <?php } else {
-                        ?>
-                        <p>No</p>
-                    <?php } ?>
-                </div>
-            </div>
-        <?php
-            $this->footer();
-    }
+            <div class="center_content">
 
-    function applyForHouseRepair() {
-        $this->header();
-        ?>
-        <div class="main_container">
-            <div id="header"> 
-                <div id="header">
-                    <div class="logo">
-                        <img border="0" title="" alt="" src="../images/logo.gif">
+                <div class=" welcome_box">
+                    <div class="welcome">
+                        <div class="container" id="personalDetais">
+                            <span class="orange">
+
+                                <div class="header"> Tenancy Contract Details </div>
+                                >
+                                <label>Current House</label> <p>the house you are in<p><br/>
+
+                                    <label>contract start date</label>   <p><?php echo $eval->houseRenewDetails("start_date") ?></p><br/>
+
+                                <label>Contract end date</label>    <p><?php echo $eval->houseRenewDetails("end_date"); ?></p><br/>
+
+                                <label>renewable</label>     <p><?php echo $eval->houseRenewDetails(renewable); ?></p><br/>
+        <?php if ($eval->houseRenewDetails($applicantId, renewable) == 'yes') { ?>
+                                    <button id="renew" value="Renew"/> 
+        <?php } else if ($eval->houseRenewDetails($applicantId, renewable) == 'Aplied') {
+            ?>
+                                    <p>Applied for renewal</p>
+                                <?php } else if ($eval->houseRenewDetails($applicantId, renewable) == 'Aproved') {
+                                    ?>
+                                    <p>Renewal Approved</p>
+                                <?php } else {
+                                    ?>
+                                    <p>No</p>
+                                <?php } ?>
+                        </div>
                     </div>
-                </div>
-            </div>
-              <div class="menu"></div>
-                <div class="center_content">
-                        <div class=" welcome_box">
-                            <div class="welcome">
-                                <div class="container" id="personalDetais">
-                                    <span class="orange">
-            
-                    <div class="header"> House application Details </div>
-                    <label>Category</label>
-                    <select id="repair_category">
-                        <option value=""> --Choose--</option>
-                        <option value="plumbing"> plumbing</option>
-                        <option value="Electical">Electrical</option>
-                        <option value="Other">Other </option> 
-                    </select>
-                  
-                    <label>Description</label> <textarea  id="repair_desciption"cols="50"rows="10" ></textarea>
-                 <div class="input">
-                   <input type="button"  class="submit_repair_application" value="Button">
-                </div>
-              </div> 
+                                <?php
+                                $this->footer();
+                            }
+
+                            function applyForHouseRepair() {
+                                ?>
+                    <?php
+                    $this->login("user");
+                    ?>
+                    <div class="main_container">
+                        <div class="center_content">
+
+                            <div class=" welcome_box">
+                                <div class="welcome">
+                                    <div class="container" id="personalDetais">
+                                        <span class="orange">
+
+                                            <div class="header"> House application Details </div>
+                                            <label>Category</label>
+                                            <select id="repair_category">
+                                                <option value=""> --Choose--</option>
+                                                <option value="plumbing"> plumbing</option>
+                                                <option value="Electical">Electrical</option>
+                                                <option value="Other">Other </option> 
+                                            </select>
+
+                                            <label>Description</label> <textarea  id="repair_desciption"cols="50"rows="10" ></textarea>
+                                            <div class="input">
+                                                <input type="button"  class="submit_repair_application" value="Button">
+                                            </div>
+                                    </div> 
+                                </div>
                             </div>
-            </div>
-                </div>
-        
-           
+                        </div>
+
+
         <?php
-          $this->footer();
+        $this->footer();
     }
 
     /* ----------------------------header------------------------------- */
 
     function superUserHomepage() {
         ?>
-            <div class="menu">
-                <ul>
-                    <li> <a href="./mod_general.php?page=manageStaff">Manage Staff</a> </li>
-                    <li> <a href="./mod_general.php?page=manageStaff"> Manage Houses</a></li>
-                    <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
+                        <div class="menu">
+                            <ul>
+                                <li> <a href="./mod_general.php?page=manageStaff">Manage Staff</a> </li>
+                                <li> <a href="./mod_general.php?page=manageStaff"> Manage Houses</a></li>
+                                <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
 
-                </ul>
+                            </ul>
         <?php
     }
 
     function managerHomePage() {
         ?>
-                <div class="menu">
-                    <ul>
-                        <li> <a href="./mod_general.php?page=manageApplicants">Applicants</a></li>
-                        <li> <a href="./mod_general.php?page=manageHouseApplication">House Applications</a></li>
-                        <li> <a href="./mod_general.php?page=manageHouseAllocation">House Allocations</a></li>
-                        <li> <a href="./mod_general.php?page=manageTenants">Tenants</a></li>
-                        <li> <a href="./mod_general.php?page=manageRepairs">Repairs</a></li>
-                        <li> <a href="./mod_general.php?page=manageReports">reports</a></li>
-                        <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
-                    </ul>
-                </div>
+                            <div class="menu">
+                                <ul>
+                                    <li> <a href="./mod_general.php?page=manageApplicants">Applicants</a></li>
+                                    <li> <a href="./mod_general.php?page=manageHouseApplication">House Applications</a></li>
+                                    <li> <a href="./mod_general.php?page=manageHouseAllocation">House Allocations</a></li>
+                                    <li> <a href="./mod_general.php?page=manageTenants">Tenants</a></li>
+                                    <li> <a href="./mod_general.php?page=manageRepairs">Repairs</a></li>
+                                    <li> <a href="./mod_general.php?page=manageReports">reports</a></li>
+                                    <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
+                                </ul>
+                            </div>
         <?php
     }
 
     function housingOfficerHomePage() {
         ?>
-                
-                <div class="menu">
-                    <ul>
-                        <li> <a href="./mod_general.php?page=houseSignIns">sign in</a></li>
-                        <li> <a href="./mod_general.php?page=houseSignups">sign out</a></li>
-                        <li> <a href="./mod_general.php?page=houseRepairs">Repair</a></li>
-                        <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
-                    </ul>
-                </div>
-                <?php
-                    $this->footer();
-                ?>
-        <?php
-    }
 
-    function tenantHomepage() {
+                            <div class="menu">
+                                <ul>
+                                    <li> <a href="./mod_general.php?page=houseSignIns">sign in</a></li>
+                                    <li> <a href="./mod_general.php?page=houseSignups">sign out</a></li>
+                                    <li> <a href="./mod_general.php?page=houseRepairs">Repair</a></li>
+                                    <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
+                                </ul>
+                            </div>
+        <?php
+        $this->footer();
         ?>
-                <div class="menu">
-                    <ul>
-                        <li>  <a href="./mod_general.php?page=manageProfile">Manage profile</a></li>
-                        <li> <a href="./mod_general.php?page=applyForRepair">apply for repair</a></li>
-                        <li><a href="./mod_general.php?page=contractDetails">view contract details</a></li>
-                        <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
-                    </ul>
-                </div>
+                            <?php
+                        }
+
+                        function tenantHomepage() {
+                            ?>
+                            <div class="menu">
+                                <ul>
+                                    <li>  <a href="./mod_general.php?page=manageProfile">Manage profile</a></li>
+                                    <li> <a href="./mod_general.php?page=applyForRepair">apply for repair</a></li>
+                                    <li><a href="./mod_general.php?page=contractDetails">view contract details</a></li>
+                                    <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
+                                </ul>
+                            </div>
 
         <?php
     }
 
     function applicantHomepage() {
         ?>
-                <div class="menu">
-                    <ul>
-                        <li>  <a href="./mod_general.php?page=manageProfile">Manage profile</a></li>
-                        <li>  <a href="./mod_general.php?page=applyForAhouse">apply for a house</a></li>
-                        <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
-                    </ul>
-                </div>
-                <h>i am an applicant</h>
+                            <div class="menu">
+                                <ul>
+                                    <li>  <a href="./mod_general.php?page=manageProfile">Manage profile</a></li>
+                                    <li>  <a href="./mod_general.php?page=applyForAhouse">apply for a house</a></li>
+                                    <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
+                                </ul>
+                            </div>
+                            <h>i am an applicant</h>
         <?php
     }
 
@@ -765,10 +741,10 @@ class Forms {
      */
     function departMentApplication() {
         ?>
-                <label>Name of applicant</label><input type="text" name="email"/>
-                <label>Name of hod  </label><input type="text" name="email"/>
-                <label>Hod email</label><input type="text" name="email"/>
-                <label>Guest name</label><input type="text" name="email"/>
+                            <label>Name of applicant</label><input type="text" name="email"/>
+                            <label>Name of hod  </label><input type="text" name="email"/>
+                            <label>Hod email</label><input type="text" name="email"/>
+                            <label>Guest name</label><input type="text" name="email"/>
 
         <?php
     }

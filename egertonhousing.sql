@@ -65,7 +65,7 @@ CREATE TABLE `applicantsdetails` (
   `aprovalStatus` varchar(10) NOT NULL DEFAULT 'Not',
   `user_stage` int(11) DEFAULT '11',
   PRIMARY KEY (`ApplicantId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `applicantsdetails` (
 
 LOCK TABLES `applicantsdetails` WRITE;
 /*!40000 ALTER TABLE `applicantsdetails` DISABLE KEYS */;
-INSERT INTO `applicantsdetails` VALUES (1,'peter','gor','Male ','Married',123456,'gor@gmail.com','123',1234567,'assistant lec',10,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:43:12','Not',11),(2,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','123',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:49:42','Not',11),(3,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','123',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:52:18','Not',11),(4,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','123',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:53:14','Not',11),(5,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:53:50','Not',11),(6,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:54:04','Not',11),(7,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:56:57','Not',11),(8,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:57:48','Not',11),(9,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:58:14','Not',11),(10,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:59:37','Not',11),(11,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 12:00:45','Not',11),(12,'obed','muthomi','Male ','Single ',23333,'obed@gmail.com','123',122333,'kiki',23,'0000-00-00','23','','gikaru',1,'2014-04-23 15:11:26','Not',11),(13,'dermi','data','Male ','Single ',222222,'dermi@gmail.com','123',333,'distinguish',12,'0000-00-00','dermi','','dermi',1,'2014-04-24 12:14:29','Not',11);
+INSERT INTO `applicantsdetails` VALUES (1,'peter','gor','Male ','Married',123456,'gor@gmail.com','123',1234567,'assistant lec',10,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:43:12','Not',11),(2,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','123',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:49:42','Not',11),(3,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','123',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:52:18','Not',11),(4,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','123',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:53:14','Not',11),(5,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:53:50','Not',11),(6,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:54:04','Not',11),(7,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:56:57','Not',11),(8,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:57:48','Not',11),(9,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:58:14','Not',11),(10,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 11:59:37','Not',11),(11,'alex ','maina','Male ','Single ',123456,'alex@gmail.com','',1234567,'assistant lec',13,'0000-00-00','comp sciemce','','gikaru',1,'2014-04-23 12:00:45','Not',11),(12,'obed','muthomi','Male ','Single ',23333,'obed@gmail.com','123',122333,'kiki',23,'0000-00-00','23','','gikaru',1,'2014-04-23 15:11:26','Not',11),(13,'dermi','data','Male ','Single ',222222,'dermi@gmail.com','123',333,'distinguish',12,'0000-00-00','dermi','','dermi',1,'2014-04-24 12:14:29','Not',12),(14,'','','','',0,'','',0,'',0,'0000-00-00','','','',1,'2014-05-21 07:57:05','Not',12);
 /*!40000 ALTER TABLE `applicantsdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `children` (
   KEY `childId_3` (`childId`),
   KEY `childId_4` (`childId`),
   KEY `childId_5` (`childId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +108,7 @@ CREATE TABLE `children` (
 
 LOCK TABLES `children` WRITE;
 /*!40000 ALTER TABLE `children` DISABLE KEYS */;
-INSERT INTO `children` VALUES (11,1,'seline','adhiambo','0000-00-00','','No'),(12,2,'miemi','keee','0000-00-00','','No'),(12,3,'weww','weew','0000-00-00','','No'),(13,4,'a','a','0000-00-00','','Yes'),(2,5,'','','0000-00-00','',''),(2,6,'','','0000-00-00','','');
+INSERT INTO `children` VALUES (11,1,'seline','adhiambo','0000-00-00','','No'),(12,2,'miemi','keee','0000-00-00','','No'),(12,3,'weww','weew','0000-00-00','','No'),(13,4,'a','a','0000-00-00','','Yes'),(2,5,'','','0000-00-00','',''),(2,6,'','','0000-00-00','',''),(13,7,'','','0000-00-00','',''),(13,8,'','','0000-00-00','',''),(13,9,'','','0000-00-00','',''),(13,10,'','','0000-00-00','',''),(13,11,'','','0000-00-00','',''),(13,12,'','','0000-00-00','',''),(13,13,'','','0000-00-00','',''),(13,14,'','','0000-00-00','',''),(13,15,'','','0000-00-00','',''),(13,16,'','','0000-00-00','','');
 /*!40000 ALTER TABLE `children` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +150,7 @@ CREATE TABLE `house_applications` (
   `ApplicantId` int(50) NOT NULL,
   `house_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`aplicationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE `house_applications` (
 
 LOCK TABLES `house_applications` WRITE;
 /*!40000 ALTER TABLE `house_applications` DISABLE KEYS */;
-INSERT INTO `house_applications` VALUES (1,4,1),(2,5,2),(3,6,3),(4,7,4),(5,2,6);
+INSERT INTO `house_applications` VALUES (1,4,1),(2,5,2),(3,6,3),(4,7,4),(5,2,6),(6,2,7),(7,2,0);
 /*!40000 ALTER TABLE `house_applications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,12 +367,17 @@ DROP TABLE IF EXISTS `houserepair`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `houserepair` (
-  `RepairId` int(11) NOT NULL,
-  `houseId` int(11) NOT NULL,
-  `repairType` int(11) NOT NULL,
+  `repair_id` int(11) NOT NULL AUTO_INCREMENT,
+  `let_id` int(11) DEFAULT NULL,
+  `repair_type` tinytext COLLATE latin1_bin,
+  `tenant_description` tinytext COLLATE latin1_bin,
+  `application_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `EstimatedCost` int(11) NOT NULL,
-  `OfficerIncharge` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin COMMENT='for documenting repair details';
+  `OfficerIncharge` int(11) NOT NULL,
+  `officers_comment` tinytext COLLATE latin1_bin,
+  `repair_date` date DEFAULT NULL,
+  PRIMARY KEY (`repair_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 COLLATE=latin1_bin COMMENT='for documenting repair details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -381,6 +386,7 @@ CREATE TABLE `houserepair` (
 
 LOCK TABLES `houserepair` WRITE;
 /*!40000 ALTER TABLE `houserepair` DISABLE KEYS */;
+INSERT INTO `houserepair` VALUES (1,NULL,NULL,'','2014-05-21 15:19:47',0,0,NULL,NULL),(2,NULL,NULL,'','2014-05-21 15:20:25',0,0,NULL,NULL),(3,NULL,NULL,'','2014-05-21 15:21:47',0,0,NULL,NULL),(4,NULL,NULL,'','2014-05-21 15:22:08',0,0,NULL,NULL),(5,NULL,NULL,'bgiwhbnsvjd','2014-05-21 15:22:57',0,0,NULL,NULL),(6,NULL,NULL,'bgiwhbnsvjd','2014-05-21 15:24:10',0,0,NULL,NULL),(7,NULL,NULL,'bgiwhbnsvjd','2014-05-21 15:24:23',0,0,NULL,NULL),(8,NULL,NULL,'bgiwhbnsvjd','2014-05-21 15:27:19',0,0,NULL,NULL),(9,NULL,'Electical','bgiwhbnsvjd','2014-05-21 15:33:16',0,0,NULL,NULL),(10,NULL,'Electical','bgiwhbnsvjd','2014-05-21 15:37:48',0,0,NULL,NULL),(11,NULL,'Electical','fewfqe','2014-05-21 15:38:57',0,0,NULL,NULL),(12,NULL,'Electical','fewfqe','2014-05-21 15:43:12',0,0,NULL,NULL),(13,NULL,'Electical','fewfqe','2014-05-21 16:04:39',0,0,NULL,NULL),(14,NULL,'Electical','fewfqe','2014-05-21 16:04:48',0,0,NULL,NULL),(15,NULL,'plumbing','fewfqe','2014-05-21 16:06:35',0,0,NULL,NULL),(16,NULL,'plumbing','fewfqe','2014-05-21 16:08:44',0,0,NULL,NULL),(17,NULL,'plumbing','fewfqe','2014-05-21 16:10:00',0,0,NULL,NULL),(18,NULL,'Electical','v kjv','2014-05-21 16:21:51',0,0,NULL,NULL),(19,NULL,'plumbing','wesq','2014-05-21 16:24:41',0,0,NULL,NULL),(20,NULL,'plumbing','wesq','2014-05-21 16:25:29',0,0,NULL,NULL);
 /*!40000 ALTER TABLE `houserepair` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -697,4 +703,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-03 13:49:25
+-- Dump completed on 2014-05-21 22:41:53

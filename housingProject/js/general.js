@@ -192,7 +192,7 @@ var General = {
                 async: false,
                 success: function(result) {
                     alert(result);
-                    window.location = "../modules/mod_general.php?page=tenantHomepage";
+                    window.location = "../modules/mod_general.php?page=userLogin";
                 },
                 error: function(result) {
                     alert("error adding an house application detail");

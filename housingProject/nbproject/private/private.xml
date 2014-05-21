@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/var/www/estatesManager/housingProject/js/general.js</file>
+            <file>file:/var/www/estatesManager/housingProject/modules/evaluation.php</file>
+            <file>file:/var/www/estatesManager/housingProject/css/general_style.css</file>
+            <file>file:/var/www/estatesManager/housingProject/css/specific_style.css</file>
+            <file>file:/var/www/estatesManager/housingProject/modules/mod_general.php</file>
+            <file>file:/var/www/estatesManager/housingProject/modules/Users.php</file>
+            <file>file:/var/www/estatesManager/housingProject/modules/DbModules.php</file>
+            <file>file:/var/www/estatesManager/housingProject/modules/Forms.php</file>
+            <file>file:/var/www/estatesManager/housingProject/index.php</file>
+            <file>file:/var/www/estatesManager/housingProject/modules/dataDispaly.php</file>
+        </group>
     </open-files>
 </project-private>

@@ -162,16 +162,17 @@ class evaluation {
         }
     }
 
-    function houseRenewDetails($applicantId, $reqiredRow) {
+    function houseRenewDetails($reqiredRow) {
         include_once '../Config.php';
         include_once './DbModules.php';
         $db = new DbModules;
         $test = new Config;
         $conn = $db->getConnection();
-        $cmd = "select * from " . $test->getDB_NAME() . ".housesletting where applicant id=\"" . $applicantId . "\"";
-        $results_set = mysql_query($cmd, $conn) or die(mysql_error());
-        $data = mysql_fetch_assoc($results_set);
-        $result = $data[$reqiredRow];
+         $cmd="select * from  house_applications natural join house_allocation "
+              . "where ApplicantId=\"" . $_SESSION['applicantId'] . "\" ";
+            $result = mysql_query($cmd, $conn) or die(mysql_error());
+            $row = mysql_fetch_array($result);
+           $result = $row[$reqiredRow];
         return $result;
     }
 
