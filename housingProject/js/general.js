@@ -238,27 +238,24 @@ var General = {
         }
 
         if (this.className === "loadLetForm") {
+          
             var thisId = this.id;
             var array = thisId.split(" ");
             //an array in which allocationId=array[0];nitId=array[1];houseId=array[2];
-
-
-
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "../modules/mod_general.php?page=displayLettingForm&values=" + array,
-                async: false,
+                async: false,   
                 success: function(result) {
                     $('#DisplayettingForm').html(result);
-
                     General.loading(); // loading
                     setTimeout(function() { // then show popup, deley in .5 second
                         General.loadPopup(); // function show popup 
                     }, 500); // .5 second
-
                 },
                 error: function(result) {
                     alert(result);
+                    console.log(result);
                 }});
         }
 

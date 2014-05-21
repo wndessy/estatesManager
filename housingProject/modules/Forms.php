@@ -173,8 +173,7 @@ class Forms {
      * This form is for general users to sign up
      */
     function ViewAndEditDetails($applicantId) {
-        ?>
-        <?php
+       
         $this->login("user");
         ?>
         <div class="main_container">
@@ -436,7 +435,7 @@ class Forms {
             </div>
         <?php
         session_start();
-        if (!isset($_SESSION['userLevel']) || (trim($_SESSION['userLevel']) == '' and $_SESSION['email']) || (trim($_SESSION['email']) == '' )) {
+            if (!isset($_SESSION['userLevel']) || (trim($_SESSION['userLevel']) == '' and $_SESSION['email']) || (trim($_SESSION['email']) == '' )) {
             //if requesting page not default or user or staff login
             ?>
                 <div class="menu"></div>
@@ -472,7 +471,7 @@ class Forms {
                 </div>
                     <?php
                 } elseif (isset($_SESSION['userLevel'])) {
-                    //print_r($_SESSION);
+                   
                     if ($_SESSION['userLevel'] == 11) {
                         $this->applicantHomepage();
                     } else if ($_SESSION['userLevel'] == 12) {
@@ -481,7 +480,7 @@ class Forms {
                         $this->superUserHomepage();
                     } else if ($_SESSION['userLevel'] == 2) {
                         $this->managerHomePage();
-                    } else if ($_SESSION['userLevel'] === 3) {
+                    } else if ($_SESSION['userLevel'] == 3) {
                         $this->housingOfficerHomePage();
                     }
                 }
@@ -695,9 +694,9 @@ class Forms {
 
                             <div class="menu">
                                 <ul>
-                                    <li> <a href="./mod_general.php?page=houseSignIns">sign in</a></li>
-                                    <li> <a href="./mod_general.php?page=houseSignups">sign out</a></li>
-                                    <li> <a href="./mod_general.php?page=houseRepairs">Repair</a></li>
+                                    <li> <a href="./mod_general.php?page=houseSignIns">Manage houses let_in</a></li>
+                                    <li> <a href="./mod_general.php?page=houseSignups">Manage houses let_out</a></li>
+                                    <li> <a href="./mod_general.php?page=houseRepairs">Manage Repair</a></li>
                                     <li class="logout"><a href="./mod_general.php?page=logout">Logout</a></li>
                                 </ul>
                             </div>

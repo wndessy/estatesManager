@@ -262,7 +262,8 @@ class dataDispaly {
              */
 
             function pageForHouseCondition() {
-                include_once '../modules/DbModules.php';
+                
+                include_once './DbModules.php';
                 $db = new DbModules();
                 ?>
                 <html>

@@ -233,6 +233,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     include_once './dataDispaly.php';
     $output = new dataDispaly();
     $output->pageForHouseCondition();
+    
 } else if (isset($_GET['page']) && $_GET['page'] == 'getHouseNumbers') {
     include_once './dataDispaly.php';
     $output = new dataDispaly();
@@ -244,7 +245,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $array = $_GET["values"];
     $houseType = $array[2];
   
-    $output->displayLettingForm($houseType, $array);
+   $output->displayLettingForm($houseType, $array);
 } else if (isset($_GET['page']) && $_GET['page'] == 'submitLetDetails') {
     include_once './DbModules.php';
     $db = new DbModules();

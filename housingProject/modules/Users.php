@@ -142,7 +142,7 @@ class Users {
             $userLevel = $row['userLevel'];
             
             session_start();
-            $_SESSION['staff_id']
+            $_SESSION['staff_id'];
             $_SESSION['name'] = $name;
             $_SESSION['email'] = $email;
             $_SESSION['userLevel'] = $userLevel;
