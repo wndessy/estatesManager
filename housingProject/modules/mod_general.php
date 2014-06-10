@@ -139,12 +139,28 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
 }
 
 /*
- * for managing staff pages
+ * for managing  supper admin staff pages
  */ else if (isset($_GET['page']) && $_GET['page'] == 'manageStaff') {
     include_once './Forms.php';
     $form = new Forms();
     $form->addStaffForm();
 } else if (isset($_GET['page']) && $_GET['page'] == 'addStaff') {
+    include_once './Users.php';
+    $form = new Users();
+    if (isset($_GET['staffDetail'])) {
+        $json = $_GET['staffDetail'];
+        $form->addStaff($_GET['staffDetail']);
+    } else {
+        echo "there was an error loging in.please try again";
+    }
+}
+
+///////////////
+else if (isset($_GET['page']) && $_GET['page'] == 'manageHouses') {
+    include_once './Forms.php';
+    $form = new Forms();
+    $form->addStaffForm();
+} else if (isset($_GET['page']) && $_GET['page'] == 'addHouse') {
     include_once './Users.php';
     $form = new Users();
     if (isset($_GET['staffDetail'])) {
@@ -174,17 +190,14 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     include_once './dataDispaly.php';
     $output = new dataDispaly();
     $form = new Forms();
-    $form->header();
     $output->applicantsList();
     $form->footer();
-} else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseApplication') {
+} 
+    else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseApplication') {
     include_once './dataDispaly.php';
-    include_once './dataDispaly.php';
-    $form = new Forms();
-    $form->header();
     $output = new dataDispaly();
     $output->houseApplicationList();
-    $form->footer();
+   // $form->footer();
 } else if (isset($_GET['page']) && $_GET['page'] == 'alocateHouses') {
 
     include_once './dataDispaly.php';
@@ -194,26 +207,17 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $eval->allocateHouse();
     //  $output->houseAallocationList();
 } else if (isset($_GET['page']) && $_GET['page'] == 'manageHouseAllocation') {
-    include_once './Forms.php';
     include_once './dataDispaly.php';
-    $form = new Forms();
-    $form->header();
     $output = new dataDispaly();
     $output->houseAallocationList();
-    $form->footer();
+   // $form->footer();
 } else if (isset($_GET['page']) && $_GET['page'] == 'manageTenants') {
-    include_once './Forms.php';
     include_once './dataDispaly.php';
-    $form = new Forms();
-    $form->header();
-    $output = new dataDispaly();
+     $output = new dataDispaly();
     $output->tenantsList();
-    $form->footer();
+   // $form->footer();
 } else if (isset($_GET['page']) && $_GET['page'] == 'manageRepairs') {
-    include_once './Forms.php';
     include_once './dataDispaly.php';
-    $form = new Forms();
-    $form->header();
     $output = new dataDispaly();
     $output->applicantsList();
     $form->footer();
@@ -242,8 +246,9 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
 } else if (isset($_GET['page']) && $_GET['page'] == 'displayLettingForm') {
     include_once './dataDispaly.php';
     $output = new dataDispaly();
-    $array = $_GET["values"];
-    $houseType = $array[2];
+    $array = explode(",",$_GET["values"]);
+    //print_r($array);
+   $houseType = $array[2];
    $output->displayLettingForm($houseType, $array);
    
 } else if (isset($_GET['page']) && $_GET['page'] == 'submitLetDetails') {
@@ -253,10 +258,34 @@ else if (isset($_GET['page']) && $_GET['page'] == 'manageProfile') {
     $db->addLetintDetails($details);
 }
 
+
+///////////////////////////
+else if (isset($_GET['page']) && $_GET['page'] == 'houseSignOuts') {
+    include_once './dataDispaly.php';
+    $output = new dataDispaly();
+    $output->pageForHouseConditionAtLetout();
+}
+else if (isset($_GET['page']) && $_GET['page'] == 'displayLettoutForm') {
+    include_once './dataDispaly.php';
+    $output = new dataDispaly();
+    $array = explode(",",$_GET["values"]);
+    //print_r($array);
+   $houseType = $array[2];
+   $output->displayLettOutForm($houseType, $array);
+   
+} else if (isset($_GET['page']) && $_GET['page'] == 'submitleouttDetails') {
+    include_once './DbModules.php';
+    $db = new DbModules();
+    $details = $_GET["features"];
+    $db->addLetouttDetails($details);
+}
+
+
+
  else if (isset($_GET['page']) && $_GET['page'] == 'houseRepairs') {
     include_once './Forms.php';
     $form = new Forms();
-    $form->login("user");
+    $form->recordRepair();
 }
 
 
@@ -293,6 +322,7 @@ else if (isset($_GET['page']) && $_GET['page'] == 'contractDetails') {
        $form = new Forms();
     $form->contractRenewal($UserId);
 }
+
 
 //contractDetails
 

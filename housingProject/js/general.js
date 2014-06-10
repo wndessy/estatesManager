@@ -59,69 +59,40 @@ var General = {
         /**
          * for managing the user registration form
          */
-
-
-        if (this.className === "personalNext") {
-            if ($("#fname").val() === "") {
-                $("#fname").focus();
-            }
-            if ($("#lname").val() === "") {
-                $("#lname").focus();
-            }
-            if ($("#gender").val() === "") {
-                $("#gender").focus();
-            }
-            if ($("#Mstatus").val() === "") {
-                $("#Mstatus").focus();
-            }
-
-            if ($("#disabled").val() === "") {
-                $("#disabled").focus();
-            }
-            $("#personalDetais").fadeOut()
-            $("#jobDetails").fadeIn();
-        }
-
         if (this.className === "submitDetails") {
-            var applicantDetail = {}
+            var checker = 1;
 
-            var applicantDetail = {
-                "fname": $("#fname").val(),
-                "lname": $("#lname").val(),
-                "gender": $("#gender").val(),
-                "Mstatus": $("#Mstatus").val(),
-                "disabled": $("#disabled").val(),
-                "IdOrPasport": $("#IdOrPasport").val(),
-                "phone": $("#phone").val(),
-                "PayrolNumber": $("#PayrolNumber").val(),
-                "Designation": $("#Designation").val(),
-                "Grade": $("#Grade").val(),
-                "CommencementOfDuty": $("#CommencementOfDuty").val(),
-                "Department": $("#Department").val(),
-                "HeadOfDepartment": $("#HeadOfDepartment").val(),
-                "Email": $("#Email").val(),
-                "password": $("#password").val(),
-            };
-
-            $("#children_container :input").each(function() {           // Iterate over inputs
-                applicantDetail[$(this).attr('id')] = $(this).val();  // Add each to features object
+            $("#applicantDetails :input:not(button)").each(function() {// Iterate over inputs
+                if ($(this).val() === "") {//check each input for emptyness
+                    checker = 0;
+                }
             });
-            applicantDetail[CountParser] = $("#CountParser").val();
-
-
-            $.ajax({
-                type: "POST",
-                url: "../modules/mod_general.php?page=addUser&applicantDetail=" + JSON.stringify(applicantDetail),
-                async: false,
-                success: function(result) {
-                    alert(result);
-                    console.log(result);
-                    window.location = "../modules/mod_general.php?page=adminLogin"
-                },
-                error: function(result) {
-                    alert(result);
-                }});
+            if (checker === 1) {
+                var applicantDetail = {};
+                $("#applicantDetails :input:not(button)").each(function() {           // Iterate over inputs
+                    applicantDetail[$(this).attr('id')] = $(this).val();  // Add each to features object
+                });
+                applicantDetail[CountParser] = $("#CountParser").val();
+                console.log(applicantDetail);
+                $.ajax({
+                    type: "POST",
+                    url: "../modules/mod_general.php?page=addUser&applicantDetail=" + JSON.stringify(applicantDetail),
+                    async: false,
+                    success: function(result) {
+                        alert(result);
+                        console.log(result);
+                        window.location = "../modules/mod_general.php?page=userLogin";
+                    },
+                    error: function(result) {
+                        alert(result);
+                        window.location = "../modules/mod_general.php?page=register";
+                    }});
+            }
+            else {
+                alert("please fill in all the empty inputs first");
+            }
         }
+
 
         if (this.className === "updateProfile") {
             var applicantDetail = {};
@@ -238,14 +209,13 @@ var General = {
         }
 
         if (this.className === "loadLetForm") {
-          
             var thisId = this.id;
             var array = thisId.split(" ");
             //an array in which allocationId=array[0];nitId=array[1];houseId=array[2];
             $.ajax({
                 type: "GET",
                 url: "../modules/mod_general.php?page=displayLettingForm&values=" + array,
-                async: false,   
+                async: false,
                 success: function(result) {
                     $('#DisplayettingForm').html(result);
                     General.loading(); // loading
@@ -258,6 +228,28 @@ var General = {
                     console.log(result);
                 }});
         }
+////////////////////////loadLetOutForm
+        if (this.className === "loadLetOutForm") {
+            var thisId = this.id;
+            var array = thisId.split(" ");
+            //an array in which allocationId=array[0];nitId=array[1];houseId=array[2];
+            $.ajax({
+                type: "GET",
+                url: "../modules/mod_general.php?page=displayLettoutForm&values=" + array,
+                async: false,
+                success: function(result) {
+                    $('#DisplayettingForm').html(result);
+                    General.loading(); // loading
+                    setTimeout(function() { // then show popup, deley in .5 second
+                        General.loadPopup(); // function show popup 
+                    }, 500); // .5 second
+                },
+                error: function(result) {
+                    alert(result);
+                    console.log(result);
+                }});
+        }
+
 
         if (this.className === "submitletDetails") {
             var features = {};    // Create empty javascript object
@@ -281,6 +273,32 @@ var General = {
 
         }
 
+
+        if (this.className === "submitleouttDetails") {
+            var features = {};    // Create empty javascript object
+            $("textarea").each(function() {           // Iterate over inputs
+                features[$(this).attr('id')] = $(this).val();  // Add each to features object
+            });
+            features['otherDetailString'] = $(this).attr('id');
+            console.log(features);
+
+            $.ajax({
+                type: "POST",
+                url: "../modules/mod_general.php?page=submitleouttDetails&features=" + JSON.stringify(features),
+                async: false,
+                success: function(result) {
+                    alert(result);
+                    window.location = "../modules/mod_general.php?page=userLogin";
+                },
+                error: function(result) {
+                    alert(result);
+                }});
+
+        }
+
+
+
+///submitleouttDetails
         /*
          * submiting repair details
          * @returns {undefined}

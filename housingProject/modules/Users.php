@@ -21,8 +21,8 @@ class Users {
             echo "you are already registered";
         } else {
 
-            $qeury = "INSERT INTO " . $test->getDB_NAME() . ".applicantsdetails  (FirstName,LastName,Gender,maritalStatus,IdOrPassport,EmailAddress,Password,PayrollNumber,Designation,Grade,CommencementOfDuty,Department,HeadOfDepartment)"
-                    . "VALUES ('" . $p['fname'] . "','" . $p['lname'] . "','" . $p['gender'] . "','" . $p['Mstatus'] . "','" . $p['IdOrPasport'] . "','" . $p['Email'] . "','" . $p['password'] . "','" . $p['PayrolNumber'] . "','" . $p['Designation'] . "','" . $p['Grade'] . "','" . $p['CommencementOfDuty'] . "','" . $p['Department'] . "','" . $p['HeadOfDepartment'] . "')";
+            $qeury = "INSERT INTO " . $test->getDB_NAME() . ".applicantsdetails  (FirstName,LastName,Gender,maritalStatus,disabled,IdOrPassport,EmailAddress,Password,PayrollNumber,Designation,Grade,CommencementOfDuty,Department,HeadOfDepartment)"
+                    . "VALUES ('" . $p['fname'] . "','" . $p['lname'] . "','" . $p['gender'] . "','" . $p['Mstatus'] . "','" . $p['disabled'] . "','" . $p['IdOrPasport'] . "','" . $p['Email'] . "','" . $p['password'] . "','" . $p['PayrolNumber'] . "','" . $p['Designation'] . "','" . $p['Grade'] . "','" . $p['CommencementOfDuty'] . "','" . $p['Department'] . "','" . $p['HeadOfDepartment'] . "')";
             mysql_query($qeury, $conn) or die(mysql_error());
 
             $cmd = "select max(ApplicantId)as applicant from " . $test->getDB_NAME() . ".applicantsdetails";
@@ -35,10 +35,10 @@ class Users {
                 $fname = "f_name_" . $count;
                 $mname = "m_name_" . $count;
                 $dob = "dob_" . $count;
-                $disabled = "disabled_" . $count;
+               // echo $p[$fname];
+               // $disabled = "disabled_" . $count;
                 $addChild = "INSERT INTO " . $test->getDB_NAME() . ".children(ApplicantId,fname,sname,dob)VALUES "
                         . "('" .$applicant . "','" . $p[$fname] . "','" . $p[$mname] . "','" . $p[$dob] . "')";
-                
                  mysql_query($addChild, $conn) or die(mysql_error());
                 
                 $count++;
