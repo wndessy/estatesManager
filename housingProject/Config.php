@@ -7,10 +7,10 @@
  */
 class Config {
 
-    private $DB_HOST = 'localhost';
+    private $DB_HOST = 'dbhost';
     private $DB_NAME = 'egertonhousing';
-    private $DB_USER = 'root';
-    private $DB_PASSWORD = 'w1nn1e';   
+    private $DB_USER = 'dbusername';
+    private $DB_PASSWORD = 'dbpasswordd';   
     public $STRING;
     
     function __construct() {
